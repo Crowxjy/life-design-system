@@ -63,23 +63,23 @@
 
 ## 常用AI类图标
 
-这里只做示例：优先使用 `-line` 图标。
+如果项目中有用到 AI 的功能，可使用 `ic-ai-` 前缀的 icon（优先使用 `-line`）。
 
-| 图标 ID | 用途 |
-| --- | --- |
-| ic-ai-spark-line | AI/智能（通用入口、灵感） |
-| ic-ai-tag-line | AI 标签、AI 分类 |
-| ic-ai-select-line | AI 智能选区/抠图 |
-| ic-ai-text-line | AI 文本（识别/处理/生成） |
-| ic-ai-image-line | AI 图像（处理/生成） |
-| ic-ai-outpainting-line | AI 扩图/外延（Outpainting） |
-| ic-ai-eliminate-line | AI 消除/去除（对象移除） |
-| ic-ai-juxtapose-line | AI 对比/并排（前后对比） |
-| ic-ai-change-bg-类型2 | AI 换背景 |
-| ic-ai-camera-line | AI 相机/拍照（智能拍照） |
-| ic-ai-improve-text-line | AI 文本优化/润色 |
-| ic-ai-generate-text-line | AI 文本生成 |
-| ic-ai-hd-line | AI 高清/增强（HD） |
+| 图标 ID                    | 用途                    |
+| ------------------------ | --------------------- |
+| ic-ai-spark-line         | AI/智能（通用入口、灵感）        |
+| ic-ai-tag-line           | AI 标签、AI 分类           |
+| ic-ai-select-line        | AI 智能选区/抠图            |
+| ic-ai-text-line          | AI 文本（识别/处理/生成）       |
+| ic-ai-image-line         | AI 图像（处理/生成）          |
+| ic-ai-outpainting-line   | AI 扩图/外延（Outpainting） |
+| ic-ai-eliminate-line     | AI 消除/去除（对象移除）        |
+| ic-ai-juxtapose-line     | AI 对比/并排（前后对比）        |
+| ic-ai-change-bg-类型2      | AI 换背景                |
+| ic-ai-camera-line        | AI 相机/拍照（智能拍照）        |
+| ic-ai-improve-text-line  | AI 文本优化/润色            |
+| ic-ai-generate-text-line | AI 文本生成               |
+| ic-ai-hd-line            | AI 高清/增强（HD）          |
 
 <br />
 
