@@ -63,33 +63,23 @@
 
 ## 常用AI类图标
 
+这里只做示例：优先使用 `-line` 图标。
+
 | 图标 ID | 用途 |
 | --- | --- |
 | ic-ai-spark-line | AI/智能（通用入口、灵感） |
-| ic-ai-spark-fill | AI/智能（通用入口、灵感，填充） |
 | ic-ai-tag-line | AI 标签、AI 分类 |
-| ic-ai-tag-fill | AI 标签、AI 分类（填充） |
 | ic-ai-select-line | AI 智能选区/抠图 |
-| ic-ai-select-fill | AI 智能选区/抠图（填充） |
 | ic-ai-text-line | AI 文本（识别/处理/生成） |
-| ic-ai-text-fill | AI 文本（识别/处理/生成，填充） |
 | ic-ai-image-line | AI 图像（处理/生成） |
-| ic-ai-image-fill | AI 图像（处理/生成，填充） |
 | ic-ai-outpainting-line | AI 扩图/外延（Outpainting） |
-| ic-ai-outpainting-fill | AI 扩图/外延（填充） |
 | ic-ai-eliminate-line | AI 消除/去除（对象移除） |
-| ic-ai-eliminate-fill | AI 消除/去除（填充） |
 | ic-ai-juxtapose-line | AI 对比/并排（前后对比） |
-| ic-ai-juxtapose-fill | AI 对比/并排（填充） |
 | ic-ai-change-bg-类型2 | AI 换背景 |
 | ic-ai-camera-line | AI 相机/拍照（智能拍照） |
-| ic-ai-camera-fill | AI 相机/拍照（填充） |
 | ic-ai-improve-text-line | AI 文本优化/润色 |
-| ic-ai-improve-text-fill | AI 文本优化/润色（填充） |
 | ic-ai-generate-text-line | AI 文本生成 |
-| ic-ai-generate-text-fill | AI 文本生成（填充） |
 | ic-ai-hd-line | AI 高清/增强（HD） |
-| ic-ai-hd-fill | AI 高清/增强（HD，填充） |
 
 <br />
 
