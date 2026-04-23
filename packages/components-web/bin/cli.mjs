@@ -68,8 +68,9 @@ async function main() {
 
   const baseSrc = resolvePackagePath('@life-ds/components-web', 'styles/base.css') || path.join(__dirname, '../styles/base.css');
   const componentsSrc = resolvePackagePath('@life-ds/components-web', 'styles/components.css') || path.join(__dirname, '../styles/components.css');
+  const logoSrc = resolvePackagePath('@life-ds/components-web', 'assets/logo-laike.svg') || path.join(__dirname, '../assets/logo-laike.svg');
 
-  if (!(await fileExists(tokensSrc)) || !(await fileExists(iconsSrc)) || !(await fileExists(baseSrc)) || !(await fileExists(componentsSrc))) {
+  if (!(await fileExists(tokensSrc)) || !(await fileExists(iconsSrc)) || !(await fileExists(baseSrc)) || !(await fileExists(componentsSrc)) || !(await fileExists(logoSrc))) {
     console.error('❌ 无法找到所需的设计资产文件，请确保 npm 依赖已正确安装。');
     process.exit(1);
   }
@@ -98,6 +99,9 @@ async function main() {
 
   await fs.copyFile(iconsSrc, path.join(assetsDestDir, 'sprite.svg'));
   console.log(`   ✅ 提取: ${path.relative(cwd, path.join(assetsDestDir, 'sprite.svg'))}`);
+
+  await fs.copyFile(logoSrc, path.join(assetsDestDir, 'logo-laike.svg'));
+  console.log(`   ✅ 提取: ${path.relative(cwd, path.join(assetsDestDir, 'logo-laike.svg'))}`);
 
   console.log('\n🎉 Life Design System 初始化完成！');
   console.log('\n接下来，请在您的 HTML 或入口文件中引入 these 文件：');

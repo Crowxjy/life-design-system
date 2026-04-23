@@ -28,6 +28,26 @@
 - **底部 CTA 区域**：一个突出的操作，与屏幕边缘保持舒适的间距。
 - 快捷操作：table的顶部一个Primary的新建操作+多个**Default批量操作**
 
+## 按钮尺寸类名与规范
+
+在使用组件库按钮时，除了指定样式变体（如 `.lds-btn--primary`），**必须**组合对应的尺寸类名，否则会导致高度和内边距缺失！
+
+| 尺寸名称 | 类名组合 | 目标高度 | 适用场景 |
+| :--- | :--- | :--- | :--- |
+| **Large (大)** | `.lds-btn .lds-btn--large` | 48px | 核心行动点（如整宽表单提交底部） |
+| **Default (默认)** | `.lds-btn .lds-btn--default-size` | 40px | 绝大部分页面的常规操作按钮（默认选项） |
+| **Small (小)** | `.lds-btn .lds-btn--small` | 36px | 表格行内操作、紧凑的工具栏等 |
+| **Mini (迷你)** | `.lds-btn .lds-btn--mini` | 28px | 空间极度受限的地方，如小标签旁的操作 |
+
+**示例代码**：
+```html
+<!-- ✅ 正确：带尺寸类名 -->
+<button class="lds-btn lds-btn--primary lds-btn--default-size">确认提交</button>
+
+<!-- ❌ 错误：缺失尺寸类名，高度塌陷 -->
+<button class="lds-btn lds-btn--primary">确认提交</button>
+```
+
 ## 实现要点
 
 在实现按钮时，请确保代码涵盖以下状态：

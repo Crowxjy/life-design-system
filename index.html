@@ -372,7 +372,7 @@
             const isDisable = state.props.includes('disabled') ? 'is-disabled' : '';
             const disabledProp = state.props.includes('disabled') ? 'disabled' : '';
             const val = state.id === 'active' ? 'value="输入中..."' : '';
-            const showClear = state.id === 'active' ? `<span class="lds-input__clear"><svg class="icon" style="width:16px;height:16px;"><use href="#ic-error-round"></use></svg></span>` : '';
+            const showClear = state.id === 'active' ? `<span class="lds-input__clear"><svg class="icon"><use href="#ic-error-round"></use></svg></span>` : '';
             return `
               <div class="lds-input-wrapper lds-input-wrapper--${size.id} ${isHover} ${isFocus} ${isDisable}">
                 <input type="text" class="lds-input" placeholder="Placeholder" ${val} ${disabledProp}>
@@ -436,7 +436,7 @@
           title: 'Standard', 
           desc: 'The standard horizontal navigation bar.', 
           render: (size, state) => `
-            <div class="lds-navbar" style="width: 100%; border: 1px solid var(--doc-border);">
+            <div class="lds-navbar">
               <div class="lds-navbar__left">
                 <div class="lds-navbar__logo">
                   <img src="./assets/logo-laike.svg" alt="Logo">
@@ -445,8 +445,8 @@
               <div class="lds-navbar__middle">
                 <div class="lds-navbar__search">
                   <div class="lds-input-wrapper lds-input-wrapper--default-size">
-                    <span class="lds-input__prefix" style="margin-right: 8px; color: var(--color-text-caption); display: flex; align-items: center;">
-                      <svg class="icon" style="width:16px;height:16px;"><use href="#ic-search-line"></use></svg>
+                    <span class="lds-input__prefix">
+                      <svg class="icon"><use href="#ic-search-line"></use></svg>
                     </span>
                     <input type="text" class="lds-input" placeholder="你可以问：在哪里修改官方抖音号">
                   </div>
@@ -460,12 +460,12 @@
               </div>
               <div class="lds-navbar__right">
                 <div class="lds-navbar__action">
-                  <svg class="icon" style="width:16px;height:16px;"><use href="#ic-reset-line"></use></svg>
+                  <svg class="icon"><use href="#ic-reset-line"></use></svg>
                   <span>返回旧版</span>
                 </div>
                 <div class="lds-navbar__divider"></div>
                 <div class="lds-navbar__action">
-                  <svg class="icon" style="width:16px;height:16px;"><use href="#ic-mobile-line"></use></svg>
+                  <svg class="icon"><use href="#ic-mobile-line"></use></svg>
                   <span>App下载</span>
                 </div>
                 <div class="lds-navbar__divider"></div>
@@ -492,7 +492,7 @@
           title: 'Standard Sidebar', 
           desc: 'Grouped menu with icons and status indicators.', 
           render: (size, state) => `
-            <div class="lds-menu" style="border: 1px solid var(--doc-border); padding: 8px 0;">
+            <div class="lds-menu">
               <!-- Group 1: 常用 -->
               <div class="lds-menu-group">
                 <div class="lds-menu-group__header" onclick="handleMenuHeaderClick(this)">
@@ -614,7 +614,7 @@
           title: 'Standard', 
           desc: 'PageHeader with title only.', 
           render: (size, state) => `
-            <div class="lds-page-header" style="border: 1px solid var(--doc-border);">
+            <div class="lds-page-header">
               <h1 class="lds-page-header__title">一级页面标题</h1>
             </div>
           `
@@ -623,7 +623,7 @@
           title: 'With Tabs', 
           desc: 'PageHeader with a primary tab component below the title.', 
           render: (size, state) => `
-            <div class="lds-page-header" style="border: 1px solid var(--doc-border);">
+            <div class="lds-page-header">
               <h1 class="lds-page-header__title">一级页面标题</h1>
               <div class="lds-page-header__tabs">
                 <div class="lds-tabs lds-tabs--primary lds-tabs--small">

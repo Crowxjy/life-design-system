@@ -27,14 +27,15 @@
   <header class="app-navbar">
     <div class="lds-navbar">
       <div class="lds-navbar__left">
-        <!-- 移除内部的 img 标签，利用 components.css 中 .lds-navbar__logo 的默认内联背景 SVG 来渲染 Logo -->
-        <div class="lds-navbar__logo"></div>
+        <div class="lds-navbar__logo">
+          <img src="/assets/logo-laike.svg" alt="Logo">
+        </div>
       </div>
       <div class="lds-navbar__middle">
         <div class="lds-navbar__search">
           <div class="lds-input-wrapper lds-input-wrapper--default-size">
-            <span class="lds-input__prefix" style="margin-right: 8px; color: var(--color-text-caption); display: flex; align-items: center;">
-              <svg class="icon" style="width:16px;height:16px;"><use href="#ic-search-line"></use></svg>
+            <span class="lds-input__prefix">
+              <svg class="icon"><use href="#ic-search-line"></use></svg>
             </span>
             <input type="text" class="lds-input" placeholder="你可以问：在哪里修改官方抖音号">
           </div>
@@ -208,7 +209,7 @@
   </section>
 
   <!-- 2. 搜索/筛选区 -->
-  <div class="lds-filter-card" style="margin-bottom: var(--spacing-5x);">
+  <div class="lds-filter-card">
     <div class="lds-filter-row">
       <!-- 各种筛选控件 (Input/Select) -->
       <button class="lds-btn lds-btn--primary">查询</button>
@@ -217,7 +218,7 @@
   </div>
 
   <!-- 3. 状态页签与操作区 -->
-  <div class="lds-action-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-4x);">
+  <div class="lds-action-bar">
     <div class="lds-tabs lds-tabs--capsule lds-tabs--small">
       <a href="#" class="lds-tab is-active">全部</a>
       <a href="#" class="lds-tab">已上架</a>
@@ -236,7 +237,7 @@
   </div>
 
   <!-- 5. 分页器 -->
-  <div class="lds-pagination-wrapper" style="margin-top: var(--spacing-5x); display: flex; justify-content: flex-end;">
+  <div class="lds-pagination-wrapper">
     <!-- 分页组件内容 -->
   </div>
 </div>

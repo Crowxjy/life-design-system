@@ -16,14 +16,15 @@
   <header class="app-navbar">
     <div class="lds-navbar">
       <div class="lds-navbar__left">
-        <!-- 移除内部的 img 标签，利用 components.css 中 .lds-navbar__logo 的默认内联背景 SVG 来渲染 Logo -->
-        <div class="lds-navbar__logo"></div>
+        <div class="lds-navbar__logo">
+          <img src="/assets/logo-laike.svg" alt="Logo">
+        </div>
       </div>
       <div class="lds-navbar__middle">
         <div class="lds-navbar__search">
           <div class="lds-input-wrapper lds-input-wrapper--default-size">
-            <span class="lds-input__prefix" style="margin-right: 8px; color: var(--color-text-caption); display: flex; align-items: center;">
-              <svg class="icon" style="width:16px;height:16px;"><use href="#ic-search-line"></use></svg>
+            <span class="lds-input__prefix">
+              <svg class="icon"><use href="#ic-search-line"></use></svg>
             </span>
             <input type="text" class="lds-input" placeholder="你可以问：在哪里修改官方抖音号">
           </div>
@@ -37,12 +38,12 @@
       </div>
       <div class="lds-navbar__right">
         <div class="lds-navbar__action">
-          <svg class="icon" style="width:16px;height:16px;"><use href="#ic-reset-line"></use></svg>
+          <svg class="icon"><use href="#ic-reset-line"></use></svg>
           <span>返回旧版</span>
         </div>
         <div class="lds-navbar__divider"></div>
         <div class="lds-navbar__action">
-          <svg class="icon" style="width:16px;height:16px;"><use href="#ic-mobile-line"></use></svg>
+          <svg class="icon"><use href="#ic-mobile-line"></use></svg>
           <span>App下载</span>
         </div>
         <div class="lds-navbar__divider"></div>
@@ -189,10 +190,10 @@
 
       <!-- 页面实际内容 -->
       <div class="app-content">
-        
-        <!-- 增加内容 1：功能区 (Capsule Tab + 按钮) -->
-        <div class="lds-action-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-4x, 16px);">
-          <!-- 左侧 Capsule Tab -->
+          
+          <!-- 增加内容 1：功能区 (Capsule Tab + 按钮) -->
+          <div class="lds-action-bar">
+            <!-- 左侧 Capsule Tab -->
           <div class="lds-tabs lds-tabs--capsule lds-tabs--small">
             <a href="#" class="lds-tab is-active" onclick="handleTabClick(event, this)">全部会员可领</a>
             <a href="#" class="lds-tab" onclick="handleTabClick(event, this)">定向会员发放</a>
