@@ -14,8 +14,9 @@
   "devDependencies": {
   },
   "dependencies": {
-    "@life-ds/icons": "^1.0.2",
-    "@life-ds/tokens": "^1.0.3",
-    "@life-ds/skills": "^1.0.10"
+    "@life-ds/components-web": "^1.0.8",
+    "@life-ds/icons": "^1.0.3",
+    "@life-ds/skills": "^1.0.14",
+    "@life-ds/tokens": "^1.0.4"
   }
 }
