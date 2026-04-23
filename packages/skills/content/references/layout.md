@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="./packages/components-web/styles/components.css">
   
   <style>
+    /* （注意：这里为了演示将基础样式写在了页面内，但在实际项目中，这些样式已经内置在 @life-ds/components-web 的 base.css 中，因此在项目中直接引入 base.css 即可，不需要再在页面中写这些样式） */
     body {
       margin: 0;
       padding: 0;
