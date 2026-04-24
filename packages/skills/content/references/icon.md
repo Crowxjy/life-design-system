@@ -4,14 +4,30 @@
 
 ## 引入模式
 
-在使用 `life-ds` 时，通过 SVG Sprite 的方式引入图标。确保您的项目中已经通过 `npx life-ds init` 将 `sprite.svg` 复制到了 `assets/` 目录。
+在使用 `@life-ds/icons` 时，请务必注意**不能直接通过静态文件路径引用 SVG Sprite**，因为跨域或代理拦截会导致图标无法渲染。正确的做法是通过包注入脚本，将所有图标集合直接注入到 HTML 的 `<body>` 中。
 
-示例 HTML 用法：
+**第一步：全局注入图标**
+
+在你的前端入口文件（如 `main.tsx` 或 `index.js`）中，引入图标包：
+
+```javascript
+// 这会自动将 Sprite 注入到页面的 body 内
+import '@life-ds/icons';
+```
+
+**第二步：在组件中使用**
+
+在任何 HTML 或组件中，**直接使用 Hash ID 锚点**引用注入的图标，而不要加上路径：
 
 ```html
-<!-- 假设 sprite.svg 位于当前目录的 assets 文件夹下 -->
+<!-- ✅ 正确：直接使用 Hash ID 引用注入的 SVG -->
 <svg class="lds-icon">
-  <use href="./assets/sprite.svg#ic-arrow-right-line" />
+  <use href="#ic-arrow-right-line" />
+</svg>
+
+<!-- ❌ 错误：不要使用相对或绝对路径，会引发跨域/代理拦截问题 -->
+<svg class="lds-icon">
+  <use href="/assets/sprite.svg#ic-arrow-right-line" />
 </svg>
 ```
 

@@ -14,7 +14,7 @@
 
 ## 2. 接入步骤（一键接入）
 
-我们将图标库作为一个独立的 npm 包进行分发。只需两步即可完成接入。
+我们将图标库作为一个独立的 npm 包进行分发。只需两步即可完成接入。**请务必注意，不要通过静态文件路径引用 SVG Sprite**，因为跨域或 Vite 等构建工具的代理拦截会导致图标无法渲染。正确的做法是通过本包提供的注入脚本，将所有图标直接注入到 HTML 的 `<body>` 中。
 
 ### 步骤 1: 安装 npm 包
 
@@ -25,22 +25,28 @@ npm install @life-ds/icons
 
 ### 步骤 2: 在入口文件中引入
 
-在您的项目前端入口文件（例如 `main.js`, `app.js` 或 `index.js`）中引入该包：
+在您的项目前端入口文件（例如 `main.js`, `app.js`, `main.tsx` 或 `index.js`）中引入该包：
 
 ```javascript
 import '@life-ds/icons';
 ```
 
 **发生了什么？**
-引入上述代码后，脚本会自动监听浏览器 DOM 加载情况，并在 `document.body` 的最前方注入一个包含所有图标的隐藏 `<div>`。这使得您页面中任何地方都能直接使用这些图标。
+引入上述代码后，脚本会自动监听浏览器 DOM 加载情况，并在 `document.body` 的最前方注入一个包含所有图标的隐藏 `<div>`。这使得您页面中任何地方都能直接使用这些图标，**彻底免去跨域或相对路径解析的烦恼**。
 
 ### 步骤 3: 在页面中使用图标
 
-无论是在 HTML、React、Vue 还是其他框架中，直接通过 `<svg><use></use></svg>` 标签引用对应的图标 ID：
+无论是在 HTML、React、Vue 还是其他框架中，**直接通过 Hash ID 锚点**（`<svg><use href="#ic-xxx"></use></svg>`）引用对应的图标 ID：
 
 ```html
+<!-- ✅ 正确：直接使用 Hash ID 引用注入的 SVG -->
 <svg class="my-icon">
   <use href="#ic-add-round-line"></use>
+</svg>
+
+<!-- ❌ 错误：不要使用相对或绝对路径，会引发跨域/代理拦截问题 -->
+<svg class="my-icon">
+  <use href="/assets/sprite.svg#ic-add-round-line"></use>
 </svg>
 ```
 
