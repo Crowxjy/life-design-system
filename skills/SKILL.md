@@ -65,16 +65,14 @@ description: 使用 @life-ds 构建或优化 抖音来客原生风格的 React W
 
 ## 2. 将 Life Design System (life-ds) 作为默认的设计系统
 
-将 `@life-ds `的组件和样式作为默认的实现路径。
+将 `@life-ds `的组件和样式作为默认的实现路径。当要实现页面或者UI时，必须阅读对应组件的文档：
 
-请阅读：
-
-- [references/tokens.md](references/tokens.md)
-- [references/icon.md](references/icon.md)
-- [references/color.md](references/color.md)
-- [references/components.md](references/components.md)
-- [references/button.md](references/components.md)
-- [references/motion.md](references/components.md)
+- token样式：[references/tokens.md](references/tokens.md)
+- 图标：[references/icon.md](references/icon.md)
+- 颜色：[references/color.md](references/color.md)
+- 组件：[references/components.md](references/components.md)
+- 按钮组件：[references/button.md](references/components.md)
+- 动效：[references/motion.md](references/components.md)
 
 <br />
 
