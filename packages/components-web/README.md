@@ -31,10 +31,14 @@ npx life-ds init
 
 **发生了什么？**
 该脚本会自动探测您的项目目录结构（如是否存在 `src/` 或 `public/`），并将所需的所有核心资产自动提取并复制到您的项目中：
-- `styles/life-ds-tokens.css`
-- `styles/base.css`
-- `styles/components.css`
-- `assets/sprite.svg`
+- 样式文件：复制到 `styles/` 或 `src/styles/`
+- 资源文件：根据项目结构复制到 `assets/`、`src/assets/` 和/或 `public/assets/`
+- 包含的核心文件：
+  - `life-ds-tokens.css`
+  - `base.css`
+  - `components.css`
+  - `sprite.svg`
+  - `logo-laike.svg`
 
 ### 3. 在项目中引入样式资源
 

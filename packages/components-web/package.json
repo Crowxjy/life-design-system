@@ -1,6 +1,6 @@
 {
   "name": "@life-ds/components-web",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "Life Design System Web Components & React Components",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

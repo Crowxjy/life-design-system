@@ -80,10 +80,22 @@ async function main() {
   const isPublicExists = await fileExists(path.join(cwd, 'public'));
 
   const stylesDestDir = path.join(cwd, isSrcExists ? 'src/styles' : 'styles');
-  const assetsDestDir = path.join(cwd, isPublicExists ? 'public/assets' : 'assets');
+  const assetsDestDirs = [];
+
+  if (isSrcExists) {
+    assetsDestDirs.push(path.join(cwd, 'src/assets'));
+  }
+  if (isPublicExists) {
+    assetsDestDirs.push(path.join(cwd, 'public/assets'));
+  }
+  if (assetsDestDirs.length === 0) {
+    assetsDestDirs.push(path.join(cwd, 'assets'));
+  }
 
   await ensureDir(stylesDestDir);
-  await ensureDir(assetsDestDir);
+  for (const assetsDestDir of assetsDestDirs) {
+    await ensureDir(assetsDestDir);
+  }
 
   // 拷贝文件
   console.log('📂 正在提取设计系统资产到本地...');
@@ -97,11 +109,13 @@ async function main() {
   await fs.copyFile(componentsSrc, path.join(stylesDestDir, 'components.css'));
   console.log(`   ✅ 提取: ${path.relative(cwd, path.join(stylesDestDir, 'components.css'))}`);
 
-  await fs.copyFile(iconsSrc, path.join(assetsDestDir, 'sprite.svg'));
-  console.log(`   ✅ 提取: ${path.relative(cwd, path.join(assetsDestDir, 'sprite.svg'))}`);
+  for (const assetsDestDir of assetsDestDirs) {
+    await fs.copyFile(iconsSrc, path.join(assetsDestDir, 'sprite.svg'));
+    console.log(`   ✅ 提取: ${path.relative(cwd, path.join(assetsDestDir, 'sprite.svg'))}`);
 
-  await fs.copyFile(logoSrc, path.join(assetsDestDir, 'logo-laike.svg'));
-  console.log(`   ✅ 提取: ${path.relative(cwd, path.join(assetsDestDir, 'logo-laike.svg'))}`);
+    await fs.copyFile(logoSrc, path.join(assetsDestDir, 'logo-laike.svg'));
+    console.log(`   ✅ 提取: ${path.relative(cwd, path.join(assetsDestDir, 'logo-laike.svg'))}`);
+  }
 
   console.log('\n🎉 Life Design System 初始化完成！');
   console.log('\n接下来，请在您的 HTML 或入口文件中引入 these 文件：');
