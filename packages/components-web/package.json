@@ -1,26 +1,59 @@
 {
   "name": "@life-ds/components-web",
-  "version": "1.0.9",
-  "description": "Life Design System Web Components",
-  "main": "styles/components.css",
+  "version": "1.0.15",
+  "description": "Life Design System Web Components & React Components",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "style": "./styles/components.css",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./styles/*": "./styles/*",
+    "./assets/*": "./assets/*",
+    "./package.json": "./package.json"
+  },
   "bin": {
     "life-ds": "./bin/cli.mjs"
   },
   "files": [
+    "dist/",
     "styles/",
     "bin/",
     "assets/"
   ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
   "publishConfig": {
     "access": "public"
   },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
   "dependencies": {
-    "@life-ds/tokens": "^1.0.0",
-    "@life-ds/icons": "^1.0.0"
+    "@life-ds/tokens": "^1.0.6",
+    "@life-ds/icons": "^1.0.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
   },
   "keywords": [
     "design-system",
-    "components"
+    "components",
+    "react"
   ],
   "author": "",
   "license": "ISC"

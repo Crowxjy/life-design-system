@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -13,6 +14,9 @@ async function main() {
   switch (command) {
     case 'install':
       installSkill();
+      break;
+    case 'install-claude':
+      installClaudeSkill(args[0]);
       break;
     case 'list':
       listSkills();
@@ -102,12 +106,51 @@ function installSkill() {
   }
 }
 
+function installClaudeSkill(scope = 'project') {
+  if (!fs.existsSync(CONTENT_DIR)) {
+    console.error('Error: Content directory not found in the package.');
+    return;
+  }
+
+  const normalizedScope = scope === 'user' || scope === '--user' || scope === '--global'
+    ? 'user'
+    : scope === 'project' || scope === undefined
+      ? 'project'
+      : null;
+
+  if (!normalizedScope) {
+    console.error('Error: Invalid scope. Use "project" or "user".');
+    showHelp();
+    process.exit(1);
+  }
+
+  const targetDir = normalizedScope === 'user'
+    ? path.join(os.homedir(), '.claude', 'skills', 'life-design-system')
+    : path.join(process.cwd(), '.claude', 'skills', 'life-design-system');
+
+  try {
+    fs.mkdirSync(targetDir, { recursive: true });
+    fs.cpSync(CONTENT_DIR, targetDir, { recursive: true });
+    console.log(`✅ 技能 "life-design-system" 已成功安装到 Claude Code！`);
+    console.log(`📂 路径: ${targetDir}`);
+    if (normalizedScope === 'project') {
+      console.log('\n当前为项目级安装，仅对当前项目生效。');
+    } else {
+      console.log('\n当前为个人级安装，对当前用户的所有 Claude Code 项目生效。');
+    }
+    console.log('现在您可以在 Claude Code 中自动使用它，或通过 /life-design-system 手动调用。');
+  } catch (error) {
+    console.error('❌ 安装 Claude Code 技能失败:', error);
+  }
+}
+
 function showHelp() {
   console.log(`
 Usage: life-ds-skills <command> [args]
 
 Commands:
   install           Install the skill to local .trae/skills/ directory
+  install-claude    Install the skill to Claude Code (.claude/skills/). Optional scope: project | user
   list              List all available skills
   get <name>        Get the core prompt for a skill
   help              Show this help message

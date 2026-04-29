@@ -5,9 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Life Design System - Components</title>
   
-  <link rel="stylesheet" href="./packages/tokens/life-ds-tokens.css">
-  <link rel="stylesheet" href="./packages/components-web/styles/base.css">
-  <link rel="stylesheet" href="./packages/components-web/styles/components.css">
+  <link rel="stylesheet" href="./packages/tokens/life-ds-tokens.css?v=tag-1">
+  <link rel="stylesheet" href="./packages/components-web/styles/base.css?v=tag-1">
+  <link rel="stylesheet" href="./packages/components-web/styles/components.css?v=tag-1">
+
+  <!-- React Dependencies via ESM/CDN -->
+  <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.3.1",
+        "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+        "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+        "clsx": "https://esm.sh/clsx@2.1.1",
+        "@life-ds/components-web": "./packages/components-web/dist/index.mjs?v=tag-1"
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   
   <style>
     /* ---------------------------------------------------
@@ -197,7 +211,7 @@
     /* Matrix Layout Grid */
     .matrix {
       display: grid;
-      grid-template-columns: 140px repeat(4, minmax(140px, 1fr));
+      grid-template-columns: 140px repeat(3, minmax(140px, 1fr));
       gap: 32px 16px;
       align-items: center;
     }
@@ -289,12 +303,17 @@
     <div class="nav-group">COMPONENTS</div>
     <a href="#button" class="nav-item active" data-target="button">Button</a>
     <a href="#capsule" class="nav-item" data-target="capsule">Capsule</a>
+    <a href="#checkbox" class="nav-item" data-target="checkbox">Checkbox</a>
     <a href="#input" class="nav-item" data-target="input">Input</a>
+    <a href="#filter" class="nav-item" data-target="filter">Filter</a>
+    <a href="#filtergroup" class="nav-item" data-target="filtergroup">FilterGroup</a>
     <a href="#tabs" class="nav-item" data-target="tabs">Tabs</a>
     <a href="#navbar" class="nav-item" data-target="navbar">Navbar</a>
     <a href="#menu" class="nav-item" data-target="menu">Menu</a>
     <a href="#pageheader" class="nav-item" data-target="pageheader">PageHeader</a>
     <a href="#table" class="nav-item" data-target="table">Table</a>
+    <a href="#pagination" class="nav-item" data-target="pagination">Pagination</a>
+    <a href="#tag" class="nav-item" data-target="tag">Tag</a>
   </aside>
 
   <!-- Main Content Rendered via JS -->
@@ -304,13 +323,12 @@
 </div>
 
 <!-- Icon sprite script -->
-<script type="module" src="./packages/icons/index.js"></script>
+<script type="module" src="./packages/icons/index.js?v=tag-1"></script>
 
 <!-- JS Logic for Dynamic Matrix Rendering -->
 <script>
   // 1. Data Definitions
   const COMMON_SIZES = [
-    { id: 'mini', label: 'SM', meta: '12px · 4/12px · h28' },
     { id: 'small', label: 'MD', meta: '14px · 6/16px · h36' },
     { id: 'default-size', label: 'LG', meta: '14px · 8/16px · h40' },
     { id: 'large', label: 'XL', meta: '16px · 12/20px · h48' }
@@ -321,6 +339,22 @@
     { id: 'large', label: '默认 (Default)', meta: 'Title Regular · 20px' }
   ];
 
+  const TAG_SIZES = [
+    { id: 'small', label: 'S', meta: 'Caption · h20' },
+    { id: 'default-size', label: 'M', meta: 'Body · h28' },
+    { id: 'large', label: 'L', meta: 'Subtitle · h36' }
+  ];
+
+  const PAGINATION_SIZES = [
+    { id: 'default-size', label: '默认 (Default)', meta: 'Body Regular · h36' },
+    { id: 'small', label: '小号 (Small)', meta: 'Caption Regular · h28' },
+  ];
+
+  const FILTER_SIZES = [
+    { id: 'default-size', label: '默认 (Default)', meta: 'Body Regular · 9/12px · h40' },
+    { id: 'small', label: '小号 (Small)', meta: 'Body Regular · 7/12px · h36' },
+  ];
+
   const STATES = [
     { id: 'normal', label: 'Default', dot: 'dot-normal', props: '' },
     { id: 'hover', label: 'Hover', dot: 'dot-hover', props: 'class="is-hover"' },
@@ -328,106 +362,192 @@
     { id: 'disabled', label: 'Disabled', dot: 'dot-disabled', props: 'disabled' }
   ];
 
+  // We'll collect React components to render after DOM updates
+  window.pendingReactRenders = [];
+
   const COMPONENTS = {
     button: {
-      title: 'Button',
+      title: 'Button (React Component)',
       sizes: COMMON_SIZES,
-      desc: 'Triggers an action or event. Available in multiple visual variants — each with interaction states and size options.',
+      desc: 'Triggers an action or event. Now rendered using the real @life-ds/components-web React component.',
       variants: [
-        { title: 'Primary', desc: 'Solid fill — highest emphasis', render: (size, state) => `<button class="lds-btn lds-btn--primary lds-btn--${size.id} ${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}" ${state.props.includes('disabled')?'disabled':''}>Button</button>` },
-        { title: 'Default', desc: 'Outlined — medium emphasis', render: (size, state) => `<button class="lds-btn lds-btn--default lds-btn--${size.id} ${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}" ${state.props.includes('disabled')?'disabled':''}>Button</button>` },
-        { title: 'Secondary', desc: 'Subtle fill — low emphasis', render: (size, state) => `<button class="lds-btn lds-btn--secondary lds-btn--${size.id} ${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}" ${state.props.includes('disabled')?'disabled':''}>Button</button>` },
-        { title: 'Text', desc: 'No fill — lowest emphasis', render: (size, state) => `<button class="lds-btn lds-btn--text lds-btn--${size.id} ${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}" ${state.props.includes('disabled')?'disabled':''}>Button</button>` },
-        { title: 'Icon', desc: 'Icon only variant', render: (size, state) => `<button class="lds-btn lds-btn--default lds-btn--icon lds-btn--${size.id} ${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}" ${state.props.includes('disabled')?'disabled':''} aria-label="Add"><svg class="icon"><use href="#ic-add-round-line"></use></svg></button>` }
+        { title: 'Primary', desc: 'Solid fill — highest emphasis', render: (size, state) => {
+            const id = `btn-primary-${size.id}-${state.id}`;
+            const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
+            window.pendingReactRenders.push({ id, variant: 'primary', size: size.id, className, disabled: state.props.includes('disabled'), text: 'Button' });
+            return `<div id="${id}"></div>`;
+        }},
+        { title: 'Default', desc: 'Outlined — medium emphasis', render: (size, state) => {
+            const id = `btn-default-${size.id}-${state.id}`;
+            const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
+            window.pendingReactRenders.push({ id, variant: 'default', size: size.id, className, disabled: state.props.includes('disabled'), text: 'Button' });
+            return `<div id="${id}"></div>`;
+        }},
+        { title: 'Secondary', desc: 'Subtle fill — low emphasis', render: (size, state) => {
+            const id = `btn-secondary-${size.id}-${state.id}`;
+            const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
+            window.pendingReactRenders.push({ id, variant: 'secondary', size: size.id, className, disabled: state.props.includes('disabled'), text: 'Button' });
+            return `<div id="${id}"></div>`;
+        }},
+        { title: 'Text', desc: 'No fill — lowest emphasis', render: (size, state) => {
+            const id = `btn-text-${size.id}-${state.id}`;
+            const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
+            window.pendingReactRenders.push({ id, variant: 'text', size: size.id, className, disabled: state.props.includes('disabled'), text: 'Button' });
+            return `<div id="${id}"></div>`;
+        }},
+        { title: 'Icon', desc: 'Icon only variant', render: (size, state) => {
+            const id = `btn-icon-${size.id}-${state.id}`;
+            const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
+            window.pendingReactRenders.push({ id, variant: 'icon', size: size.id, className, disabled: state.props.includes('disabled'), iconName: 'ic-add-round-line' });
+            return `<div id="${id}"></div>`;
+        }}
       ]
     },
     capsule: {
-      title: 'Capsule',
+      title: 'Capsule (React Component)',
       sizes: COMMON_SIZES,
       desc: 'A pill-shaped radio toggle component for mutually exclusive selections within a group.',
       variants: [
         { title: 'Standard', desc: 'Radio option', render: (size, state) => {
-            const isHover = state.id === 'hover' ? 'is-hover' : '';
-            const isChecked = state.id === 'active' ? 'checked' : '';
-            const isDisabled = state.props.includes('disabled') ? 'disabled' : '';
-            const name = `cap-${size.id}-${state.id}`;
-            return `
-              <label class="lds-capsule-wrapper ${isHover}">
-                <input type="radio" name="${name}" ${isChecked} ${isDisabled}>
-                <span class="lds-capsule lds-capsule--${size.id}">Option</span>
-              </label>
-            `;
+            const id = `cap-${size.id}-${state.id}`;
+            const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
+            window.pendingReactRenders.push({ 
+              id, type: 'capsule', size: size.id, className, disabled: state.props.includes('disabled'),
+              checked: state.id === 'active', name: id, label: 'Option'
+            });
+            return `<div id="${id}"></div>`;
           }
         }
       ]
     },
+    checkbox: {
+      title: 'Checkbox (React Component)',
+      sizes: COMMON_SIZES,
+      desc: 'A standard checkbox: click toggles checked/unchecked. Right-side label is optional and hidden by default.',
+      layout: 'full',
+      variants: [
+        { title: 'Without Label', desc: 'Default style without right-side text.', render: (size, _state) => {
+            const id = `chk-no-label-${size.id}`;
+            window.pendingReactRenders.push({ id, type: 'checkbox-demo', size: size.id, showLabel: false });
+            return `<div id="${id}"></div>`;
+          }
+        },
+        { title: 'With Label', desc: 'Configured with right-side label text.', render: (size, _state) => {
+            const id = `chk-with-label-${size.id}`;
+            window.pendingReactRenders.push({ id, type: 'checkbox-demo', size: size.id, showLabel: true });
+            return `<div id="${id}"></div>`;
+          }
+        },
+      ]
+    },
     input: {
-      title: 'Input',
+      title: 'Input (React Component)',
       sizes: COMMON_SIZES,
       desc: 'A field for users to enter text or data, supporting various states and suffix icons.',
       variants: [
         { title: 'Standard', desc: 'Text input field', render: (size, state) => {
-            const isHover = state.id === 'hover' ? 'is-hover' : '';
-            const isFocus = state.id === 'active' ? 'is-focused' : '';
-            const isDisable = state.props.includes('disabled') ? 'is-disabled' : '';
-            const disabledProp = state.props.includes('disabled') ? 'disabled' : '';
-            const val = state.id === 'active' ? 'value="输入中..."' : '';
-            const showClear = state.id === 'active' ? `<span class="lds-input__clear"><svg class="icon"><use href="#ic-error-round"></use></svg></span>` : '';
-            return `
-              <div class="lds-input-wrapper lds-input-wrapper--${size.id} ${isHover} ${isFocus} ${isDisable}">
-                <input type="text" class="lds-input" placeholder="Placeholder" ${val} ${disabledProp}>
-                ${showClear}
-              </div>
-            `;
+            const id = `inp-${size.id}-${state.id}`;
+            const className = `${state.id==='hover'?'is-hover':''}`;
+            window.pendingReactRenders.push({ 
+              id, type: 'input', size: size.id, wrapperClassName: className, 
+              disabled: state.props.includes('disabled'),
+              isFocused: state.id === 'active',
+              value: state.id === 'active' ? '输入中...' : '',
+              placeholder: 'Placeholder',
+              clearable: state.id === 'active'
+            });
+            return `<div id="${id}"></div>`;
+          }
+        }
+      ]
+    },
+    filter: {
+      title: 'Filter (React Component)',
+      sizes: FILTER_SIZES,
+      desc: 'A compact filter control used in list/table toolbars. Supports input/select/date/time types and two sizes per Figma 3.0.',
+      variants: [
+        { title: 'Input', desc: 'Text input filter.', render: (size, state) => {
+            const id = `filter-input-empty-${size.id}-${state.id}`;
+            const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
+            window.pendingReactRenders.push({ id, type: 'filter', filterType: 'input', size: size.id, className, disabled: state.props.includes('disabled') });
+            return `<div id="${id}"></div>`;
+        }},
+        { title: 'Select', desc: 'Selection filter (click to open).', render: (size, state) => {
+            const id = `filter-select-empty-${size.id}-${state.id}`;
+            const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
+            window.pendingReactRenders.push({ id, type: 'filter', filterType: 'select', size: size.id, className, disabled: state.props.includes('disabled') });
+            return `<div id="${id}"></div>`;
+        }},
+        { title: 'Date', desc: 'Date picker trigger.', render: (size, state) => {
+            const id = `filter-date-empty-${size.id}-${state.id}`;
+            const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
+            window.pendingReactRenders.push({ id, type: 'filter', filterType: 'date', size: size.id, className, disabled: state.props.includes('disabled') });
+            return `<div id="${id}"></div>`;
+        }},
+        { title: 'Time', desc: 'Time picker trigger.', render: (size, state) => {
+            const id = `filter-time-empty-${size.id}-${state.id}`;
+            const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
+            window.pendingReactRenders.push({ id, type: 'filter', filterType: 'time', size: size.id, className, disabled: state.props.includes('disabled') });
+            return `<div id="${id}"></div>`;
+        }},
+      ]
+    },
+    filtergroup: {
+      title: 'FilterGroup (React Component)',
+      layout: 'full',
+      sizes: [
+        { id: 'narrow', label: '窄容器 (≈3列)', meta: 'Auto grid with min 294px' },
+        { id: 'wide', label: '宽容器 (≈4列)', meta: 'Auto grid with min 294px' },
+      ],
+      desc: 'A responsive grid container that composes multiple Filter components, with optional Query/Reset actions.',
+      variants: [
+        {
+          title: 'Single Row / Responsive',
+          desc: 'Same content, different container widths to show 3 vs 4 columns.',
+          render: (size, _state) => {
+            const id = `filtergroup-${size.id}`;
+            window.pendingReactRenders.push({ id, type: 'filter-group-demo', mode: size.id });
+            return `<div id="${id}"></div>`;
+          }
+        },
+        {
+          title: 'Multi Row',
+          desc: 'More filters will wrap into multiple rows automatically.',
+          render: (_size, _state) => {
+            const id = `filtergroup-multi`;
+            window.pendingReactRenders.push({ id, type: 'filter-group-demo', mode: 'multi' });
+            return `<div id="${id}"></div>`;
           }
         }
       ]
     },
     tabs: {
-      title: 'Tabs',
+      title: 'Tabs (React Component)',
       sizes: TAB_SIZES,
       desc: 'Organizes content into separate views where only one view can be visible at a time.',
       variants: [
         { title: 'Primary', desc: 'Underlined — for main navigation', render: (size, state) => {
-            const tab2Hover = state.id === 'hover' ? 'is-hover' : '';
-            const tab3Disabled = state.id === 'disabled' ? 'is-disabled' : '';
-            return `
-              <div class="lds-tabs lds-tabs--primary lds-tabs--${size.id}">
-                <a href="#" class="lds-tab is-active" onclick="handleTabClick(event, this)">标签名称</a>
-                <a href="#" class="lds-tab ${tab2Hover}" onclick="handleTabClick(event, this)">标签名称</a>
-                <a href="#" class="lds-tab ${tab3Disabled}" onclick="handleTabClick(event, this)">${tab3Disabled ? '禁用标签' : '标签名称'}</a>
-              </div>
-            `;
+            const id = `tabs-primary-${size.id}-${state.id}`;
+            window.pendingReactRenders.push({ id, type: 'tabs', variant: 'primary', size: size.id, stateId: state.id });
+            return `<div id="${id}"></div>`;
           }
         },
         { title: 'Capsule', desc: 'Segmented control style', render: (size, state) => {
-            const tab2Hover = state.id === 'hover' ? 'is-hover' : '';
-            const tab3Disabled = state.id === 'disabled' ? 'is-disabled' : '';
-            return `
-              <div class="lds-tabs lds-tabs--capsule lds-tabs--${size.id}">
-                <a href="#" class="lds-tab is-active" onclick="handleTabClick(event, this)">标签名称</a>
-                <a href="#" class="lds-tab ${tab2Hover}" onclick="handleTabClick(event, this)">标签名称</a>
-                <a href="#" class="lds-tab ${tab3Disabled}" onclick="handleTabClick(event, this)">${tab3Disabled ? '禁用标签' : '标签名称'}</a>
-              </div>
-            `;
+            const id = `tabs-capsule-${size.id}-${state.id}`;
+            window.pendingReactRenders.push({ id, type: 'tabs', variant: 'capsule', size: size.id, stateId: state.id });
+            return `<div id="${id}"></div>`;
           }
         },
         { title: 'Filter', desc: 'Tag-like tabs for quick filtering', render: (size, state) => {
-            const tab2Hover = state.id === 'hover' ? 'is-hover' : '';
-            const tab3Disabled = state.id === 'disabled' ? 'is-disabled' : '';
-            return `
-              <div class="lds-tabs lds-tabs--filter lds-tabs--${size.id}">
-                <a href="#" class="lds-tab is-active" onclick="handleTabClick(event, this)">标签名称</a>
-                <a href="#" class="lds-tab ${tab2Hover}" onclick="handleTabClick(event, this)">标签名称</a>
-                <a href="#" class="lds-tab ${tab3Disabled}" onclick="handleTabClick(event, this)">${tab3Disabled ? '禁用标签' : '标签名称'}</a>
-              </div>
-            `;
+            const id = `tabs-filter-${size.id}-${state.id}`;
+            window.pendingReactRenders.push({ id, type: 'tabs', variant: 'filter', size: size.id, stateId: state.id });
+            return `<div id="${id}"></div>`;
           }
         }
       ]
     },
     navbar: {
-      title: 'Navbar',
+      title: 'Navbar (React Component)',
       layout: 'full',
       sizes: [{ id: 'default', label: 'Default', meta: 'Height: 72px' }],
       desc: 'Top navigation bar for the application, including logo, search, navigation links, and user profile.',
@@ -435,55 +555,16 @@
         { 
           title: 'Standard', 
           desc: 'The standard horizontal navigation bar.', 
-          render: (size, state) => `
-            <div class="lds-navbar">
-              <div class="lds-navbar__left">
-                <div class="lds-navbar__logo">
-                  <img src="./assets/logo-laike.svg" alt="Logo">
-                </div>
-              </div>
-              <div class="lds-navbar__middle">
-                <div class="lds-navbar__search">
-                  <div class="lds-input-wrapper lds-input-wrapper--default-size">
-                    <span class="lds-input__prefix">
-                      <svg class="icon"><use href="#ic-search-line"></use></svg>
-                    </span>
-                    <input type="text" class="lds-input" placeholder="你可以问：在哪里修改官方抖音号">
-                  </div>
-                </div>
-                <nav class="lds-navbar__nav">
-                  <a href="#" class="lds-navbar__nav-item is-active">首页</a>
-                  <a href="#" class="lds-navbar__nav-item">生意经</a>
-                  <a href="#" class="lds-navbar__nav-item">本地推</a>
-                  <a href="#" class="lds-navbar__nav-item">学习中心</a>
-                </nav>
-              </div>
-              <div class="lds-navbar__right">
-                <div class="lds-navbar__action">
-                  <svg class="icon"><use href="#ic-reset-line"></use></svg>
-                  <span>返回旧版</span>
-                </div>
-                <div class="lds-navbar__divider"></div>
-                <div class="lds-navbar__action">
-                  <svg class="icon"><use href="#ic-mobile-line"></use></svg>
-                  <span>App下载</span>
-                </div>
-                <div class="lds-navbar__divider"></div>
-                <div class="lds-navbar__user">
-                  <img src="./assets/avatar.png" class="lds-navbar__avatar" alt="Avatar">
-                  <div class="lds-navbar__user-info">
-                    <span class="lds-navbar__username">北京八十五度...</span>
-                    <svg class="icon"><use href="#ic-arrow-down-line"></use></svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          `
+          render: (size, state) => {
+            const id = `navbar-${size.id}-${state.id}`;
+            window.pendingReactRenders.push({ id, type: 'navbar' });
+            return `<div id="${id}"></div>`;
+          }
         }
       ]
     },
     menu: {
-      title: 'Menu',
+      title: 'Menu (React Component)',
       layout: 'full',
       sizes: [{ id: 'default', label: 'Default', meta: 'Width: 200px' }],
       desc: 'Sidebar navigation with grouped items, supporting expand/collapse and selection states.',
@@ -491,121 +572,16 @@
         { 
           title: 'Standard Sidebar', 
           desc: 'Grouped menu with icons and status indicators.', 
-          render: (size, state) => `
-            <div class="lds-menu">
-              <!-- Group 1: 常用 -->
-              <div class="lds-menu-group">
-                <div class="lds-menu-group__header" onclick="handleMenuHeaderClick(this)">
-                  <svg class="icon"><use href="#ic-all-line"></use></svg>
-                  <span class="lds-menu-group__title">常用</span>
-                  <svg class="icon lds-menu-group__action"><use href="#ic-setting-line"></use></svg>
-                </div>
-                <div class="lds-menu-group__content">
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">门店管理</div>
-                  <div class="lds-menu-item is-active" onclick="handleMenuItemClick(this)">团购商品管理</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">店铺装修</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">评价管理</div>
-                </div>
-              </div>
-              
-              <!-- Group 2: 店铺 -->
-              <div class="lds-menu-group">
-                <div class="lds-menu-group__header" onclick="handleMenuHeaderClick(this)">
-                  <svg class="icon"><use href="#ic-store-line"></use></svg>
-                  <span class="lds-menu-group__title">店铺</span>
-                  <svg class="icon lds-menu-group__action"><use href="#ic-arrow-up-line"></use></svg>
-                </div>
-                <div class="lds-menu-group__content">
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">商家信息</div>
-                  <div class="lds-menu-item is-active" onclick="handleMenuItemClick(this)">门店管理</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">区域管理</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">授权管理</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">资质中心</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">店铺装修</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">合作管理</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">业务中心</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">评价管理</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">审批中心</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">服务应用授权</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">职人管理</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">官方抖音号</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">公益项目</div>
-                </div>
-              </div>
-
-              <!-- Group 3: 订单 -->
-              <div class="lds-menu-group">
-                <div class="lds-menu-group__header" onclick="handleMenuHeaderClick(this)">
-                  <svg class="icon"><use href="#ic-menu-trade-line"></use></svg>
-                  <span class="lds-menu-group__title">订单</span>
-                  <svg class="icon lds-menu-group__action"><use href="#ic-arrow-up-line"></use></svg>
-                </div>
-                <div class="lds-menu-group__content">
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">团购券处理</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">售后处理</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">交易查询</div>
-                </div>
-              </div>
-
-              <!-- Group 4: 财务 -->
-              <div class="lds-menu-group">
-                <div class="lds-menu-group__header" onclick="handleMenuHeaderClick(this)">
-                  <svg class="icon"><use href="#ic-wallet-line"></use></svg>
-                  <span class="lds-menu-group__title">财务</span>
-                  <svg class="icon lds-menu-group__action"><use href="#ic-arrow-up-line"></use></svg>
-                </div>
-                <div class="lds-menu-group__content">
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">每日收益</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">每日到账</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">提现记录</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">服务费返还</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">收款账户</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">保证金</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">放心借</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">营销账户</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">自助开票</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">商家交票</div>
-                </div>
-              </div>
-
-              <!-- Group 5: 达人带货 -->
-              <div class="lds-menu-group">
-                <div class="lds-menu-group__header" onclick="handleMenuHeaderClick(this)">
-                  <svg class="icon"><use href="#ic-commoditynew-line"></use></svg>
-                  <span class="lds-menu-group__title">达人带货</span>
-                  <svg class="icon lds-menu-group__action"><use href="#ic-arrow-up-line"></use></svg>
-                </div>
-                <div class="lds-menu-group__content">
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">全店推广</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">计划管理</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">达人广场</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">巨量星图</div>
-                </div>
-              </div>
-
-              <!-- Group 6: 内容推广 -->
-              <div class="lds-menu-group">
-                <div class="lds-menu-group__header" onclick="handleMenuHeaderClick(this)">
-                  <svg class="icon"><use href="#ic-trumpet-line"></use></svg>
-                  <span class="lds-menu-group__title">内容推广</span>
-                  <svg class="icon lds-menu-group__action"><use href="#ic-arrow-up-line"></use></svg>
-                </div>
-                <div class="lds-menu-group__content">
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">获客卡</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">视频管理</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">直播管理</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">直播专业版</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">直播助手</div>
-                  <div class="lds-menu-item" onclick="handleMenuItemClick(this)">现金钱包</div>
-                </div>
-              </div>
-            </div>
-          `
+          render: (size, state) => {
+            const id = `menu-${size.id}-${state.id}`;
+            window.pendingReactRenders.push({ id, type: 'menu' });
+            return `<div id="${id}"></div>`;
+          }
         }
       ]
     },
     pageheader: {
-      title: 'PageHeader',
+      title: 'PageHeader (React Component)',
       layout: 'full',
       sizes: [{ id: 'default', label: 'Default', meta: 'Height: Hug, Padding: 32/32/24' }],
       desc: 'Top section of a page that contains a title and optional primary navigation tabs.',
@@ -613,32 +589,25 @@
         { 
           title: 'Standard', 
           desc: 'PageHeader with title only.', 
-          render: (size, state) => `
-            <div class="lds-page-header">
-              <h1 class="lds-page-header__title">一级页面标题</h1>
-            </div>
-          `
+          render: (size, state) => {
+            const id = `ph-std-${size.id}-${state.id}`;
+            window.pendingReactRenders.push({ id, type: 'pageheader', withTabs: false });
+            return `<div id="${id}"></div>`;
+          }
         },
         { 
           title: 'With Tabs', 
           desc: 'PageHeader with a primary tab component below the title.', 
-          render: (size, state) => `
-            <div class="lds-page-header">
-              <h1 class="lds-page-header__title">一级页面标题</h1>
-              <div class="lds-page-header__tabs">
-                <div class="lds-tabs lds-tabs--primary lds-tabs--small">
-                  <a href="#" class="lds-tab is-active" onclick="handleTabClick(event, this)">标签名称</a>
-                  <a href="#" class="lds-tab" onclick="handleTabClick(event, this)">标签名称</a>
-                  <a href="#" class="lds-tab" onclick="handleTabClick(event, this)">标签名称</a>
-                </div>
-              </div>
-            </div>
-          `
+          render: (size, state) => {
+            const id = `ph-tabs-${size.id}-${state.id}`;
+            window.pendingReactRenders.push({ id, type: 'pageheader', withTabs: true });
+            return `<div id="${id}"></div>`;
+          }
         }
       ]
     },
     table: {
-      title: 'Table',
+      title: 'Table (React Component)',
       layout: 'full',
       sizes: [{ id: 'default', label: 'Default', meta: 'Width: 100%' }],
       desc: 'A flexible table component with built-in styles for product, text, operations, and amounts.',
@@ -646,146 +615,103 @@
         { 
           title: 'Standard Table', 
           desc: 'A table with striped rows and default column types based on the design specs.', 
-          render: (size, state) => `
-            <div class="lds-table-wrapper">
-              <table class="lds-table">
-                <thead class="lds-table__thead">
-                  <tr>
-                    <th class="lds-table__th">商品信息</th>
-                    <th class="lds-table__th">价格（元）</th>
-                    <th class="lds-table__th">售卖时间</th>
-                    <th class="lds-table__th">剩余库存</th>
-                    <th class="lds-table__th">待核销</th>
-                    <th class="lds-table__th">操作</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="lds-table__row">
-                    <td class="lds-table__td">
-                      <div class="lds-table-cell--product">
-                        <img src="./assets/shangpin.png" alt="商品图" class="lds-table-cell__product-img">
-                        <div class="lds-table-cell__product-info">
-                          <div class="lds-table-cell__product-title-wrap">
-                            <h4 class="lds-table-cell__product-title">【节假日通用】资生堂烫染护理</h4>
-                            <span class="lds-tag lds-tag--default">团购</span>
-                          </div>
-                          <div class="lds-table-cell__product-meta">
-                            <span class="lds-table-cell__product-id">商品ID：23468723648223</span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="lds-table__td">
-                      <div class="lds-table-cell--amount">￥508.00</div>
-                    </td>
-                    <td class="lds-table__td">2023.08.01 12:00</td>
-                    <td class="lds-table__td">10,000</td>
-                    <td class="lds-table__td">500</td>
-                    <td class="lds-table__td">
-                      <div class="lds-table-cell--operation">
-                        <a href="#" class="lds-table-cell__action">上架</a>
-                        <a href="#" class="lds-table-cell__action">编辑</a>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr class="lds-table__row">
-                    <td class="lds-table__td">
-                      <div class="lds-table-cell--product">
-                        <img src="./assets/shangpin.png" alt="商品图" class="lds-table-cell__product-img">
-                        <div class="lds-table-cell__product-info">
-                          <div class="lds-table-cell__product-title-wrap">
-                            <h4 class="lds-table-cell__product-title">【工作日可用】高级洗剪吹套餐</h4>
-                            <span class="lds-tag lds-tag--orange">热销</span>
-                          </div>
-                          <div class="lds-table-cell__product-meta">
-                            <span class="lds-table-cell__product-id">商品ID：89345723648224</span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="lds-table__td">
-                      <div class="lds-table-cell--amount">￥128.00</div>
-                    </td>
-                    <td class="lds-table__td">2023.08.02 14:30</td>
-                    <td class="lds-table__td">8,500</td>
-                    <td class="lds-table__td">240</td>
-                    <td class="lds-table__td">
-                      <div class="lds-table-cell--operation">
-                        <a href="#" class="lds-table-cell__action">下架</a>
-                        <a href="#" class="lds-table-cell__action is-danger">删除</a>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr class="lds-table__row">
-                    <td class="lds-table__td">
-                      <div class="lds-table-cell--product">
-                        <img src="./assets/shangpin.png" alt="商品图" class="lds-table-cell__product-img">
-                        <div class="lds-table-cell__product-info">
-                          <div class="lds-table-cell__product-title-wrap">
-                            <h4 class="lds-table-cell__product-title">【周末通用】深层头皮清洁护理</h4>
-                            <span class="lds-tag lds-tag--red">特价</span>
-                          </div>
-                          <div class="lds-table-cell__product-meta">
-                            <span class="lds-table-cell__product-id">商品ID：55668723648225</span>
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="lds-table__td">
-                      <div class="lds-table-cell--amount">￥299.00</div>
-                    </td>
-                    <td class="lds-table__td">2023.08.03 09:15</td>
-                    <td class="lds-table__td">5,000</td>
-                    <td class="lds-table__td">120</td>
-                    <td class="lds-table__td">
-                      <div class="lds-table-cell--operation">
-                        <a href="#" class="lds-table-cell__action">上架</a>
-                        <a href="#" class="lds-table-cell__action">编辑</a>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          `
+          render: (size, state) => {
+            const id = `table-${size.id}-${state.id}`;
+            window.pendingReactRenders.push({ id, type: 'table' });
+            return `<div id="${id}"></div>`;
+          }
         }
       ]
-    }
-  };
-
-  // Tab switching logic for preview
-  window.handleTabClick = function(event, el) {
-    event.preventDefault();
-    if (el.classList.contains('is-disabled')) return;
-    
-    // Find parent tab container
-    const tabsContainer = el.closest('.lds-tabs');
-    if (!tabsContainer) return;
-    
-    // Remove active class from all tabs in this container
-    const allTabs = tabsContainer.querySelectorAll('.lds-tab');
-    allTabs.forEach(tab => tab.classList.remove('is-active', 'is-hover'));
-    
-    // Add active class to clicked tab
-    el.classList.add('is-active');
-  };
-
-  // Menu interaction logic
-  window.handleMenuHeaderClick = function(el) {
-    const group = el.closest('.lds-menu-group');
-    if (group) {
-      group.classList.toggle('is-collapsed');
-    }
-  };
-
-  window.handleMenuItemClick = function(el) {
-    // Selection logic within the same menu
-    const menu = el.closest('.lds-menu');
-    if (menu) {
-      menu.querySelectorAll('.lds-menu-item').forEach(item => {
-        item.classList.remove('is-active');
-      });
-      el.classList.add('is-active');
+    },
+    tag: {
+      title: 'Tag (React Component)',
+      sizes: TAG_SIZES,
+      desc: 'A compact label for categorization or status. Supports variants, semantic colors, and optional left/right icons.',
+      variants: [
+        {
+          title: 'Fill',
+          desc: 'Solid background (high emphasis).',
+          render: (size, state) => {
+            const id = `tag-fill-${size.id}-${state.id}`;
+            window.pendingReactRenders.push({
+              id,
+              type: 'tag-matrix',
+              size: size.id,
+              variant: 'fill'
+            });
+            return `<div id="${id}"></div>`;
+          }
+        },
+        {
+          title: 'Light',
+          desc: 'Light background (default usage).',
+          render: (size, state) => {
+            const id = `tag-light-${size.id}-${state.id}`;
+            window.pendingReactRenders.push({
+              id,
+              type: 'tag-matrix',
+              size: size.id,
+              variant: 'light'
+            });
+            return `<div id="${id}"></div>`;
+          }
+        },
+        {
+          title: 'Outline',
+          desc: 'Transparent background with border (low emphasis).',
+          render: (size, state) => {
+            const id = `tag-outline-${size.id}-${state.id}`;
+            window.pendingReactRenders.push({
+              id,
+              type: 'tag-matrix',
+              size: size.id,
+              variant: 'outline'
+            });
+            return `<div id="${id}"></div>`;
+          }
+        },
+        {
+          title: 'Icon Config',
+          desc: 'Left / Right icon are configurable.',
+          render: (size, state) => {
+            const id = `tag-icon-config-${size.id}-${state.id}`;
+            window.pendingReactRenders.push({
+              id,
+              type: 'tag-icon-config',
+              size: size.id,
+              variant: 'light'
+            });
+            return `<div id="${id}"></div>`;
+          }
+        }
+      ]
+    },
+    pagination: {
+      title: 'Pagination (React Component)',
+      layout: 'full',
+      sizes: PAGINATION_SIZES,
+      desc: 'Splits long lists/tables into pages. Supports page number collapsing, page-size changer, and quick jump (per Figma 3.0).',
+      variants: [
+        {
+          title: 'Standard',
+          desc: 'Default size shows size changer + quick jumper; small size keeps a compact page-number bar.',
+          render: (size, _state) => {
+            const id = `pagination-${size.id}`;
+            window.pendingReactRenders.push({
+              id,
+              type: 'pagination',
+              size: size.id,
+              showSizeChanger: size.id === 'default-size',
+              showQuickJumper: size.id === 'default-size',
+              showTotal: false,
+              total: 500,
+              defaultCurrent: 2,
+              defaultPageSize: 10
+            });
+            return `<div id="${id}" style="width: 100%; display: flex; justify-content: flex-end;"></div>`;
+          }
+        }
+      ]
     }
   };
 
@@ -861,6 +787,11 @@
     });
 
     mainEl.innerHTML = html;
+
+    // Trigger custom event so React script knows to mount
+    if (['button', 'capsule', 'checkbox', 'input', 'filter', 'filtergroup', 'tabs', 'navbar', 'menu', 'pageheader', 'table', 'tag', 'pagination'].includes(compId)) {
+      window.dispatchEvent(new CustomEvent('renderReactButtons'));
+    }
   }
 
   // 3. Initialization and Event Listeners
@@ -895,6 +826,306 @@
   } else {
     renderView('button');
   }
+
+  // Also trigger initial render in case it was already button
+  setTimeout(() => {
+    if (['button', 'capsule', 'input', 'filter', 'filtergroup', 'tabs', 'navbar', 'menu', 'pageheader', 'table', 'tag', 'pagination'].includes(hash) || !hash) {
+      window.dispatchEvent(new CustomEvent('renderReactButtons'));
+    }
+  }, 200);
+</script>
+
+<script type="text/babel" data-type="module">
+  import React from 'react';
+  import { createRoot } from 'react-dom/client';
+  import { 
+    Button, Icon, Capsule, Input, Tabs, Tab,
+    Filter,
+    FilterGroup,
+    Navbar,
+    Menu,
+    PageHeader, Checkbox,
+    TableWrapper, Table, Thead, Tbody, Tr, Th, Td, TableCellProduct, TableCellAmount, TableCellOperation, TableCellAction,
+    Tag,
+    Pagination
+  } from '@life-ds/components-web';
+
+  const roots = new Map();
+
+  window.addEventListener('renderReactButtons', () => {
+    // We must defer the react rendering slightly to ensure Babel has loaded the module
+    // and the DOM is fully ready.
+    setTimeout(() => {
+      // Clean up old roots if re-rendering
+      roots.forEach(root => root.unmount());
+      roots.clear();
+
+      const pending = window.pendingReactRenders || [];
+      
+      pending.forEach(item => {
+        const container = document.getElementById(item.id);
+        if (!container) return;
+
+        const root = createRoot(container);
+        roots.set(item.id, root);
+
+        if (item.type === 'button' || !item.type) {
+        const iconElement = item.iconName ? <Icon name={item.iconName} /> : null;
+        root.render(
+          <Button variant={item.variant} size={item.size} className={item.className} disabled={item.disabled} icon={iconElement}>
+            {item.text}
+          </Button>
+        );
+      } else if (item.type === 'capsule') {
+        root.render(
+          <Capsule size={item.size} className={item.className} disabled={item.disabled} defaultChecked={item.checked} name={item.name} label={item.label} />
+        );
+      } else if (item.type === 'checkbox-demo') {
+        root.render(
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
+            <Checkbox size={item.size} showLabel={item.showLabel} label="多选框" />
+            <Checkbox size={item.size} showLabel={item.showLabel} label="多选框" defaultChecked />
+            <Checkbox size={item.size} showLabel={item.showLabel} label="多选框" indeterminate readOnly />
+            <Checkbox size={item.size} showLabel={item.showLabel} label="多选框" disabled />
+            <Checkbox size={item.size} showLabel={item.showLabel} label="多选框" disabled defaultChecked />
+            <Checkbox size={item.size} showLabel={item.showLabel} label="多选框" disabled indeterminate readOnly />
+          </div>
+        );
+      } else if (item.type === 'input') {
+        root.render(
+          <Input size={item.size} wrapperClassName={item.wrapperClassName} disabled={item.disabled} isFocused={item.isFocused} value={item.value} placeholder={item.placeholder} clearable={item.clearable} readOnly />
+        );
+      } else if (item.type === 'filter') {
+        const label = '字段标题';
+        const placeholder = item.filterType === 'input' ? '请输入' : '请选择';
+        const sampleValue =
+          item.filterType === 'select'
+            ? '酒旅/旅游/主题公园'
+            : item.filterType === 'date'
+              ? '2026.04.29'
+              : item.filterType === 'time'
+                ? '12:00'
+                : '';
+
+        const commonProps = { size: item.size, className: item.className, disabled: item.disabled, label, placeholder };
+        const isActive = String(item.className || '').includes('is-active');
+
+        if (item.filterType === 'input') {
+          const FilterInputCell = () => {
+            const [val, setVal] = React.useState('');
+            return (
+              <Filter
+                {...commonProps}
+                type="input"
+                value={val}
+                isActive={isActive}
+                inputProps={{ autoFocus: isActive }}
+                onChange={(next) => setVal(next)}
+              />
+            );
+          };
+          root.render(<FilterInputCell />);
+        } else {
+          const FilterPickCell = () => {
+            const [val, setVal] = React.useState(undefined);
+            return (
+              <Filter
+                {...commonProps}
+                type={item.filterType}
+                value={val}
+                isActive={isActive}
+                onClick={() => {
+                  if (!isActive) return; // only interactive in Active cell for docs
+                  setVal((prev) => (prev ? undefined : sampleValue));
+                }}
+              />
+            );
+          };
+          root.render(<FilterPickCell />);
+        }
+      } else if (item.type === 'tabs') {
+        root.render(
+          <Tabs variant={item.variant} size={item.size} defaultValue="1">
+            <Tab value="1">标签名称</Tab>
+            <Tab value="2" className={item.stateId === 'hover' ? 'is-hover' : ''}>标签名称</Tab>
+            <Tab value="3" disabled={item.stateId === 'disabled'}>{item.stateId === 'disabled' ? '禁用标签' : '标签名称'}</Tab>
+          </Tabs>
+        );
+      } else if (item.type === 'filter-group-demo') {
+        const Wrapper = ({ width, children }) => (
+          <div style={{ width, border: `1px dashed var(--color-border-normal)`, padding: 12, borderRadius: 12 }}>
+            {children}
+          </div>
+        );
+
+        const FiltersRow = ({ extraCount = 0, includeTime = false }) => (
+          <>
+            <Filter type="input" size="small" label="字段标题" placeholder="请输入" value="" onChange={() => {}} />
+            <Filter type="select" size="small" label="字段标题" placeholder="请选择" onClick={() => {}} />
+            <Filter type="date" size="small" label="字段标题" placeholder="请选择" onClick={() => {}} />
+            {includeTime ? (
+              <Filter type="time" size="small" label="字段标题" placeholder="请选择" onClick={() => {}} />
+            ) : null}
+            {Array.from({ length: extraCount }).map((_, i) => (
+              <Filter key={i} type="select" size="small" label="字段标题" placeholder="请选择" onClick={() => {}} />
+            ))}
+          </>
+        );
+
+        const Demo = () => (
+          <FilterGroup
+            size="small"
+            onQuery={() => {}}
+            onReset={() => {}}
+          >
+            <FiltersRow
+              extraCount={item.mode === 'multi' ? 4 : 0}
+              includeTime={item.mode === 'wide'}
+            />
+          </FilterGroup>
+        );
+
+        if (item.mode === 'narrow') {
+          // Ensure 3 columns can fit: 3*294 + 2*12 + 2*12(padding) = 930px
+          root.render(<Wrapper width={960}><Demo /></Wrapper>);
+        } else if (item.mode === 'wide') {
+          root.render(<Wrapper width={1250}><Demo /></Wrapper>);
+        } else {
+          root.render(<Wrapper width={'100%'}><Demo /></Wrapper>);
+        }
+      } else if (item.type === 'navbar') {
+        root.render(
+          <Navbar />
+        );
+      } else if (item.type === 'menu') {
+        root.render(
+          <Menu />
+        );
+      } else if (item.type === 'pageheader') {
+        root.render(
+          <PageHeader 
+            title="一级页面标题" 
+            tabs={item.withTabs ? (
+              <Tabs variant="primary" size="small" defaultValue="1">
+                <Tab value="1">标签名称</Tab>
+                <Tab value="2">标签名称</Tab>
+                <Tab value="3">标签名称</Tab>
+              </Tabs>
+            ) : null}
+          />
+        );
+      } else if (item.type === 'table') {
+        root.render(
+          <TableWrapper>
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th>商品信息</Th>
+                  <Th>价格（元）</Th>
+                  <Th>售卖时间</Th>
+                  <Th>剩余库存</Th>
+                  <Th>待核销</Th>
+                  <Th>操作</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td><TableCellProduct img="./assets/shangpin.png" title="【节假日通用】资生堂烫染护理" tag="团购" tagVariant="default" id="23468723648223" /></Td>
+                  <Td><TableCellAmount>￥508.00</TableCellAmount></Td>
+                  <Td>2023.08.01 12:00</Td>
+                  <Td>10,000</Td>
+                  <Td>500</Td>
+                  <Td>
+                    <TableCellOperation>
+                      <TableCellAction>上架</TableCellAction>
+                      <TableCellAction>编辑</TableCellAction>
+                    </TableCellOperation>
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td><TableCellProduct img="./assets/shangpin.png" title="【工作日可用】高级洗剪吹套餐" tag="热销" tagVariant="orange" id="89345723648224" /></Td>
+                  <Td><TableCellAmount>￥128.00</TableCellAmount></Td>
+                  <Td>2023.08.02 14:30</Td>
+                  <Td>8,500</Td>
+                  <Td>240</Td>
+                  <Td>
+                    <TableCellOperation>
+                      <TableCellAction>下架</TableCellAction>
+                      <TableCellAction danger>删除</TableCellAction>
+                    </TableCellOperation>
+                  </Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </TableWrapper>
+        );
+      } else if (item.type === 'tag-matrix') {
+        const colors = [
+          { id: 'blue', label: 'Blue' },
+          { id: 'green', label: 'Green' },
+          { id: 'orange', label: 'Orange' },
+          { id: 'red', label: 'Red' },
+          { id: 'gray', label: 'Gray' },
+        ];
+        root.render(
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+            {colors.map(c => (
+              <Tag
+                key={c.id}
+                size={item.size}
+                variant={item.variant}
+                color={c.id}
+                leftIcon={<Icon name="ic-sell-line" />}
+                rightIcon={<Icon name="ic-error-line" />}
+              >
+                {c.label}
+              </Tag>
+            ))}
+          </div>
+        );
+      } else if (item.type === 'tag-icon-config') {
+        const combos = [
+          { l: true, r: true, label: 'L+R' },
+          { l: true, r: false, label: 'L Only' },
+          { l: false, r: true, label: 'R Only' },
+          { l: false, r: false, label: 'None' },
+        ];
+        root.render(
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+            {combos.map(c => (
+              <Tag
+                key={c.label}
+                size={item.size}
+                variant={item.variant}
+                color="blue"
+                leftIcon={c.l ? <Icon name="ic-sell-line" /> : null}
+                rightIcon={c.r ? <Icon name="ic-error-line" /> : null}
+              >
+                {c.label}
+              </Tag>
+            ))}
+          </div>
+        );
+      } else if (item.type === 'pagination') {
+        root.render(
+          <Pagination
+            size={item.size}
+            total={item.total}
+            defaultCurrent={item.defaultCurrent}
+            defaultPageSize={item.defaultPageSize}
+            pageSizeOptions={[10, 20, 50]}
+            showSizeChanger={item.showSizeChanger}
+            showQuickJumper={item.showQuickJumper}
+            showTotal={item.showTotal ? (total, range) => `共 ${total} 条（${range[0]}-${range[1]}）` : undefined}
+          />
+        );
+      }
+      });
+
+      // Clear queue
+      window.pendingReactRenders = [];
+    }, 50);
+  });
 </script>
 
 </body>

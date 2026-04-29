@@ -8,18 +8,21 @@ description: 使用 @life-ds 构建或优化 抖音来客原生风格的 React W
 
 以下规则适用于所有任务。没有任何例外。
 
-1. **优先使用** `life-ds` **组件样式。** 在构建自定义 UI 之前，务必优先使用 `@life-ds/components-web` 组件。当存在等效的 `life-ds` 组件时，禁止创建自定义组件。
+1. **优先使用** `life-ds` 提供的 **React 组件。** 在构建自定义 UI 之前，务必优先使用 `@life-ds/components-web` 提供的 React 组件。当存在等效的 `life-ds` 组件时，禁止创建自定义组件，禁止对组件样式进行覆盖和魔改。在 React 项目中，禁止手写 `.lds-` DOM 结构或自行拼装已提供的组件。
 2. **所有视觉样式均使用语义化 Tokens。** 颜色、排版、圆角和阴影必须使用 design tokens。原则上严禁在 UI 中硬编码色值、字号或圆角大小，除非由设计师提供设计稿中的圆角和间距在token中不存在时可采用硬编码，但需要告知。
 3. 所有文本的字体族均使用`--font-normal`，你可以在全局层面使用这个字体族的token。只有用于数据展示的数字字体，才会使用`--font-number`。
-4. **使用** `@life-ds/icons` **图标。** 在引入组件时，脚本会自动引入 `@life-ds/icons`，如果没有引入，请手动引入。不要捏造图标名称 —— 务必核实存在完全一致的导出项。
-5. 除非是全屏页面、弹框等非典型页面类型，否则必须使用基础结构构建页面的基础框架。包含顶部导航、左侧菜单和中间内容区域，对于大部分页面，均需要遵循此结构，且不要对组件和样式进行修改！页面基础框架请阅读 [.trae/skills/life-design-system/references/layout.md](.trae/skills/life-design-system/references/layout.md)
-6. **在能提升清晰度的地方考虑使用动效。** 对于交互状态变化（展开/收起、切换、焦点滑动、错误反馈），优先使用 life-ds 组件内置的动效。仅对非组件元素使用自定义动效，并遵循 [.trae/skills/life-design-system/references/motion.md](.trae/skills/life-design-system/references/motion.md) 的预设以保持一致性。
-7. **遵循现有项目模式。** 如果仓库中已经使用了 life-ds 组件或本地封装组件，请在其基础上进行扩展，而不是创建平行的结构。
-8. 每个项目的页面，需要增加字体平滑的代码：`-webkit-font-smoothing: antialiased`
+4. **使用** `@life-ds/icons` **图标。** 在引入组件时，脚本会自动引入 `@life-ds/icons`，如果没有引入，请手动引入。不要捏造图标名称 —— 务必核实存在完全一致的导出项。
+5. 除非是全屏页面、弹框等非典型页面类型，否则必须使用基础结构构建页面的基础框架。包含顶部导航、左侧菜单和中间内容区域，对于大部分页面，均需要遵循此结构，且不要对组件和样式进行修改！页面基础框架请阅读 [references/layout.md](references/layout.md)
+5. **在能提升清晰度的地方考虑使用动效。** 对于交互状态变化（展开/收起、切换、焦点滑动、错误反馈），优先使用 life-ds 组件内置的动效。仅对非组件元素使用自定义动效，并遵循 [references/motion.md](references/motion.md) 的预设以保持一致性。
+6. **遵循现有项目模式。** 如果仓库中已经使用了 life-ds 组件或本地封装组件，请在其基础上进行扩展，而不是创建平行的结构。
+7. 每个项目的页面，需要增加字体平滑的代码：`-webkit-font-smoothing: antialiased`
 
 ***
 
 # 核心工作流
+
+> ⚠️ **重要提示 (Agent System Prompt)：**
+> 本项目在 `references/` 目录下配备了详细的设计系统组件规范。在实现任何 UI（如按钮、筛选器、表格、布局）之前，你 **必须** 使用文件读取工具查阅该目录下对应的 `.md` 参考文件，并优先使用 `@life-ds/components-web` 的 React 组件 API。禁止凭空猜测组件实现，禁止手写 `.lds-` DOM/class 结构替代现有 React 组件。
 
 ## 1. 优先检查 Life Design System (life-ds) 的引入情况
 
@@ -71,8 +74,7 @@ description: 使用 @life-ds 构建或优化 抖音来客原生风格的 React W
 - 图标：[references/icon.md](references/icon.md)
 - 颜色：[references/color.md](references/color.md)
 - 组件：[references/components.md](references/components.md)
-- 按钮组件：[references/button.md](references/components.md)
-- 动效：[references/motion.md](references/components.md)
+- 动效：[references/motion.md](references/motion.md)
 
 <br />
 
@@ -85,6 +87,23 @@ description: 使用 @life-ds 构建或优化 抖音来客原生风格的 React W
 - [references/layout.md](references/layout.md)
 
 ***
+
+## 2.6. 组件使用
+
+当准备生成页面时，如果需要使用组件，必须阅读对应组件的文档并优先使用 `@life-ds/components-web` 的 React 组件 API：
+
+- 按钮 ：[references/button.md](references/button.md)
+- 图标 ：[references/icon.md](references/icon.md)
+- 标签页 ：[references/tabs.md](references/tabs.md)
+- 分页器 ：[references/pagination.md](references/pagination.md)
+- 表格 ：[references/table.md](references/table.md)
+- 筛选器 ：[references/filter.md](references/filter.md)
+- 标签 ：[references/tag.md](references/tag.md)
+- 多选框 ：[references/checkbox.md](references/checkbox.md)
+
+***
+
+<br />
 
 ## 3. 需要时阅读图片指引
 
@@ -148,4 +167,3 @@ description: 使用 @life-ds 构建或优化 抖音来客原生风格的 React W
 - 响应式行为能够自适应结构，而不仅仅是尺寸
 - 动效用于阐明状态变化，而不是用于装饰
 - 代码实现遵循了仓库现有的规范
-

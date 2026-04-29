@@ -5,6 +5,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: var(--spacing-1x, 4px);
   box-sizing: border-box;
   font-family: var(--font-normal, "PingFang SC", sans-serif);
   font-weight: 400;
@@ -20,6 +21,12 @@
   outline: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.lds-btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Button Sizes */
@@ -42,13 +49,6 @@
   padding: 0 var(--spacing-4x, 16px);
   font: var(--body-medium);
   border-radius: 10px;
-}
-
-.lds-btn--mini {
-  height: var(--spacing-7x, 28px);
-  padding: 0 var(--spacing-3x, 12px);
-  font: var(--caption-medium);
-  border-radius: 8px;
 }
 
 /* 1. 主按钮 Primary */
@@ -180,14 +180,6 @@
 .lds-btn--small.lds-btn--icon .icon {
   width: 20px;
   height: 20px;
-}
-
-.lds-btn--mini.lds-btn--icon {
-  width: var(--spacing-7x, 28px);
-}
-.lds-btn--mini.lds-btn--icon .icon {
-  width: 16px;
-  height: 16px;
 }
 
 /* 6. 胶囊选项 (Capsule Radio Option) */
@@ -418,6 +410,188 @@
   color: var(--color-text-secondary);
 }
 
+/* 7.5 筛选-元件 (Filter) */
+.lds-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px; /* Figma */
+  box-sizing: border-box;
+  width: 294px; /* Figma default */
+  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font: var(--body-regular);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-normal);
+  box-shadow: inset 0 0 0 1px var(--color-border-normal);
+  border-radius: 12px; /* Figma */
+  border: none;
+  outline: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* Reset native button appearance for non-input types */
+button.lds-filter {
+  appearance: none;
+  background: var(--color-bg-normal);
+  text-align: left;
+}
+
+.lds-filter--input {
+  cursor: text;
+}
+.lds-filter:not(.lds-filter--input) {
+  cursor: pointer;
+}
+
+.lds-filter__label {
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.lds-filter__divider {
+  width: 2px;
+  height: 12px;
+  border-radius: 999px;
+  background-color: var(--color-divider-normal);
+  flex: 0 0 auto;
+}
+
+.lds-filter__control {
+  flex: 1;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.lds-filter__value {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-text-secondary);
+}
+
+.lds-filter.is-filled .lds-filter__value {
+  color: var(--color-text-primary);
+}
+
+.lds-filter.is-filled .lds-filter__icon {
+  color: var(--color-text-primary);
+}
+
+.lds-filter__input {
+  flex: 1;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  color: var(--color-text-primary);
+  font: inherit;
+  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  min-width: 0;
+}
+
+.lds-filter__input::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 1;
+}
+
+.lds-filter__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Figma: default icon uses secondary text tone */
+  color: var(--color-text-secondary);
+  flex: 0 0 auto;
+}
+
+.lds-filter__icon-svg {
+  width: 18px; /* Figma */
+  height: 18px; /* Figma */
+}
+
+/* Figma: date/time icon is 20x20 */
+.lds-filter--date .lds-filter__icon-svg,
+.lds-filter--time .lds-filter__icon-svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Sizes */
+.lds-filter--default-size {
+  height: 40px; /* 22px line-height + 9px * 2 */
+  padding: 9px 12px; /* Figma: h40 with 22px line-height */
+}
+
+.lds-filter--small {
+  height: 36px; /* 22px line-height + 7px * 2 */
+  padding: 7px 12px; /* Figma: h36 with 22px line-height */
+}
+
+/* States */
+.lds-filter:hover,
+.lds-filter.is-hover {
+  box-shadow: inset 0 0 0 1px var(--color-primary-hover);
+}
+
+.lds-filter:focus-visible,
+.lds-filter.is-active,
+.lds-filter--input:focus-within {
+  box-shadow: inset 0 0 0 1.5px var(--color-primary-normal);
+}
+
+.lds-filter.is-disabled,
+.lds-filter:disabled {
+  background-color: var(--color-fill-disable);
+  box-shadow: inset 0 0 0 1px var(--color-border-disable);
+  cursor: not-allowed;
+}
+
+.lds-filter.is-disabled .lds-filter__label,
+.lds-filter:disabled .lds-filter__label,
+.lds-filter.is-disabled .lds-filter__value,
+.lds-filter:disabled .lds-filter__value,
+.lds-filter.is-disabled .lds-filter__icon,
+.lds-filter:disabled .lds-filter__icon {
+  color: var(--color-text-disable);
+}
+
+.lds-filter.is-disabled .lds-filter__input,
+.lds-filter.is-disabled .lds-filter__input::placeholder {
+  color: var(--color-text-disable);
+}
+
+/* 7.6 筛选器组 (FilterGroup) */
+.lds-filter-group {
+  width: 100%;
+}
+
+.lds-filter-group__grid {
+  display: grid;
+  align-items: start;
+  gap: var(--lds-filter-group-gap, var(--spacing-3x, 12px));
+  /* Responsive: 3 columns on narrower widths, 4+ on wider widths (min item width = 294px by Figma) */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(var(--lds-filter-group-min-item-width, 294px), 1fr)
+  );
+}
+
+.lds-filter-group__grid .lds-filter {
+  width: 100%;
+}
+
+.lds-filter-group__actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Always left aligned */
+  gap: var(--lds-filter-group-gap, var(--spacing-3x, 12px));
+  margin-top: var(--lds-filter-group-gap, var(--spacing-3x, 12px));
+}
+
 /* 8. 标签页 (Tabs) */
 .lds-tabs {
   display: flex;
@@ -626,6 +800,17 @@
   box-sizing: border-box;
 }
 
+.lds-navbar__logo-image {
+  width: 145px;
+  height: 32px;
+  display: block;
+  flex-shrink: 0;
+  background-image: url('../assets/logo-laike.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
 .lds-navbar__logo img,
 .lds-navbar__logo svg {
   height: 32px; /* 根据设计稿调整 */
@@ -728,6 +913,19 @@
   background-color: var(--color-fill-gray);
   border: 0.5px solid var(--color-border-normal);
   object-fit: cover;
+}
+
+.lds-navbar__avatar--preset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #d71d2a 0%, #a90d20 100%);
+  border: none;
+  color: #ffffff;
+  font: var(--title-small);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .lds-navbar__user-info {
@@ -910,7 +1108,7 @@
   transition: background-color 0.2s;
 }
 
-.lds-table__row:hover {
+.lds-table tbody .lds-table__row:hover {
   background-color: var(--color-fill-hover);
 }
 
@@ -977,33 +1175,201 @@
   color: var(--color-text-caption);
 }
 
-/* 标签组件 (Tags) - 用于表格中 */
+/* 13. 标签组件 (Tag) */
 .lds-tag {
+  --lds-tag-fg: var(--color-text-secondary);
+  --lds-tag-bg: transparent;
+  --lds-tag-border: transparent;
   display: inline-flex;
   align-items: center;
-  height: 20px;
-  padding: 0 var(--spacing-base, 4px);
-  border-radius: 4px;
-  font: var(--caption-regular);
+  justify-content: center;
   box-sizing: border-box;
+  max-width: 100%;
+  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-weight: 400;
+  color: var(--lds-tag-fg);
+  background-color: var(--lds-tag-bg);
+  border: 1px solid var(--lds-tag-border);
+  white-space: nowrap;
+  vertical-align: middle;
+  transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  -webkit-font-smoothing: antialiased;
 }
 
+.lds-tag__content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lds-tag__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.lds-tag__icon .icon,
+.lds-tag__icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.lds-tag--interactive {
+  cursor: pointer;
+}
+
+.lds-tag--large {
+  height: var(--spacing-9x, 36px);
+  padding: 0 var(--spacing-3x, 12px);
+  gap: var(--spacing-base, 4px);
+  border-radius: 10px;
+  font: var(--subtitle-regular);
+}
+
+.lds-tag--large .lds-tag__icon--left {
+  width: 16px;
+  height: 16px;
+}
+
+.lds-tag--large .lds-tag__icon--right {
+  width: 14px;
+  height: 14px;
+}
+
+.lds-tag--default-size {
+  height: var(--spacing-7x, 28px);
+  padding: 0 var(--spacing-2x, 8px);
+  gap: 2px;
+  border-radius: 8px;
+  font: var(--body-regular);
+}
+
+.lds-tag--default-size .lds-tag__icon--left {
+  width: 14px;
+  height: 14px;
+}
+
+.lds-tag--default-size .lds-tag__icon--right {
+  width: 12px;
+  height: 12px;
+}
+
+.lds-tag--small {
+  height: 20px;
+  padding: 0 6px;
+  gap: 2px;
+  border-radius: var(--radius-s, 6px);
+  font: var(--caption-regular);
+}
+
+.lds-tag--small .lds-tag__icon--left {
+  width: 12px;
+  height: 12px;
+}
+
+.lds-tag--small .lds-tag__icon--right {
+  width: 10px;
+  height: 10px;
+}
+
+.lds-tag--fill.lds-tag--blue {
+  --lds-tag-fg: var(--color-text-white);
+  --lds-tag-bg: var(--color-primary-normal);
+}
+
+.lds-tag--fill.lds-tag--green {
+  --lds-tag-fg: var(--color-text-white);
+  --lds-tag-bg: var(--color-success-normal);
+}
+
+.lds-tag--fill.lds-tag--orange {
+  --lds-tag-fg: var(--color-text-white);
+  --lds-tag-bg: var(--color-warning-normal);
+}
+
+.lds-tag--fill.lds-tag--red {
+  --lds-tag-fg: var(--color-text-white);
+  --lds-tag-bg: var(--color-danger-normal);
+}
+
+.lds-tag--fill.lds-tag--gray {
+  --lds-tag-fg: var(--color-text-white);
+  --lds-tag-bg: var(--color-gray-5);
+}
+
+.lds-tag--light.lds-tag--blue {
+  --lds-tag-fg: var(--color-primary-normal);
+  --lds-tag-bg: var(--color-primary-light-normal);
+}
+
+.lds-tag--light.lds-tag--green {
+  --lds-tag-fg: var(--color-success-normal);
+  --lds-tag-bg: var(--color-success-light-normal);
+}
+
+.lds-tag--light.lds-tag--orange {
+  --lds-tag-fg: var(--color-warning-normal);
+  --lds-tag-bg: var(--color-warning-light-normal);
+}
+
+.lds-tag--light.lds-tag--red {
+  --lds-tag-fg: var(--color-danger-normal);
+  --lds-tag-bg: var(--color-danger-light-normal);
+}
+
+.lds-tag--light.lds-tag--gray {
+  --lds-tag-fg: var(--color-text-secondary);
+  --lds-tag-bg: var(--color-fill-gray);
+}
+
+.lds-tag--outline.lds-tag--blue {
+  --lds-tag-fg: var(--color-primary-normal);
+  --lds-tag-border: var(--color-primary-normal);
+}
+
+.lds-tag--outline.lds-tag--green {
+  --lds-tag-fg: var(--color-success-normal);
+  --lds-tag-border: var(--color-success-normal);
+}
+
+.lds-tag--outline.lds-tag--orange {
+  --lds-tag-fg: var(--color-warning-normal);
+  --lds-tag-border: var(--color-warning-normal);
+}
+
+.lds-tag--outline.lds-tag--red {
+  --lds-tag-fg: var(--color-danger-normal);
+  --lds-tag-border: var(--color-danger-normal);
+}
+
+.lds-tag--outline.lds-tag--gray {
+  --lds-tag-fg: var(--color-text-secondary);
+  --lds-tag-border: var(--color-border-normal);
+}
+
+.lds-tag--interactive:hover {
+  transform: translateY(-1px);
+}
+
+/* Legacy aliases (for older Table demos / external usage) */
 .lds-tag--default {
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border-normal);
-  background-color: transparent;
+  --lds-tag-fg: var(--color-text-secondary);
+  --lds-tag-bg: transparent;
+  --lds-tag-border: var(--color-border-normal);
 }
 
 .lds-tag--red {
-  color: var(--color-danger-normal);
-  border: 1px solid var(--color-danger-normal);
-  background-color: var(--color-danger-light-normal);
+  --lds-tag-fg: var(--color-danger-normal);
+  --lds-tag-bg: var(--color-danger-light-normal);
+  --lds-tag-border: var(--color-danger-normal);
 }
 
 .lds-tag--orange {
-  color: var(--color-warning-normal);
-  border: 1px solid var(--color-warning-normal);
-  background-color: var(--color-warning-light-normal);
+  --lds-tag-fg: var(--color-warning-normal);
+  --lds-tag-bg: var(--color-warning-light-normal);
+  --lds-tag-border: var(--color-warning-normal);
 }
 
 /* 金额列样式 */
@@ -1055,4 +1421,299 @@
   margin-top: var(--spacing-5x, 20px);
   display: flex;
   justify-content: flex-end;
+}
+
+/* 14.1 Pagination (React Component) */
+.lds-pagination {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-3x, 12px);
+  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.lds-pagination--default-size {
+  --lds-pagination-item-size: var(--spacing-9x, 36px);
+  --lds-pagination-item-radius: var(--radius-m, 12px);
+  --lds-pagination-arrow-radius: 10px; /* Figma */
+  font: var(--body-regular);
+}
+
+.lds-pagination--small {
+  --lds-pagination-item-size: var(--spacing-7x, 28px);
+  --lds-pagination-item-radius: 10px; /* Figma */
+  --lds-pagination-arrow-radius: 8px; /* Figma */
+  font: var(--caption-regular);
+}
+
+.lds-pagination__total {
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.lds-pagination__pages {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2x, 8px);
+}
+
+.lds-pagination__arrow,
+.lds-pagination__item {
+  width: var(--lds-pagination-item-size);
+  height: var(--lds-pagination-item-size);
+  min-width: var(--lds-pagination-item-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.lds-pagination__item {
+  border-radius: var(--lds-pagination-item-radius);
+}
+
+.lds-pagination__arrow {
+  border-radius: var(--lds-pagination-arrow-radius);
+}
+
+.lds-pagination__item:hover:not(:disabled),
+.lds-pagination__arrow:hover:not(:disabled) {
+  background-color: var(--color-fill-hover);
+}
+
+.lds-pagination__item.is-active {
+  background-color: var(--color-fill-primary);
+}
+
+.lds-pagination__item:focus-visible,
+.lds-pagination__arrow:focus-visible,
+.lds-pagination__size-changer:focus-within {
+  outline: 2px solid var(--color-primary-normal);
+  outline-offset: 1px;
+}
+
+.lds-pagination__item:disabled,
+.lds-pagination__arrow:disabled {
+  color: var(--color-text-disable);
+  cursor: not-allowed;
+}
+
+.lds-pagination__ellipsis {
+  width: var(--lds-pagination-item-size);
+  height: var(--lds-pagination-item-size);
+  min-width: var(--lds-pagination-item-size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-caption);
+  user-select: none;
+}
+
+.lds-pagination--default-size .lds-pagination__icon {
+  width: var(--spacing-5x, 20px);
+  height: var(--spacing-5x, 20px);
+}
+
+.lds-pagination--small .lds-pagination__icon {
+  width: var(--spacing-4x, 16px);
+  height: var(--spacing-4x, 16px);
+}
+
+/* Page size changer (visual wrapper + native select overlay) */
+.lds-pagination__size-changer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-3x, 12px);
+  height: var(--lds-pagination-item-size);
+  padding: 0 var(--spacing-3x, 12px);
+  box-sizing: border-box;
+  border: 1px solid var(--color-border-normal);
+  border-radius: 10px; /* Figma: 10px */
+  background-color: var(--color-fill-normal);
+  color: var(--color-text-primary);
+  user-select: none;
+}
+
+.lds-pagination__size-select {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.lds-pagination__size-select:disabled {
+  cursor: not-allowed;
+}
+
+.lds-pagination__size-label {
+  white-space: nowrap;
+}
+
+.lds-pagination__size-icon {
+  width: var(--spacing-4x, 16px);
+  height: var(--spacing-4x, 16px);
+  color: var(--color-text-caption);
+}
+
+/* Quick jumper */
+.lds-pagination__quick-jumper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-base, 4px);
+  color: var(--color-text-primary);
+}
+
+.lds-pagination__quick-text {
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.lds-pagination__quick-input .lds-input-wrapper {
+  width: 40px; /* Figma */
+  padding-left: var(--spacing-3x, 12px);
+  padding-right: var(--spacing-3x, 12px);
+}
+
+.lds-pagination__quick-input .lds-input {
+  text-align: center;
+}
+
+/* 15. Checkbox */
+.lds-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-base, 4px);
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  color: var(--color-text-primary);
+  vertical-align: middle;
+}
+
+.lds-checkbox--disabled {
+  cursor: not-allowed;
+  color: var(--color-text-disable);
+}
+
+.lds-checkbox__input-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lds-checkbox__input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  margin: 0;
+}
+
+.lds-checkbox__inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid var(--color-border-normal);
+  background-color: var(--color-fill-normal);
+  transition: all 0.2s;
+  position: relative;
+}
+
+/* Sizes */
+.lds-checkbox--large .lds-checkbox__inner {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+}
+.lds-checkbox--large .lds-checkbox__label {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.lds-checkbox--default-size .lds-checkbox__inner {
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+}
+.lds-checkbox--default-size .lds-checkbox__label {
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.lds-checkbox--small .lds-checkbox__inner {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+.lds-checkbox--small .lds-checkbox__label {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+/* Hover */
+.lds-checkbox:not(.lds-checkbox--disabled):hover .lds-checkbox__inner {
+  border-color: var(--color-primary-hover);
+}
+
+/* Checked & Indeterminate */
+.lds-checkbox--checked .lds-checkbox__inner,
+.lds-checkbox--indeterminate .lds-checkbox__inner {
+  background-color: var(--color-primary-normal);
+  border-color: var(--color-primary-normal);
+}
+
+.lds-checkbox:not(.lds-checkbox--disabled):hover.lds-checkbox--checked .lds-checkbox__inner,
+.lds-checkbox:not(.lds-checkbox--disabled):hover.lds-checkbox--indeterminate .lds-checkbox__inner {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+/* Disabled */
+.lds-checkbox--disabled .lds-checkbox__inner {
+  background-color: var(--color-fill-disable);
+  border-color: var(--color-border-disable);
+}
+
+.lds-checkbox--disabled.lds-checkbox--checked .lds-checkbox__inner,
+.lds-checkbox--disabled.lds-checkbox--indeterminate .lds-checkbox__inner {
+  background-color: var(--color-primary-disable);
+  border-color: var(--color-primary-disable);
+}
+
+/* Icon Container */
+.lds-checkbox__icon {
+  width: 100%;
+  height: 100%;
+  color: var(--color-text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+}
+
+.lds-checkbox--checked .lds-checkbox__icon,
+.lds-checkbox--indeterminate .lds-checkbox__icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.lds-checkbox__icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
 }

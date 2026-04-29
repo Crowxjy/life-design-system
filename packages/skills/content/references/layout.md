@@ -6,162 +6,57 @@
 
 除非是全屏页面、弹框等非典型页面类型，否则必须使用这个基础结构构建页面的基础框架。包含顶部导航、左侧菜单和中间内容区域，对于大部分页面，均需要遵循此结构，且不要对组件和样式进行修改！
 
-实现结构请参考以下 HTML，其中 `.app-body` 里的内容仅为参考内容，其他部分则为固定结构：
+在 React 项目中，必须优先使用 `@life-ds/components-web` 提供的 `Navbar`、`Menu`、`Input`、`PageHeader`、`Tabs` 等现成组件来搭建基础框架，禁止手写 `.lds-navbar`、`.lds-menu`、`.lds-tabs`、`.lds-input` 等 DOM 结构与 class 组合。
 
-```html
-<!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>页面标题</title>
-  
-  <link rel="stylesheet" href="./packages/tokens/life-ds-tokens.css">
-  <link rel="stylesheet" href="./packages/components-web/styles/base.css">
-  <link rel="stylesheet" href="./packages/components-web/styles/components.css">
-</head>
-<body>
+其中 `Navbar` 已内置默认的 logo、搜索区、导航项、右侧操作区和用户区内容，页面中直接使用 `<Navbar />` 即可，不要自行修改图标、logo、导航文案、选中项和用户区内容。`Navbar` 不再提供 `NavbarLeft`、`NavbarMiddle`、`NavbarRight`、`NavbarLogo`、`NavbarSearch`、`NavbarNav`、`NavbarNavItem`、`NavbarAction`、`NavbarDivider`、`NavbarUser` 等组合式子组件。
 
-<div class="app-container">
-  <!-- 顶部 Navbar (贯穿整个页面) -->
-  <header class="app-navbar">
-    <div class="lds-navbar">
-      <div class="lds-navbar__left">
-        <div class="lds-navbar__logo">
-          <img src="/assets/logo-laike.svg" alt="Logo">
-        </div>
-      </div>
-      <div class="lds-navbar__middle">
-        <div class="lds-navbar__search">
-          <div class="lds-input-wrapper lds-input-wrapper--default-size">
-            <span class="lds-input__prefix">
-              <svg class="icon"><use href="#ic-search-line"></use></svg>
-            </span>
-            <input type="text" class="lds-input" placeholder="你可以问：在哪里修改官方抖音号">
+其中 `Menu` 已内置默认的 6 组侧边导航内容，页面中直接使用 `<Menu />` 即可，不要自行增删菜单组、菜单项数量或修改默认文案。默认分组为：`常用`、`店铺`、`订单`、`财务`、`达人带货`、`内容推广`。
+
+实现结构请参考以下 React 示例，其中 `.app-content` 里的内容仅为参考内容，其他部分则为固定结构：
+
+```tsx
+import React from 'react';
+import {
+  Menu,
+  Navbar,
+  PageHeader,
+  Tab,
+  Tabs,
+} from '@life-ds/components-web';
+
+export function AppLayoutDemo() {
+  return (
+    <div className="app-container">
+      <header className="app-navbar">
+        <Navbar />
+      </header>
+
+      <div className="app-main-wrapper">
+        <aside className="app-sidebar">
+          <div className="app-sidebar__menu">
+            <Menu />
           </div>
-        </div>
-        <nav class="lds-navbar__nav">
-          <a href="#" class="lds-navbar__nav-item is-active">首页</a>
-          <a href="#" class="lds-navbar__nav-item">生意经</a>
-          <a href="#" class="lds-navbar__nav-item">本地推</a>
-          <a href="#" class="lds-navbar__nav-item">学习中心</a>
-        </nav>
-      </div>
-      <div class="lds-navbar__right">
-        <div class="lds-navbar__action">
-          <svg class="icon" style="width:16px;height:16px;"><use href="#ic-reset-line"></use></svg>
-          <span>返回旧版</span>
-        </div>
-        <div class="lds-navbar__divider"></div>
-        <div class="lds-navbar__action">
-          <svg class="icon" style="width:16px;height:16px;"><use href="#ic-mobile-line"></use></svg>
-          <span>App下载</span>
-        </div>
-        <div class="lds-navbar__divider"></div>
-        <div class="lds-navbar__user">
-          <img src="./assets/avatar.png" class="lds-navbar__avatar" alt="Avatar">
-          <div class="lds-navbar__user-info">
-            <span class="lds-navbar__username">北京八十五度...</span>
-            <svg class="icon"><use href="#ic-arrow-down-line"></use></svg>
+        </aside>
+
+        <div className="app-body">
+          <PageHeader
+            title="页面标题"
+            tabs={
+              <Tabs variant="primary" size="small" defaultValue="tab-1">
+                <Tab value="tab-1">标签一</Tab>
+                <Tab value="tab-2">标签二</Tab>
+              </Tabs>
+            }
+          />
+
+          <div className="app-content">
+            {/* 核心业务内容放在这里 */}
           </div>
         </div>
       </div>
     </div>
-  </header>
-
-  <!-- 下方区域 (左侧菜单 + 右侧内容) -->
-  <div class="app-main-wrapper">
-    <!-- 左侧 Menu -->
-    <aside class="app-sidebar">
-      <div class="app-sidebar__menu">
-        <div class="lds-menu">
-          <!-- Group 1: 常用 -->
-          <div class="lds-menu-group">
-            <div class="lds-menu-group__header" onclick="handleMenuHeaderClick(this)">
-              <svg class="icon"><use href="#ic-all-line"></use></svg>
-              <span class="lds-menu-group__title">常用</span>
-              <svg class="icon lds-menu-group__action"><use href="#ic-setting-line"></use></svg>
-            </div>
-            <div class="lds-menu-group__content">
-              <div class="lds-menu-item" onclick="handleMenuItemClick(this)">门店管理</div>
-              <div class="lds-menu-item is-active" onclick="handleMenuItemClick(this)">团购商品管理</div>
-              <div class="lds-menu-item" onclick="handleMenuItemClick(this)">店铺装修</div>
-              <div class="lds-menu-item" onclick="handleMenuItemClick(this)">评价管理</div>
-            </div>
-          </div>
-          
-          <!-- Group 2: 店铺 -->
-          <div class="lds-menu-group">
-            <div class="lds-menu-group__header" onclick="handleMenuHeaderClick(this)">
-              <svg class="icon"><use href="#ic-store-line"></use></svg>
-              <span class="lds-menu-group__title">店铺</span>
-              <svg class="icon lds-menu-group__action"><use href="#ic-arrow-up-line"></use></svg>
-            </div>
-            <div class="lds-menu-group__content">
-              <div class="lds-menu-item" onclick="handleMenuItemClick(this)">商家信息</div>
-              <div class="lds-menu-item is-active" onclick="handleMenuItemClick(this)">门店管理</div>
-              <div class="lds-menu-item" onclick="handleMenuItemClick(this)">区域管理</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- 右侧主区域 -->
-    <div class="app-body">
-      <!-- PageHeader 在内容区域顶部 -->
-      <section class="lds-page-header">
-        <h1 class="lds-page-header__title">页面标题</h1>
-        <div class="lds-page-header__tabs">
-          <div class="lds-tabs lds-tabs--primary lds-tabs--small">
-            <a href="#" class="lds-tab is-active" onclick="handleTabClick(event, this)">标签一</a>
-            <a href="#" class="lds-tab" onclick="handleTabClick(event, this)">标签二</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- 页面实际内容 -->
-      <div class="app-content">
-        <!-- 核心业务内容放在这里 -->
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Icon sprite script -->
-<script type="module" src="./packages/icons/index.js"></script>
-
-<script>
-  // 交互逻辑
-  window.handleTabClick = function(event, el) {
-    event.preventDefault();
-    if (el.classList.contains('is-disabled')) return;
-    const tabsContainer = el.closest('.lds-tabs');
-    if (!tabsContainer) return;
-    const allTabs = tabsContainer.querySelectorAll('.lds-tab');
-    allTabs.forEach(tab => tab.classList.remove('is-active'));
-    el.classList.add('is-active');
-  };
-
-  window.handleMenuHeaderClick = function(el) {
-    const group = el.closest('.lds-menu-group');
-    if (group) {
-      group.classList.toggle('is-collapsed');
-    }
-  };
-
-  window.handleMenuItemClick = function(el) {
-    const menu = el.closest('.lds-menu');
-    if (menu) {
-      menu.querySelectorAll('.lds-menu-item').forEach(item => {
-        item.classList.remove('is-active');
-      });
-      el.classList.add('is-active');
-    }
-  };
-</script>
-</body>
-</html>
+  );
+}
 ```
 
 <br />
@@ -185,61 +80,134 @@
 
 ```text
 .app-content (页面主容器)
-├── .lds-page-header (页面标题区)
-├── .lds-filter-card (搜索/筛选区，可选)
-│   └── .lds-filter-row (筛选组件，可选)
+├── <PageHeader /> (页面标题区)
+├── <FilterGroup /> (搜索/筛选区，可选)
 ├── .lds-action-bar (状态与操作工具栏)
-│   ├── .lds-tabs--capsule (左侧: 数据状态页签)
+│   ├── <Tabs variant="capsule" /> (左侧: 数据状态页签)
 │   └── .lds-actions (右侧: 新建/导出等全局操作)
-├── .lds-table-wrapper (数据表格区域)
-│   └── .lds-table (核心数据表格，table组件)
-│       ├── .lds-table__thead (表头)
-│       └── .lds-table__tbody (数据行)
+├── <TableWrapper /> (数据表格区域)
+│   └── <Table /> (核心数据表格)
+│       ├── <Thead /> (表头)
+│       └── <Tbody /> (数据行)
 └── .lds-pagination-wrapper (分页器区域)
-    └── .lds-pagination (分页组件)
+    └── <Pagination /> (分页组件)
 ```
+
+
 
 #### 标准结构示例
 
-```html
-<div class="app-content">
-  <!-- 1. 页面标题 -->
-  <section class="lds-page-header">
-    <h1 class="lds-page-header__title">商品管理</h1>
-  </section>
+```tsx
+import React from 'react';
+import {
+  Button,
+  Filter,
+  FilterGroup,
+  PageHeader,
+  Pagination,
+  Tab,
+  Table,
+  TableCellAction,
+  TableCellAmount,
+  TableCellOperation,
+  TableCellProduct,
+  TableWrapper,
+  Tabs,
+  Tbody,
+  Thead,
+  Th,
+  Td,
+  Tr,
+} from '@life-ds/components-web';
 
-  <!-- 2. 搜索/筛选区 -->
-  <div class="lds-filter-card">
-    <div class="lds-filter-row">
-      <!-- 各种筛选控件 (Input/Select) -->
-      <button class="lds-btn lds-btn--primary">查询</button>
-      <button class="lds-btn">重置</button>
+export function ListPageLayoutDemo() {
+  return (
+    <div className="app-content">
+      <PageHeader
+        title="团购商品管理"
+        tabs={
+          <Tabs variant="primary" size="small" defaultValue="all">
+            <Tab value="all">全部商品</Tab>
+            <Tab value="selling">出售中</Tab>
+            <Tab value="off">已下架</Tab>
+            <Tab value="review">审核中</Tab>
+          </Tabs>
+        }
+      />
+
+      <div style={{ marginBottom: '24px' }}>
+        <FilterGroup size="small" onQuery={() => {}} onReset={() => {}}>
+          <Filter type="input" size="small" label="商品名称" placeholder="请输入" value="" onChange={() => {}} />
+          <Filter type="select" size="small" label="商品状态" placeholder="请选择" onClick={() => {}} />
+          <Filter type="date" size="small" label="售卖日期" placeholder="请选择" onClick={() => {}} />
+          <Filter type="time" size="small" label="售卖时间" placeholder="请选择" onClick={() => {}} />
+        </FilterGroup>
+      </div>
+
+      <div className="lds-action-bar">
+        <Tabs variant="capsule" size="small" defaultValue="all-member">
+          <Tab value="all-member">全部会员可领</Tab>
+          <Tab value="target-member">定向会员发放</Tab>
+        </Tabs>
+        <div className="lds-actions">
+          <Button variant="primary" size="default-size">新建会员优惠券</Button>
+        </div>
+      </div>
+
+      <TableWrapper>
+        <Table>
+          <Thead>
+            <Tr>
+              <Th>商品信息</Th>
+              <Th>价格（元）</Th>
+              <Th>售卖时间</Th>
+              <Th>剩余库存</Th>
+              <Th>待核销</Th>
+              <Th>操作</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            <Tr>
+              <Td><TableCellProduct img="../../assets/shangpin.png" title="【节假日通用】资生堂烫染护理" tag="团购" tagVariant="default" id="23468723648223" /></Td>
+              <Td><TableCellAmount>￥508.00</TableCellAmount></Td>
+              <Td>2023.08.01 12:00</Td>
+              <Td>10,000</Td>
+              <Td>500</Td>
+              <Td>
+                <TableCellOperation>
+                  <TableCellAction>上架</TableCellAction>
+                  <TableCellAction>编辑</TableCellAction>
+                </TableCellOperation>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td><TableCellProduct img="../../assets/shangpin.png" title="【工作日可用】高级洗剪吹套餐" tag="热销" tagVariant="orange" id="89345723648224" /></Td>
+              <Td><TableCellAmount>￥128.00</TableCellAmount></Td>
+              <Td>2023.08.02 14:30</Td>
+              <Td>8,500</Td>
+              <Td>240</Td>
+              <Td>
+                <TableCellOperation>
+                  <TableCellAction>下架</TableCellAction>
+                  <TableCellAction danger>删除</TableCellAction>
+                </TableCellOperation>
+              </Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </TableWrapper>
+
+      <div className="lds-pagination-wrapper">
+        <Pagination
+          total={500}
+          defaultCurrent={2}
+          defaultPageSize={10}
+          pageSizeOptions={[10, 20, 50]}
+          showSizeChanger
+          showQuickJumper
+        />
+      </div>
     </div>
-  </div>
-
-  <!-- 3. 状态页签与操作区 -->
-  <div class="lds-action-bar">
-    <div class="lds-tabs lds-tabs--capsule lds-tabs--small">
-      <a href="#" class="lds-tab is-active">全部</a>
-      <a href="#" class="lds-tab">已上架</a>
-      <!-- ...其他状态 -->
-    </div>
-    <div class="lds-actions">
-      <button class="lds-btn lds-btn--primary">创建商品</button>
-    </div>
-  </div>
-
-  <!-- 4. 数据表格 -->
-  <div class="lds-table-wrapper">
-    <table class="lds-table">
-      <!-- 表头与内容 -->
-    </table>
-  </div>
-
-  <!-- 5. 分页器 -->
-  <div class="lds-pagination-wrapper">
-    <!-- 分页组件内容 -->
-  </div>
-</div>
+  );
+}
 ```
-

@@ -34,12 +34,19 @@
 首先关注这些模式，因为它们涵盖了大部分 TikTok 风格 UI 的实现工作：
 
 - 按钮 (Button)
-- 顶部导航栏 (Nav bar)
-- 左侧菜单（**Menu**）
+- 图标 (Icon)
+- 顶部导航栏 (Navbar)
+- 左侧菜单 (Menu)
 - 标签页 (Tabs)
 - 输入框 (Input)
-- 表格 (table)
-- 选项（Capsule）
+- 筛选器 (Filter)
+- 筛选器组 (FilterGroup)
+- 页面标题区 (PageHeader)
+- 表格 (Table)
+- 分页器 (Pagination)
+- 标签 (Tag)
+- 多选框 (Checkbox)
+- 选项 (Capsule)
 
 如果 UI 可以用这些模式表示，请在引入自定义结构之前优先使用它们。
 
@@ -54,10 +61,16 @@
 
 ## 模式参考 (Pattern References)
 
-当 UI 明显匹配以下模式时，请阅读对应的文件：
+当 UI 明显匹配以下模式时，请必须阅读对应的文件：
 
-- [layout.md](layout.md)：用于生成页面时的基础布局与各类型页面（列表页、表单页、详情页）。
-- [button.md](button.md)：用于主要、次要和页脚操作。
+- UI中需要按钮时：[button.md](button.md)；
+- UI中需要图标时：[icon.md](icon.md)；
+- UI中需要标签页时：[tabs.md](tabs.md)；
+- UI中需要筛选器或筛选器组时：[filter.md](filter.md)；
+- UI中需要表格时：[table.md](table.md)；
+- UI中需要分页器时：[pagination.md](pagination.md)；
+- UI中需要标签时：[tag.md](tag.md)；
+- UI中需要多选框时：[checkbox.md](checkbox.md)；
 
 ## 兜底策略
 
@@ -66,4 +79,3 @@
 - 选择符合层级结构的最简单的标准模式。
 - 保留原始界面的意图。
 - 除非 UI 明确要求，否则避免发明自定义组件。
-
