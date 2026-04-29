@@ -952,7 +952,6 @@ button.lds-filter {
 /* 10. 菜单组件 (Menu) */
 .lds-menu {
   width: 200px;
-  background-color: var(--color-bg-normal);
   font-family: var(--font-normal, "PingFang SC", sans-serif);
   display: flex;
   flex-direction: column;
@@ -1374,7 +1373,8 @@ button.lds-filter {
 
 /* 金额列样式 */
 .lds-table-cell--amount {
-  font: var(--subtitle-medium);
+  font: var(--body-regular);
+  font-family: var(--font-number, var(--font-normal, "PingFang SC", sans-serif));
   color: var(--color-text-primary);
 }
 

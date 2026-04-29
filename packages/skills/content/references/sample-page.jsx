@@ -26,18 +26,18 @@ const App = () => {
         </aside>
 
         <div className="app-body">
-          <PageHeader 
-            title="团购商品管理" 
-            tabs={
-              <Tabs variant="primary" size="small" defaultValue="all">
-                <Tab value="all">全部商品</Tab>
-                <Tab value="selling">出售中</Tab>
-                <Tab value="off">已下架</Tab>
-                <Tab value="review">审核中</Tab>
-              </Tabs>
-            }
-          />
           <div className="app-content">
+            <PageHeader 
+              title="团购商品管理" 
+              tabs={
+                <Tabs variant="primary" size="small" defaultValue="all">
+                  <Tab value="all">全部商品</Tab>
+                  <Tab value="selling">出售中</Tab>
+                  <Tab value="off">已下架</Tab>
+                  <Tab value="review">审核中</Tab>
+                </Tabs>
+              }
+            />
             <div style={{ marginBottom: '24px' }}>
               <FilterGroup size="small" onQuery={() => {}} onReset={() => {}}>
                 <Filter

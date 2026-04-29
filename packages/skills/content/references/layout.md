@@ -17,6 +17,7 @@
 ```tsx
 import React from 'react';
 import {
+  Icon,
   Menu,
   Navbar,
   PageHeader,
@@ -79,18 +80,19 @@ export function AppLayoutDemo() {
 以下是一个典型的列表页结构层级：
 
 ```text
-.app-content (页面主容器)
-├── <PageHeader /> (页面标题区)
-├── <FilterGroup /> (搜索/筛选区，可选)
-├── .lds-action-bar (状态与操作工具栏)
-│   ├── <Tabs variant="capsule" /> (左侧: 数据状态页签)
-│   └── .lds-actions (右侧: 新建/导出等全局操作)
-├── <TableWrapper /> (数据表格区域)
-│   └── <Table /> (核心数据表格)
-│       ├── <Thead /> (表头)
-│       └── <Tbody /> (数据行)
-└── .lds-pagination-wrapper (分页器区域)
-    └── <Pagination /> (分页组件)
+.app-body (列表页主容器)
+└── .app-content (页面滚动内容区)
+    ├── <PageHeader /> (页面标题区)
+    ├── <FilterGroup /> (搜索/筛选区，可选)
+    ├── .lds-action-bar (状态与操作工具栏)
+    │   ├── <Tabs variant="capsule" /> (左侧: 数据状态页签)
+    │   └── .lds-actions (右侧: 新建/导出等全局操作)
+    ├── <TableWrapper /> (数据表格区域)
+    │   └── <Table /> (核心数据表格)
+    │       ├── <Thead /> (表头)
+    │       └── <Tbody /> (数据行)
+    └── .lds-pagination-wrapper (分页器区域)
+        └── <Pagination /> (分页组件)
 ```
 
 
@@ -150,7 +152,9 @@ export function ListPageLayoutDemo() {
           <Tab value="target-member">定向会员发放</Tab>
         </Tabs>
         <div className="lds-actions">
-          <Button variant="primary" size="default-size">新建会员优惠券</Button>
+          <Button variant="primary" size="default-size" leftIcon={<Icon name="ic-plus-line" />}>
+            新建会员优惠券
+          </Button>
         </div>
       </div>
 
