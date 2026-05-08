@@ -51,34 +51,123 @@ var Capsule = React3.forwardRef(
 Capsule.displayName = "Capsule";
 
 // src/components/Input/Input.tsx
+import React5 from "react";
+import { clsx as clsx5 } from "clsx";
+
+// src/components/Form/Form.tsx
 import React4 from "react";
 import { clsx as clsx4 } from "clsx";
-import { jsx as jsx4, jsxs as jsxs3 } from "react/jsx-runtime";
-var Input = React4.forwardRef(
-  ({ className, wrapperClassName, size = "default-size", prefixIcon, suffixIcon, clearable, onClear, disabled, isFocused, ...props }, ref) => {
-    return /* @__PURE__ */ jsxs3(
+import { Fragment, jsx as jsx4, jsxs as jsxs3 } from "react/jsx-runtime";
+var DEFAULT_LABEL_WIDTH = "90px";
+var FormItemStatusContext = React4.createContext({ hasError: false });
+function toCssSize(value) {
+  if (value === void 0) {
+    return void 0;
+  }
+  return typeof value === "number" ? `${value}px` : value;
+}
+function useFormItemStatus() {
+  return React4.useContext(FormItemStatusContext);
+}
+var Form = React4.forwardRef(
+  ({ className, style, labelWidth = 90, ...props }, ref) => {
+    var _a;
+    const mergedStyle = {
+      ...style,
+      ["--lds-form-label-width"]: (_a = toCssSize(labelWidth)) != null ? _a : DEFAULT_LABEL_WIDTH
+    };
+    return /* @__PURE__ */ jsx4("div", { ref, className: clsx4("lds-form", className), style: mergedStyle, ...props });
+  }
+);
+Form.displayName = "Form";
+var FormItem = React4.forwardRef(
+  ({
+    className,
+    label,
+    htmlFor,
+    required = false,
+    tooltip,
+    onTooltipClick,
+    tooltipAriaLabel = "\u67E5\u770B\u5B57\u6BB5\u8BF4\u660E",
+    description,
+    error,
+    labelWidth,
+    children,
+    style,
+    ...props
+  }, ref) => {
+    const message = error != null ? error : description;
+    const hasError = error !== void 0 && error !== null && error !== false;
+    const shouldRenderTooltip = Boolean(tooltip) || Boolean(onTooltipClick);
+    const mergedStyle = {
+      ...style,
+      ...labelWidth !== void 0 ? {
+        ["--lds-form-label-width"]: toCssSize(labelWidth)
+      } : null
+    };
+    const labelContent = /* @__PURE__ */ jsxs3(Fragment, { children: [
+      /* @__PURE__ */ jsx4("span", { className: "lds-form-item__label-text", children: label }),
+      shouldRenderTooltip ? /* @__PURE__ */ jsx4(
+        "button",
+        {
+          type: "button",
+          className: "lds-form-item__tooltip",
+          title: tooltip,
+          "aria-label": tooltipAriaLabel,
+          onClick: onTooltipClick,
+          children: /* @__PURE__ */ jsx4(Icon, { name: "ic-help-line", "aria-hidden": "true" })
+        }
+      ) : null,
+      required ? /* @__PURE__ */ jsx4("span", { className: "lds-form-item__required", "aria-hidden": "true", children: /* @__PURE__ */ jsx4(Icon, { name: "ic-required-line" }) }) : null
+    ] });
+    return /* @__PURE__ */ jsxs3("div", { ref, className: clsx4("lds-form-item", className), style: mergedStyle, ...props, children: [
+      /* @__PURE__ */ jsx4("div", { className: "lds-form-item__label", children: htmlFor ? /* @__PURE__ */ jsx4("label", { className: "lds-form-item__label-inner", htmlFor, children: labelContent }) : /* @__PURE__ */ jsx4("div", { className: "lds-form-item__label-inner", children: labelContent }) }),
+      /* @__PURE__ */ jsxs3("div", { className: "lds-form-item__main", children: [
+        /* @__PURE__ */ jsx4(FormItemStatusContext.Provider, { value: { hasError }, children: /* @__PURE__ */ jsx4("div", { className: "lds-form-item__control", children }) }),
+        message ? /* @__PURE__ */ jsx4(
+          "div",
+          {
+            className: clsx4("lds-form-item__message", hasError && "is-error"),
+            role: hasError ? "alert" : void 0,
+            children: message
+          }
+        ) : null
+      ] })
+    ] });
+  }
+);
+FormItem.displayName = "FormItem";
+
+// src/components/Input/Input.tsx
+import { jsx as jsx5, jsxs as jsxs4 } from "react/jsx-runtime";
+var Input = React5.forwardRef(
+  ({ className, wrapperClassName, size = "default-size", prefixIcon, suffixIcon, clearable, onClear, disabled, isFocused, error, ...props }, ref) => {
+    const { hasError } = useFormItemStatus();
+    const mergedError = error != null ? error : hasError;
+    return /* @__PURE__ */ jsxs4(
       "div",
       {
-        className: clsx4(
+        className: clsx5(
           "lds-input-wrapper",
           `lds-input-wrapper--${size}`,
           disabled && "is-disabled",
           isFocused && "is-focused",
+          mergedError && "is-error",
           wrapperClassName
         ),
         children: [
-          prefixIcon && /* @__PURE__ */ jsx4("span", { className: "lds-input__prefix", children: prefixIcon }),
-          /* @__PURE__ */ jsx4(
+          prefixIcon && /* @__PURE__ */ jsx5("span", { className: "lds-input__prefix", children: prefixIcon }),
+          /* @__PURE__ */ jsx5(
             "input",
             {
               ref,
-              className: clsx4("lds-input", className),
+              className: clsx5("lds-input", className),
               disabled,
               ...props
             }
           ),
-          clearable && /* @__PURE__ */ jsx4("span", { className: "lds-input__clear", onClick: onClear, children: /* @__PURE__ */ jsx4(Icon, { name: "ic-error-round" }) }),
-          suffixIcon && /* @__PURE__ */ jsx4("span", { className: "lds-input__suffix", children: suffixIcon })
+          clearable && /* @__PURE__ */ jsx5("span", { className: "lds-input__clear", onClick: onClear, children: /* @__PURE__ */ jsx5(Icon, { name: "ic-error-round" }) }),
+          suffixIcon && /* @__PURE__ */ jsx5("span", { className: "lds-input__suffix", children: suffixIcon })
         ]
       }
     );
@@ -86,10 +175,88 @@ var Input = React4.forwardRef(
 );
 Input.displayName = "Input";
 
+// src/components/Textarea/Textarea.tsx
+import React6 from "react";
+import { clsx as clsx6 } from "clsx";
+import { jsx as jsx6, jsxs as jsxs5 } from "react/jsx-runtime";
+function getTextLength(value) {
+  if (typeof value === "string") {
+    return value.length;
+  }
+  if (typeof value === "number") {
+    return String(value).length;
+  }
+  return 0;
+}
+var Textarea = React6.forwardRef(
+  ({
+    className,
+    wrapperClassName,
+    size = "default-size",
+    isFocused = false,
+    error,
+    disabled = false,
+    showCount = true,
+    showResizeHandle = true,
+    value,
+    defaultValue,
+    maxLength,
+    onChange,
+    ...props
+  }, ref) => {
+    const { hasError } = useFormItemStatus();
+    const isControlled = value !== void 0;
+    const [innerValueLength, setInnerValueLength] = React6.useState(() => getTextLength(defaultValue));
+    const mergedError = error != null ? error : hasError;
+    const currentLength = isControlled ? getTextLength(value) : innerValueLength;
+    const handleChange = React6.useCallback(
+      (event) => {
+        if (!isControlled) {
+          setInnerValueLength(event.target.value.length);
+        }
+        onChange == null ? void 0 : onChange(event);
+      },
+      [isControlled, onChange]
+    );
+    const countText = maxLength !== void 0 ? `${currentLength}/${maxLength}` : `${currentLength}`;
+    return /* @__PURE__ */ jsxs5(
+      "div",
+      {
+        className: clsx6(
+          "lds-textarea-wrapper",
+          `lds-textarea-wrapper--${size}`,
+          isFocused && "is-focused",
+          mergedError && "is-error",
+          disabled && "is-disabled",
+          wrapperClassName
+        ),
+        children: [
+          /* @__PURE__ */ jsx6(
+            "textarea",
+            {
+              ref,
+              className: clsx6("lds-textarea", className),
+              disabled,
+              value,
+              defaultValue,
+              maxLength,
+              onChange: handleChange,
+              ...props
+            }
+          ),
+          showCount ? /* @__PURE__ */ jsx6("div", { className: "lds-textarea__footer", children: /* @__PURE__ */ jsx6("span", { className: "lds-textarea__count", children: countText }) }) : null,
+          showResizeHandle ? /* @__PURE__ */ jsx6("span", { className: "lds-textarea__resize-handle", "aria-hidden": "true" }) : null
+        ]
+      }
+    );
+  }
+);
+Textarea.displayName = "Textarea";
+
 // src/components/Filter/Filter.tsx
-import React5 from "react";
-import { clsx as clsx5 } from "clsx";
-import { jsx as jsx5, jsxs as jsxs4 } from "react/jsx-runtime";
+import React7 from "react";
+import { clsx as clsx7 } from "clsx";
+import { jsx as jsx7, jsxs as jsxs6 } from "react/jsx-runtime";
 var getDefaultRightIconName = (type) => {
   if (type === "select") return "ic-arrow-down-line";
   if (type === "date") return "ic-calendar-line";
@@ -101,7 +268,7 @@ var isFilledValue = (value) => {
   if (typeof value === "string") return value.trim().length > 0;
   return true;
 };
-var Filter = React5.forwardRef((props, ref) => {
+var Filter = React7.forwardRef((props, ref) => {
   const {
     size = "default-size",
     label,
@@ -114,11 +281,11 @@ var Filter = React5.forwardRef((props, ref) => {
   if (props.type === "input") {
     const { className: className2, value: value2, defaultValue, onChange, inputProps, style: style2, ...rest2 } = props;
     const filled2 = isFilledValue(value2 != null ? value2 : defaultValue);
-    return /* @__PURE__ */ jsxs4(
+    return /* @__PURE__ */ jsxs6(
       "div",
       {
         ref,
-        className: clsx5(
+        className: clsx7(
           "lds-filter",
           `lds-filter--${size}`,
           "lds-filter--input",
@@ -138,9 +305,9 @@ var Filter = React5.forwardRef((props, ref) => {
         },
         ...rest2,
         children: [
-          /* @__PURE__ */ jsx5("span", { className: "lds-filter__label", children: label }),
-          /* @__PURE__ */ jsx5("span", { className: "lds-filter__divider", "aria-hidden": "true" }),
-          /* @__PURE__ */ jsx5("span", { className: "lds-filter__control", children: /* @__PURE__ */ jsx5(
+          /* @__PURE__ */ jsx7("span", { className: "lds-filter__label", children: label }),
+          /* @__PURE__ */ jsx7("span", { className: "lds-filter__divider", "aria-hidden": "true" }),
+          /* @__PURE__ */ jsx7("span", { className: "lds-filter__control", children: /* @__PURE__ */ jsx7(
             "input",
             {
               className: "lds-filter__input",
@@ -159,13 +326,13 @@ var Filter = React5.forwardRef((props, ref) => {
   const { type, className, value, onClick, style, ...rest } = props;
   const filled = isFilledValue(value);
   const defaultIconName = getDefaultRightIconName(type);
-  const iconNode = rightIcon != null ? rightIcon : defaultIconName ? /* @__PURE__ */ jsx5(Icon, { name: defaultIconName, className: "lds-filter__icon-svg", "aria-hidden": "true" }) : null;
-  return /* @__PURE__ */ jsxs4(
+  const iconNode = rightIcon != null ? rightIcon : defaultIconName ? /* @__PURE__ */ jsx7(Icon, { name: defaultIconName, className: "lds-filter__icon-svg", "aria-hidden": "true" }) : null;
+  return /* @__PURE__ */ jsxs6(
     "button",
     {
       ref,
       type: "button",
-      className: clsx5(
+      className: clsx7(
         "lds-filter",
         `lds-filter--${size}`,
         `lds-filter--${type}`,
@@ -181,10 +348,10 @@ var Filter = React5.forwardRef((props, ref) => {
       onClick,
       ...rest,
       children: [
-        /* @__PURE__ */ jsx5("span", { className: "lds-filter__label", children: label }),
-        /* @__PURE__ */ jsx5("span", { className: "lds-filter__divider", "aria-hidden": "true" }),
-        /* @__PURE__ */ jsx5("span", { className: "lds-filter__control", children: /* @__PURE__ */ jsx5("span", { className: "lds-filter__value", children: filled ? value : placeholder != null ? placeholder : value }) }),
-        iconNode ? /* @__PURE__ */ jsx5("span", { className: "lds-filter__icon", children: iconNode }) : null
+        /* @__PURE__ */ jsx7("span", { className: "lds-filter__label", children: label }),
+        /* @__PURE__ */ jsx7("span", { className: "lds-filter__divider", "aria-hidden": "true" }),
+        /* @__PURE__ */ jsx7("span", { className: "lds-filter__control", children: /* @__PURE__ */ jsx7("span", { className: "lds-filter__value", children: filled ? value : placeholder != null ? placeholder : value }) }),
+        iconNode ? /* @__PURE__ */ jsx7("span", { className: "lds-filter__icon", children: iconNode }) : null
       ]
     }
   );
@@ -192,10 +359,10 @@ var Filter = React5.forwardRef((props, ref) => {
 Filter.displayName = "Filter";
 
 // src/components/FilterGroup/FilterGroup.tsx
-import React6 from "react";
-import { clsx as clsx6 } from "clsx";
-import { Fragment, jsx as jsx6, jsxs as jsxs5 } from "react/jsx-runtime";
-var FilterGroup = React6.forwardRef(
+import React8 from "react";
+import { clsx as clsx8 } from "clsx";
+import { Fragment as Fragment2, jsx as jsx8, jsxs as jsxs7 } from "react/jsx-runtime";
+var FilterGroup = React8.forwardRef(
   ({
     className,
     size = "small",
@@ -213,11 +380,11 @@ var FilterGroup = React6.forwardRef(
   }, ref) => {
     const shouldShowDefaultActions = Boolean(showActions != null ? showActions : onQuery || onReset);
     const shouldRenderActionsRow = Boolean(actions || shouldShowDefaultActions);
-    return /* @__PURE__ */ jsxs5(
+    return /* @__PURE__ */ jsxs7(
       "div",
       {
         ref,
-        className: clsx6("lds-filter-group", className),
+        className: clsx8("lds-filter-group", className),
         style: {
           ...style,
           // CSS vars for responsive grid behaviour.
@@ -226,10 +393,10 @@ var FilterGroup = React6.forwardRef(
         },
         ...props,
         children: [
-          /* @__PURE__ */ jsx6("div", { className: "lds-filter-group__grid", children }),
-          shouldRenderActionsRow ? /* @__PURE__ */ jsx6("div", { className: "lds-filter-group__actions-row", children: actions ? actions : /* @__PURE__ */ jsxs5(Fragment, { children: [
-            onQuery ? /* @__PURE__ */ jsx6(Button, { variant: "secondary", size, onClick: onQuery, children: queryText }) : null,
-            onReset ? /* @__PURE__ */ jsx6(Button, { variant: "default", size, onClick: onReset, children: resetText }) : null
+          /* @__PURE__ */ jsx8("div", { className: "lds-filter-group__grid", children }),
+          shouldRenderActionsRow ? /* @__PURE__ */ jsx8("div", { className: "lds-filter-group__actions-row", children: actions ? actions : /* @__PURE__ */ jsxs7(Fragment2, { children: [
+            onQuery ? /* @__PURE__ */ jsx8(Button, { variant: "secondary", size, onClick: onQuery, children: queryText }) : null,
+            onReset ? /* @__PURE__ */ jsx8(Button, { variant: "default", size, onClick: onReset, children: resetText }) : null
           ] }) }) : null
         ]
       }
@@ -239,11 +406,11 @@ var FilterGroup = React6.forwardRef(
 FilterGroup.displayName = "FilterGroup";
 
 // src/components/Tabs/Tabs.tsx
-import React7, { createContext, useContext, useState } from "react";
-import { clsx as clsx7 } from "clsx";
-import { jsx as jsx7 } from "react/jsx-runtime";
+import React9, { createContext, useContext, useState } from "react";
+import { clsx as clsx9 } from "clsx";
+import { jsx as jsx9 } from "react/jsx-runtime";
 var TabsContext = createContext({});
-var Tabs = React7.forwardRef(
+var Tabs = React9.forwardRef(
   ({ className, variant = "primary", size = "small", defaultValue, value, onChange, children, ...props }, ref) => {
     const [internalValue, setInternalValue] = useState(defaultValue);
     const activeValue = value !== void 0 ? value : internalValue;
@@ -253,11 +420,11 @@ var Tabs = React7.forwardRef(
       }
       onChange == null ? void 0 : onChange(newValue);
     };
-    return /* @__PURE__ */ jsx7(TabsContext.Provider, { value: { activeValue, onChange: handleChange }, children: /* @__PURE__ */ jsx7(
+    return /* @__PURE__ */ jsx9(TabsContext.Provider, { value: { activeValue, onChange: handleChange }, children: /* @__PURE__ */ jsx9(
       "div",
       {
         ref,
-        className: clsx7("lds-tabs", `lds-tabs--${variant}`, `lds-tabs--${size}`, className),
+        className: clsx9("lds-tabs", `lds-tabs--${variant}`, `lds-tabs--${size}`, className),
         ...props,
         children
       }
@@ -265,7 +432,7 @@ var Tabs = React7.forwardRef(
   }
 );
 Tabs.displayName = "Tabs";
-var Tab = React7.forwardRef(
+var Tab = React9.forwardRef(
   ({ className, value, active, disabled, children, onClick, ...props }, ref) => {
     const context = useContext(TabsContext);
     const isActive = value !== void 0 && context.activeValue === value || active;
@@ -280,11 +447,11 @@ var Tab = React7.forwardRef(
       }
       onClick == null ? void 0 : onClick(e);
     };
-    return /* @__PURE__ */ jsx7(
+    return /* @__PURE__ */ jsx9(
       "a",
       {
         ref,
-        className: clsx7("lds-tab", isActive && "is-active", disabled && "is-disabled", className),
+        className: clsx9("lds-tab", isActive && "is-active", disabled && "is-disabled", className),
         onClick: handleClick,
         ...props,
         children
@@ -295,45 +462,45 @@ var Tab = React7.forwardRef(
 Tab.displayName = "Tab";
 
 // src/components/Navbar/Navbar.tsx
-import React8 from "react";
-import { clsx as clsx8 } from "clsx";
-import { jsx as jsx8, jsxs as jsxs6 } from "react/jsx-runtime";
-var Navbar = React8.forwardRef(
-  ({ className, ...props }, ref) => /* @__PURE__ */ jsxs6("div", { ref, className: clsx8("lds-navbar", className), ...props, children: [
-    /* @__PURE__ */ jsx8("div", { className: "lds-navbar__left", children: /* @__PURE__ */ jsx8("div", { className: "lds-navbar__logo", "aria-label": "\u6765\u5BA2 Logo", children: /* @__PURE__ */ jsx8("span", { className: "lds-navbar__logo-image", "aria-hidden": "true" }) }) }),
-    /* @__PURE__ */ jsxs6("div", { className: "lds-navbar__middle", children: [
-      /* @__PURE__ */ jsx8("div", { className: "lds-navbar__search", children: /* @__PURE__ */ jsx8(
+import React10 from "react";
+import { clsx as clsx10 } from "clsx";
+import { jsx as jsx10, jsxs as jsxs8 } from "react/jsx-runtime";
+var Navbar = React10.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ jsxs8("div", { ref, className: clsx10("lds-navbar", className), ...props, children: [
+    /* @__PURE__ */ jsx10("div", { className: "lds-navbar__left", children: /* @__PURE__ */ jsx10("div", { className: "lds-navbar__logo", "aria-label": "\u6765\u5BA2 Logo", children: /* @__PURE__ */ jsx10("span", { className: "lds-navbar__logo-image", "aria-hidden": "true" }) }) }),
+    /* @__PURE__ */ jsxs8("div", { className: "lds-navbar__middle", children: [
+      /* @__PURE__ */ jsx10("div", { className: "lds-navbar__search", children: /* @__PURE__ */ jsx10(
         Input,
         {
           size: "default-size",
-          prefixIcon: /* @__PURE__ */ jsx8(Icon, { name: "ic-search-line" }),
+          prefixIcon: /* @__PURE__ */ jsx10(Icon, { name: "ic-search-line" }),
           placeholder: "\u4F60\u53EF\u4EE5\u95EE\uFF1A\u5728\u54EA\u91CC\u4FEE\u6539\u5B98\u65B9\u6296\u97F3\u53F7",
           readOnly: true
         }
       ) }),
-      /* @__PURE__ */ jsxs6("nav", { className: "lds-navbar__nav", children: [
-        /* @__PURE__ */ jsx8("a", { href: "#", className: "lds-navbar__nav-item is-active", children: "\u9996\u9875" }),
-        /* @__PURE__ */ jsx8("a", { href: "#", className: "lds-navbar__nav-item", children: "\u751F\u610F\u7ECF" }),
-        /* @__PURE__ */ jsx8("a", { href: "#", className: "lds-navbar__nav-item", children: "\u672C\u5730\u63A8" }),
-        /* @__PURE__ */ jsx8("a", { href: "#", className: "lds-navbar__nav-item", children: "\u5B66\u4E60\u4E2D\u5FC3" })
+      /* @__PURE__ */ jsxs8("nav", { className: "lds-navbar__nav", children: [
+        /* @__PURE__ */ jsx10("a", { href: "#", className: "lds-navbar__nav-item is-active", children: "\u9996\u9875" }),
+        /* @__PURE__ */ jsx10("a", { href: "#", className: "lds-navbar__nav-item", children: "\u751F\u610F\u7ECF" }),
+        /* @__PURE__ */ jsx10("a", { href: "#", className: "lds-navbar__nav-item", children: "\u672C\u5730\u63A8" }),
+        /* @__PURE__ */ jsx10("a", { href: "#", className: "lds-navbar__nav-item", children: "\u5B66\u4E60\u4E2D\u5FC3" })
       ] })
     ] }),
-    /* @__PURE__ */ jsxs6("div", { className: "lds-navbar__right", children: [
-      /* @__PURE__ */ jsxs6("div", { className: "lds-navbar__action", children: [
-        /* @__PURE__ */ jsx8(Icon, { name: "ic-reset-line" }),
-        /* @__PURE__ */ jsx8("span", { children: "\u8FD4\u56DE\u65E7\u7248" })
+    /* @__PURE__ */ jsxs8("div", { className: "lds-navbar__right", children: [
+      /* @__PURE__ */ jsxs8("div", { className: "lds-navbar__action", children: [
+        /* @__PURE__ */ jsx10(Icon, { name: "ic-reset-line" }),
+        /* @__PURE__ */ jsx10("span", { children: "\u8FD4\u56DE\u65E7\u7248" })
       ] }),
-      /* @__PURE__ */ jsx8("div", { className: "lds-navbar__divider" }),
-      /* @__PURE__ */ jsxs6("div", { className: "lds-navbar__action", children: [
-        /* @__PURE__ */ jsx8(Icon, { name: "ic-mobile-line" }),
-        /* @__PURE__ */ jsx8("span", { children: "App\u4E0B\u8F7D" })
+      /* @__PURE__ */ jsx10("div", { className: "lds-navbar__divider" }),
+      /* @__PURE__ */ jsxs8("div", { className: "lds-navbar__action", children: [
+        /* @__PURE__ */ jsx10(Icon, { name: "ic-mobile-line" }),
+        /* @__PURE__ */ jsx10("span", { children: "App\u4E0B\u8F7D" })
       ] }),
-      /* @__PURE__ */ jsx8("div", { className: "lds-navbar__divider" }),
-      /* @__PURE__ */ jsxs6("div", { className: "lds-navbar__user", children: [
-        /* @__PURE__ */ jsx8("div", { className: "lds-navbar__avatar lds-navbar__avatar--preset", "aria-hidden": "true", children: "85" }),
-        /* @__PURE__ */ jsxs6("div", { className: "lds-navbar__user-info", children: [
-          /* @__PURE__ */ jsx8("span", { className: "lds-navbar__username", children: "\u5317\u4EAC\u516B\u5341\u4E94\u5EA6..." }),
-          /* @__PURE__ */ jsx8(Icon, { name: "ic-arrow-down-line" })
+      /* @__PURE__ */ jsx10("div", { className: "lds-navbar__divider" }),
+      /* @__PURE__ */ jsxs8("div", { className: "lds-navbar__user", children: [
+        /* @__PURE__ */ jsx10("div", { className: "lds-navbar__avatar lds-navbar__avatar--preset", "aria-hidden": "true", children: "85" }),
+        /* @__PURE__ */ jsxs8("div", { className: "lds-navbar__user-info", children: [
+          /* @__PURE__ */ jsx10("span", { className: "lds-navbar__username", children: "\u5317\u4EAC\u516B\u5341\u4E94\u5EA6..." }),
+          /* @__PURE__ */ jsx10(Icon, { name: "ic-arrow-down-line" })
         ] })
       ] })
     ] })
@@ -342,9 +509,9 @@ var Navbar = React8.forwardRef(
 Navbar.displayName = "Navbar";
 
 // src/components/Menu/Menu.tsx
-import React9, { useState as useState2 } from "react";
-import { clsx as clsx9 } from "clsx";
-import { jsx as jsx9, jsxs as jsxs7 } from "react/jsx-runtime";
+import React11, { useState as useState2 } from "react";
+import { clsx as clsx11 } from "clsx";
+import { jsx as jsx11, jsxs as jsxs9 } from "react/jsx-runtime";
 var DEFAULT_MENU_GROUPS = [
   {
     key: "common",
@@ -429,7 +596,7 @@ var DEFAULT_MENU_GROUPS = [
     ]
   }
 ];
-var Menu = React9.forwardRef(
+var Menu = React11.forwardRef(
   ({
     className,
     activeItemKey,
@@ -442,11 +609,11 @@ var Menu = React9.forwardRef(
       () => Object.fromEntries(DEFAULT_MENU_GROUPS.map((group) => [group.key, Boolean(group.defaultCollapsed)]))
     );
     const effectiveActiveItemKey = activeItemKey != null ? activeItemKey : innerActiveItemKey;
-    return /* @__PURE__ */ jsx9("div", { ref, className: clsx9("lds-menu", className), ...props, children: DEFAULT_MENU_GROUPS.map((group) => {
+    return /* @__PURE__ */ jsx11("div", { ref, className: clsx11("lds-menu", className), ...props, children: DEFAULT_MENU_GROUPS.map((group) => {
       var _a;
       const collapsed = (_a = collapsedMap[group.key]) != null ? _a : false;
-      return /* @__PURE__ */ jsxs7("div", { className: clsx9("lds-menu-group", collapsed && "is-collapsed"), children: [
-        /* @__PURE__ */ jsxs7(
+      return /* @__PURE__ */ jsxs9("div", { className: clsx11("lds-menu-group", collapsed && "is-collapsed"), children: [
+        /* @__PURE__ */ jsxs9(
           "div",
           {
             className: "lds-menu-group__header",
@@ -455,16 +622,16 @@ var Menu = React9.forwardRef(
               [group.key]: !collapsed
             })),
             children: [
-              /* @__PURE__ */ jsx9(Icon, { name: group.icon }),
-              /* @__PURE__ */ jsx9("span", { className: "lds-menu-group__title", children: group.title }),
-              /* @__PURE__ */ jsx9(Icon, { className: "lds-menu-group__action", name: collapsed ? "ic-arrow-down-line" : "ic-arrow-up-line" })
+              /* @__PURE__ */ jsx11(Icon, { name: group.icon }),
+              /* @__PURE__ */ jsx11("span", { className: "lds-menu-group__title", children: group.title }),
+              /* @__PURE__ */ jsx11(Icon, { className: "lds-menu-group__action", name: collapsed ? "ic-arrow-down-line" : "ic-arrow-up-line" })
             ]
           }
         ),
-        /* @__PURE__ */ jsx9("div", { className: "lds-menu-group__content", children: group.items.map((item) => /* @__PURE__ */ jsx9(
+        /* @__PURE__ */ jsx11("div", { className: "lds-menu-group__content", children: group.items.map((item) => /* @__PURE__ */ jsx11(
           "div",
           {
-            className: clsx9(
+            className: clsx11(
               "lds-menu-item",
               item.key === effectiveActiveItemKey && "is-active"
             ),
@@ -485,28 +652,28 @@ var Menu = React9.forwardRef(
 Menu.displayName = "Menu";
 
 // src/components/PageHeader/PageHeader.tsx
-import React10 from "react";
-import { clsx as clsx10 } from "clsx";
-import { jsx as jsx10, jsxs as jsxs8 } from "react/jsx-runtime";
-var PageHeader = React10.forwardRef(
+import React12 from "react";
+import { clsx as clsx12 } from "clsx";
+import { jsx as jsx12, jsxs as jsxs10 } from "react/jsx-runtime";
+var PageHeader = React12.forwardRef(
   ({ className, title, tabs, ...props }, ref) => {
-    return /* @__PURE__ */ jsxs8("div", { ref, className: clsx10("lds-page-header", className), ...props, children: [
-      /* @__PURE__ */ jsx10("h1", { className: "lds-page-header__title", children: title }),
-      tabs && /* @__PURE__ */ jsx10("div", { className: "lds-page-header__tabs", children: tabs })
+    return /* @__PURE__ */ jsxs10("div", { ref, className: clsx12("lds-page-header", className), ...props, children: [
+      /* @__PURE__ */ jsx12("h1", { className: "lds-page-header__title", children: title }),
+      tabs && /* @__PURE__ */ jsx12("div", { className: "lds-page-header__tabs", children: tabs })
     ] });
   }
 );
 PageHeader.displayName = "PageHeader";
 
 // src/components/Table/Table.tsx
-import React12 from "react";
-import { clsx as clsx12 } from "clsx";
+import React14 from "react";
+import { clsx as clsx14 } from "clsx";
 
 // src/components/Tag/Tag.tsx
-import React11 from "react";
-import { clsx as clsx11 } from "clsx";
-import { jsx as jsx11, jsxs as jsxs9 } from "react/jsx-runtime";
-var Tag = React11.forwardRef(
+import React13 from "react";
+import { clsx as clsx13 } from "clsx";
+import { jsx as jsx13, jsxs as jsxs11 } from "react/jsx-runtime";
+var Tag = React13.forwardRef(
   ({
     className,
     size = "default-size",
@@ -518,11 +685,11 @@ var Tag = React11.forwardRef(
     ...props
   }, ref) => {
     const isInteractive = typeof props.onClick === "function";
-    return /* @__PURE__ */ jsxs9(
+    return /* @__PURE__ */ jsxs11(
       "span",
       {
         ref,
-        className: clsx11(
+        className: clsx13(
           "lds-tag",
           `lds-tag--${size}`,
           `lds-tag--${variant}`,
@@ -534,9 +701,9 @@ var Tag = React11.forwardRef(
         ),
         ...props,
         children: [
-          leftIcon ? /* @__PURE__ */ jsx11("span", { className: "lds-tag__icon lds-tag__icon--left", children: leftIcon }) : null,
-          children ? /* @__PURE__ */ jsx11("span", { className: "lds-tag__content", children }) : null,
-          rightIcon ? /* @__PURE__ */ jsx11("span", { className: "lds-tag__icon lds-tag__icon--right", children: rightIcon }) : null
+          leftIcon ? /* @__PURE__ */ jsx13("span", { className: "lds-tag__icon lds-tag__icon--left", children: leftIcon }) : null,
+          children ? /* @__PURE__ */ jsx13("span", { className: "lds-tag__content", children }) : null,
+          rightIcon ? /* @__PURE__ */ jsx13("span", { className: "lds-tag__icon lds-tag__icon--right", children: rightIcon }) : null
         ]
       }
     );
@@ -545,41 +712,41 @@ var Tag = React11.forwardRef(
 Tag.displayName = "Tag";
 
 // src/components/Table/Table.tsx
-import { jsx as jsx12, jsxs as jsxs10 } from "react/jsx-runtime";
-var TableWrapper = React12.forwardRef(
-  ({ className, ...props }, ref) => /* @__PURE__ */ jsx12("div", { ref, className: clsx12("lds-table-wrapper", className), ...props })
+import { jsx as jsx14, jsxs as jsxs12 } from "react/jsx-runtime";
+var TableWrapper = React14.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ jsx14("div", { ref, className: clsx14("lds-table-wrapper", className), ...props })
 );
 TableWrapper.displayName = "TableWrapper";
-var Table = React12.forwardRef(
-  ({ className, ...props }, ref) => /* @__PURE__ */ jsx12("table", { ref, className: clsx12("lds-table", className), ...props })
+var Table = React14.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ jsx14("table", { ref, className: clsx14("lds-table", className), ...props })
 );
 Table.displayName = "Table";
-var Thead = React12.forwardRef(
-  ({ className, ...props }, ref) => /* @__PURE__ */ jsx12("thead", { ref, className: clsx12("lds-table__thead", className), ...props })
+var Thead = React14.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ jsx14("thead", { ref, className: clsx14("lds-table__thead", className), ...props })
 );
 Thead.displayName = "Thead";
-var Tbody = React12.forwardRef(
-  (props, ref) => /* @__PURE__ */ jsx12("tbody", { ref, ...props })
+var Tbody = React14.forwardRef(
+  (props, ref) => /* @__PURE__ */ jsx14("tbody", { ref, ...props })
 );
 Tbody.displayName = "Tbody";
-var Tr = React12.forwardRef(
-  ({ className, ...props }, ref) => /* @__PURE__ */ jsx12("tr", { ref, className: clsx12("lds-table__row", className), ...props })
+var Tr = React14.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ jsx14("tr", { ref, className: clsx14("lds-table__row", className), ...props })
 );
 Tr.displayName = "Tr";
-var Th = React12.forwardRef(
-  ({ className, ...props }, ref) => /* @__PURE__ */ jsx12("th", { ref, className: clsx12("lds-table__th", className), ...props })
+var Th = React14.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ jsx14("th", { ref, className: clsx14("lds-table__th", className), ...props })
 );
 Th.displayName = "Th";
-var Td = React12.forwardRef(
-  ({ className, ...props }, ref) => /* @__PURE__ */ jsx12("td", { ref, className: clsx12("lds-table__td", className), ...props })
+var Td = React14.forwardRef(
+  ({ className, ...props }, ref) => /* @__PURE__ */ jsx14("td", { ref, className: clsx14("lds-table__td", className), ...props })
 );
 Td.displayName = "Td";
-var TableCellProduct = ({ img, title, tag, tagVariant = "default", id }) => /* @__PURE__ */ jsxs10("div", { className: "lds-table-cell--product", children: [
-  /* @__PURE__ */ jsx12("img", { src: img, alt: "\u5546\u54C1\u56FE", className: "lds-table-cell__product-img" }),
-  /* @__PURE__ */ jsxs10("div", { className: "lds-table-cell__product-info", children: [
-    /* @__PURE__ */ jsxs10("div", { className: "lds-table-cell__product-title-wrap", children: [
-      /* @__PURE__ */ jsx12("h4", { className: "lds-table-cell__product-title", children: title }),
-      tag && /* @__PURE__ */ jsx12(
+var TableCellProduct = ({ img, title, tag, tagVariant = "default", id }) => /* @__PURE__ */ jsxs12("div", { className: "lds-table-cell--product", children: [
+  /* @__PURE__ */ jsx14("img", { src: img, alt: "\u5546\u54C1\u56FE", className: "lds-table-cell__product-img" }),
+  /* @__PURE__ */ jsxs12("div", { className: "lds-table-cell__product-info", children: [
+    /* @__PURE__ */ jsxs12("div", { className: "lds-table-cell__product-title-wrap", children: [
+      /* @__PURE__ */ jsx14("h4", { className: "lds-table-cell__product-title", children: title }),
+      tag && /* @__PURE__ */ jsx14(
         Tag,
         {
           size: "small",
@@ -589,23 +756,23 @@ var TableCellProduct = ({ img, title, tag, tagVariant = "default", id }) => /* @
         }
       )
     ] }),
-    /* @__PURE__ */ jsx12("div", { className: "lds-table-cell__product-meta", children: /* @__PURE__ */ jsxs10("span", { className: "lds-table-cell__product-id", children: [
+    /* @__PURE__ */ jsx14("div", { className: "lds-table-cell__product-meta", children: /* @__PURE__ */ jsxs12("span", { className: "lds-table-cell__product-id", children: [
       "\u5546\u54C1ID\uFF1A",
       id
     ] }) })
   ] })
 ] });
-var TableCellAmount = ({ children }) => /* @__PURE__ */ jsx12("div", { className: "lds-table-cell--amount", children });
-var TableCellOperation = ({ children }) => /* @__PURE__ */ jsx12("div", { className: "lds-table-cell--operation", children });
-var TableCellAction = React12.forwardRef(
-  ({ className, danger, ...props }, ref) => /* @__PURE__ */ jsx12("a", { ref, className: clsx12("lds-table-cell__action", danger && "is-danger", className), ...props })
+var TableCellAmount = ({ children }) => /* @__PURE__ */ jsx14("div", { className: "lds-table-cell--amount", children });
+var TableCellOperation = ({ children }) => /* @__PURE__ */ jsx14("div", { className: "lds-table-cell--operation", children });
+var TableCellAction = React14.forwardRef(
+  ({ className, danger, ...props }, ref) => /* @__PURE__ */ jsx14("a", { ref, className: clsx14("lds-table-cell__action", danger && "is-danger", className), ...props })
 );
 TableCellAction.displayName = "TableCellAction";
 
 // src/components/Checkbox/Checkbox.tsx
 import { forwardRef, useState as useState3 } from "react";
-import { clsx as clsx13 } from "clsx";
-import { jsx as jsx13, jsxs as jsxs11 } from "react/jsx-runtime";
+import { clsx as clsx15 } from "clsx";
+import { jsx as jsx15, jsxs as jsxs13 } from "react/jsx-runtime";
 var CHECKED_ICON_PATHS = {
   large: {
     viewBox: "0 0 22 22",
@@ -660,10 +827,10 @@ var Checkbox = forwardRef(
       }
       onChange == null ? void 0 : onChange(e);
     };
-    return /* @__PURE__ */ jsxs11(
+    return /* @__PURE__ */ jsxs13(
       "label",
       {
-        className: clsx13(
+        className: clsx15(
           "lds-checkbox",
           `lds-checkbox--${size}`,
           {
@@ -674,8 +841,8 @@ var Checkbox = forwardRef(
           className
         ),
         children: [
-          /* @__PURE__ */ jsxs11("span", { className: "lds-checkbox__input-wrapper", children: [
-            /* @__PURE__ */ jsx13(
+          /* @__PURE__ */ jsxs13("span", { className: "lds-checkbox__input-wrapper", children: [
+            /* @__PURE__ */ jsx15(
               "input",
               {
                 type: "checkbox",
@@ -689,9 +856,9 @@ var Checkbox = forwardRef(
                 ...props
               }
             ),
-            /* @__PURE__ */ jsx13("span", { className: "lds-checkbox__inner", children: /* @__PURE__ */ jsx13("span", { className: "lds-checkbox__icon", children: /* @__PURE__ */ jsx13("svg", { viewBox: iconConfig.viewBox, fill: "none", xmlns: "http://www.w3.org/2000/svg", "aria-hidden": "true", children: /* @__PURE__ */ jsx13("path", { d: iconConfig.path, fill: "currentColor" }) }) }) })
+            /* @__PURE__ */ jsx15("span", { className: "lds-checkbox__inner", children: /* @__PURE__ */ jsx15("span", { className: "lds-checkbox__icon", children: /* @__PURE__ */ jsx15("svg", { viewBox: iconConfig.viewBox, fill: "none", xmlns: "http://www.w3.org/2000/svg", "aria-hidden": "true", children: /* @__PURE__ */ jsx15("path", { d: iconConfig.path, fill: "currentColor" }) }) }) })
           ] }),
-          showLabel && label ? /* @__PURE__ */ jsx13("span", { className: "lds-checkbox__label", children: label }) : null
+          showLabel && label ? /* @__PURE__ */ jsx15("span", { className: "lds-checkbox__label", children: label }) : null
         ]
       }
     );
@@ -700,9 +867,9 @@ var Checkbox = forwardRef(
 Checkbox.displayName = "Checkbox";
 
 // src/components/Pagination/Pagination.tsx
-import React14, { useEffect, useMemo, useState as useState4 } from "react";
-import { clsx as clsx14 } from "clsx";
-import { jsx as jsx14, jsxs as jsxs12 } from "react/jsx-runtime";
+import React16, { useEffect, useMemo, useState as useState4 } from "react";
+import { clsx as clsx16 } from "clsx";
+import { jsx as jsx16, jsxs as jsxs14 } from "react/jsx-runtime";
 function clampInt(n, min, max) {
   if (!Number.isFinite(n)) return min;
   const x = Math.trunc(n);
@@ -735,7 +902,7 @@ function getPageItems(current, totalPages, siblingCount) {
   const middleRange = range(leftSiblingIndex, rightSiblingIndex);
   return [firstPageIndex, "ellipsis", ...middleRange, "ellipsis", lastPageIndex];
 }
-var Pagination = React14.forwardRef(
+var Pagination = React16.forwardRef(
   ({
     className,
     size = "default-size",
@@ -809,17 +976,17 @@ var Pagination = React14.forwardRef(
     if (hideOnSinglePage && totalPages <= 1) return null;
     const canPrev = effectiveCurrent > 1;
     const canNext = effectiveCurrent < totalPages;
-    return /* @__PURE__ */ jsxs12(
+    return /* @__PURE__ */ jsxs14(
       "nav",
       {
         ref,
-        className: clsx14("lds-pagination", `lds-pagination--${size}`, className),
+        className: clsx16("lds-pagination", `lds-pagination--${size}`, className),
         "aria-label": "Pagination",
         ...props,
         children: [
-          showTotal ? /* @__PURE__ */ jsx14("span", { className: "lds-pagination__total", children: showTotal(total, pageRange) }) : null,
-          /* @__PURE__ */ jsxs12("div", { className: "lds-pagination__pages", children: [
-            /* @__PURE__ */ jsx14(
+          showTotal ? /* @__PURE__ */ jsx16("span", { className: "lds-pagination__total", children: showTotal(total, pageRange) }) : null,
+          /* @__PURE__ */ jsxs14("div", { className: "lds-pagination__pages", children: [
+            /* @__PURE__ */ jsx16(
               "button",
               {
                 type: "button",
@@ -827,20 +994,20 @@ var Pagination = React14.forwardRef(
                 onClick: () => setPage(effectiveCurrent - 1),
                 disabled: disabled || !canPrev,
                 "aria-label": "Previous Page",
-                children: /* @__PURE__ */ jsx14(Icon, { className: "lds-pagination__icon", name: "ic-arrow-left-line", "aria-hidden": "true" })
+                children: /* @__PURE__ */ jsx16(Icon, { className: "lds-pagination__icon", name: "ic-arrow-left-line", "aria-hidden": "true" })
               }
             ),
             items.map((it, idx) => {
               if (it === "ellipsis") {
-                return /* @__PURE__ */ jsx14("span", { className: "lds-pagination__ellipsis", "aria-hidden": "true", children: "..." }, `ellipsis-${idx}`);
+                return /* @__PURE__ */ jsx16("span", { className: "lds-pagination__ellipsis", "aria-hidden": "true", children: "..." }, `ellipsis-${idx}`);
               }
               const page = it;
               const isActive = page === effectiveCurrent;
-              return /* @__PURE__ */ jsx14(
+              return /* @__PURE__ */ jsx16(
                 "button",
                 {
                   type: "button",
-                  className: clsx14("lds-pagination__item", isActive && "is-active"),
+                  className: clsx16("lds-pagination__item", isActive && "is-active"),
                   onClick: () => setPage(page),
                   disabled,
                   "aria-current": isActive ? "page" : void 0,
@@ -850,7 +1017,7 @@ var Pagination = React14.forwardRef(
                 page
               );
             }),
-            /* @__PURE__ */ jsx14(
+            /* @__PURE__ */ jsx16(
               "button",
               {
                 type: "button",
@@ -858,12 +1025,12 @@ var Pagination = React14.forwardRef(
                 onClick: () => setPage(effectiveCurrent + 1),
                 disabled: disabled || !canNext,
                 "aria-label": "Next Page",
-                children: /* @__PURE__ */ jsx14(Icon, { className: "lds-pagination__icon", name: "ic-arrow-right-line", "aria-hidden": "true" })
+                children: /* @__PURE__ */ jsx16(Icon, { className: "lds-pagination__icon", name: "ic-arrow-right-line", "aria-hidden": "true" })
               }
             )
           ] }),
-          showSizeChanger ? /* @__PURE__ */ jsxs12("div", { className: "lds-pagination__size-changer", children: [
-            /* @__PURE__ */ jsx14(
+          showSizeChanger ? /* @__PURE__ */ jsxs14("div", { className: "lds-pagination__size-changer", children: [
+            /* @__PURE__ */ jsx16(
               "select",
               {
                 className: "lds-pagination__size-select",
@@ -871,21 +1038,21 @@ var Pagination = React14.forwardRef(
                 onChange: (e) => setSize(Number(e.target.value)),
                 disabled,
                 "aria-label": "Page Size",
-                children: pageSizeOptions.map((n) => /* @__PURE__ */ jsxs12("option", { value: n, children: [
+                children: pageSizeOptions.map((n) => /* @__PURE__ */ jsxs14("option", { value: n, children: [
                   n,
                   "\u6761/\u9875"
                 ] }, n))
               }
             ),
-            /* @__PURE__ */ jsxs12("span", { className: "lds-pagination__size-label", children: [
+            /* @__PURE__ */ jsxs14("span", { className: "lds-pagination__size-label", children: [
               effectivePageSize,
               "\u6761/\u9875"
             ] }),
-            /* @__PURE__ */ jsx14(Icon, { className: "lds-pagination__size-icon", name: "ic-arrow-down-line", "aria-hidden": "true" })
+            /* @__PURE__ */ jsx16(Icon, { className: "lds-pagination__size-icon", name: "ic-arrow-down-line", "aria-hidden": "true" })
           ] }) : null,
-          showQuickJumper ? /* @__PURE__ */ jsxs12("div", { className: "lds-pagination__quick-jumper", children: [
-            /* @__PURE__ */ jsx14("span", { className: "lds-pagination__quick-text", children: "\u8DF3\u81F3" }),
-            /* @__PURE__ */ jsx14("span", { className: "lds-pagination__quick-input", children: /* @__PURE__ */ jsx14(
+          showQuickJumper ? /* @__PURE__ */ jsxs14("div", { className: "lds-pagination__quick-jumper", children: [
+            /* @__PURE__ */ jsx16("span", { className: "lds-pagination__quick-text", children: "\u8DF3\u81F3" }),
+            /* @__PURE__ */ jsx16("span", { className: "lds-pagination__quick-input", children: /* @__PURE__ */ jsx16(
               Input,
               {
                 size: "small",
@@ -902,7 +1069,7 @@ var Pagination = React14.forwardRef(
                 "aria-label": "Jump To Page"
               }
             ) }),
-            /* @__PURE__ */ jsx14("span", { className: "lds-pagination__quick-text", children: "\u9875" })
+            /* @__PURE__ */ jsx16("span", { className: "lds-pagination__quick-text", children: "\u9875" })
           ] }) : null
         ]
       }
@@ -912,12 +1079,12 @@ var Pagination = React14.forwardRef(
 Pagination.displayName = "Pagination";
 
 // src/components/Drawer/Drawer.tsx
-import React15, { useEffect as useEffect2, useId, useMemo as useMemo2, useState as useState5 } from "react";
+import React17, { useEffect as useEffect2, useId, useMemo as useMemo2, useState as useState5 } from "react";
 import { createPortal } from "react-dom";
-import { clsx as clsx15 } from "clsx";
-import { jsx as jsx15, jsxs as jsxs13 } from "react/jsx-runtime";
+import { clsx as clsx17 } from "clsx";
+import { jsx as jsx17, jsxs as jsxs15 } from "react/jsx-runtime";
 var DRAWER_ANIMATION_MS = 280;
-var Drawer = React15.forwardRef(
+var Drawer = React17.forwardRef(
   ({
     className,
     open = false,
@@ -1001,46 +1168,46 @@ var Drawer = React15.forwardRef(
     };
     const shouldShowFooter = showFooter != null ? showFooter : footer !== void 0;
     return createPortal(
-      /* @__PURE__ */ jsxs13(
+      /* @__PURE__ */ jsxs15(
         "div",
         {
-          className: clsx15("lds-drawer-root", visible && "is-open"),
+          className: clsx17("lds-drawer-root", visible && "is-open"),
           onClick: (event) => {
             if (event.target === event.currentTarget && maskClosable) {
               onClose == null ? void 0 : onClose();
             }
           },
           children: [
-            /* @__PURE__ */ jsx15("div", { className: "lds-drawer-root__mask", "aria-hidden": "true" }),
-            /* @__PURE__ */ jsxs13(
+            /* @__PURE__ */ jsx17("div", { className: "lds-drawer-root__mask", "aria-hidden": "true" }),
+            /* @__PURE__ */ jsxs15(
               "div",
               {
                 ref,
-                className: clsx15("lds-drawer", `lds-drawer--${size}`, className),
+                className: clsx17("lds-drawer", `lds-drawer--${size}`, className),
                 role: "dialog",
                 "aria-modal": "true",
                 "aria-labelledby": title ? titleId : void 0,
                 style: mergedStyle,
                 ...props,
                 children: [
-                  /* @__PURE__ */ jsxs13("div", { className: "lds-drawer__header", children: [
-                    /* @__PURE__ */ jsxs13("div", { className: "lds-drawer__header-main", children: [
-                      title ? /* @__PURE__ */ jsx15("h2", { id: titleId, className: "lds-drawer__title", children: title }) : null,
-                      extra ? /* @__PURE__ */ jsx15("div", { className: "lds-drawer__extra", children: extra }) : null
+                  /* @__PURE__ */ jsxs15("div", { className: "lds-drawer__header", children: [
+                    /* @__PURE__ */ jsxs15("div", { className: "lds-drawer__header-main", children: [
+                      title ? /* @__PURE__ */ jsx17("h2", { id: titleId, className: "lds-drawer__title", children: title }) : null,
+                      extra ? /* @__PURE__ */ jsx17("div", { className: "lds-drawer__extra", children: extra }) : null
                     ] }),
-                    showCloseButton ? /* @__PURE__ */ jsx15(
+                    showCloseButton ? /* @__PURE__ */ jsx17(
                       "button",
                       {
                         type: "button",
                         className: "lds-drawer__close",
                         onClick: () => onClose == null ? void 0 : onClose(),
                         "aria-label": closeLabel,
-                        children: /* @__PURE__ */ jsx15(Icon, { name: "ic-error-line", "aria-hidden": "true" })
+                        children: /* @__PURE__ */ jsx17(Icon, { name: "ic-error-line", "aria-hidden": "true" })
                       }
                     ) : null
                   ] }),
-                  /* @__PURE__ */ jsx15("div", { className: clsx15("lds-drawer__body", bodyClassName), children }),
-                  shouldShowFooter ? /* @__PURE__ */ jsx15("div", { className: "lds-drawer__footer", children: footer }) : null
+                  /* @__PURE__ */ jsx17("div", { className: clsx17("lds-drawer__body", bodyClassName), children }),
+                  shouldShowFooter ? /* @__PURE__ */ jsx17("div", { className: "lds-drawer__footer", children: footer }) : null
                 ]
               }
             )
@@ -1053,90 +1220,10 @@ var Drawer = React15.forwardRef(
 );
 Drawer.displayName = "Drawer";
 
-// src/components/Form/Form.tsx
-import React16 from "react";
-import { clsx as clsx16 } from "clsx";
-import { Fragment as Fragment2, jsx as jsx16, jsxs as jsxs14 } from "react/jsx-runtime";
-var DEFAULT_LABEL_WIDTH = "90px";
-function toCssSize(value) {
-  if (value === void 0) {
-    return void 0;
-  }
-  return typeof value === "number" ? `${value}px` : value;
-}
-var Form = React16.forwardRef(
-  ({ className, style, labelWidth = 90, ...props }, ref) => {
-    var _a;
-    const mergedStyle = {
-      ...style,
-      ["--lds-form-label-width"]: (_a = toCssSize(labelWidth)) != null ? _a : DEFAULT_LABEL_WIDTH
-    };
-    return /* @__PURE__ */ jsx16("div", { ref, className: clsx16("lds-form", className), style: mergedStyle, ...props });
-  }
-);
-Form.displayName = "Form";
-var FormItem = React16.forwardRef(
-  ({
-    className,
-    label,
-    htmlFor,
-    required = false,
-    tooltip,
-    onTooltipClick,
-    tooltipAriaLabel = "\u67E5\u770B\u5B57\u6BB5\u8BF4\u660E",
-    description,
-    error,
-    labelWidth,
-    children,
-    style,
-    ...props
-  }, ref) => {
-    const message = error != null ? error : description;
-    const hasError = error !== void 0 && error !== null && error !== false;
-    const shouldRenderTooltip = Boolean(tooltip) || Boolean(onTooltipClick);
-    const mergedStyle = {
-      ...style,
-      ...labelWidth !== void 0 ? {
-        ["--lds-form-label-width"]: toCssSize(labelWidth)
-      } : null
-    };
-    const labelContent = /* @__PURE__ */ jsxs14(Fragment2, { children: [
-      /* @__PURE__ */ jsx16("span", { className: "lds-form-item__label-text", children: label }),
-      shouldRenderTooltip ? /* @__PURE__ */ jsx16(
-        "button",
-        {
-          type: "button",
-          className: "lds-form-item__tooltip",
-          title: tooltip,
-          "aria-label": tooltipAriaLabel,
-          onClick: onTooltipClick,
-          children: /* @__PURE__ */ jsx16(Icon, { name: "ic-help-line", "aria-hidden": "true" })
-        }
-      ) : null,
-      required ? /* @__PURE__ */ jsx16("span", { className: "lds-form-item__required", "aria-hidden": "true", children: /* @__PURE__ */ jsx16(Icon, { name: "ic-required-line" }) }) : null
-    ] });
-    return /* @__PURE__ */ jsxs14("div", { ref, className: clsx16("lds-form-item", className), style: mergedStyle, ...props, children: [
-      /* @__PURE__ */ jsx16("div", { className: "lds-form-item__label", children: htmlFor ? /* @__PURE__ */ jsx16("label", { className: "lds-form-item__label-inner", htmlFor, children: labelContent }) : /* @__PURE__ */ jsx16("div", { className: "lds-form-item__label-inner", children: labelContent }) }),
-      /* @__PURE__ */ jsxs14("div", { className: "lds-form-item__main", children: [
-        /* @__PURE__ */ jsx16("div", { className: "lds-form-item__control", children }),
-        message ? /* @__PURE__ */ jsx16(
-          "div",
-          {
-            className: clsx16("lds-form-item__message", hasError && "is-error"),
-            role: hasError ? "alert" : void 0,
-            children: message
-          }
-        ) : null
-      ] })
-    ] });
-  }
-);
-FormItem.displayName = "FormItem";
-
 // src/components/Upload/Upload.tsx
-import React17 from "react";
-import { clsx as clsx17 } from "clsx";
-import { jsx as jsx17, jsxs as jsxs15 } from "react/jsx-runtime";
+import React18 from "react";
+import { clsx as clsx18 } from "clsx";
+import { jsx as jsx18, jsxs as jsxs16 } from "react/jsx-runtime";
 var DEFAULT_TRIGGER_TEXT = "\u4E0A\u4F20";
 function readFileAsDataUrl(file) {
   return new Promise((resolve, reject) => {
@@ -1149,7 +1236,7 @@ function readFileAsDataUrl(file) {
     reader.readAsDataURL(file);
   });
 }
-var Upload = React17.forwardRef(
+var Upload = React18.forwardRef(
   ({
     className,
     value,
@@ -1161,6 +1248,7 @@ var Upload = React17.forwardRef(
     maxCount = 1,
     triggerText = DEFAULT_TRIGGER_TEXT,
     visualState = "normal",
+    error,
     inputId,
     name,
     removeAriaLabel = "\u5220\u9664\u56FE\u7247",
@@ -1169,13 +1257,16 @@ var Upload = React17.forwardRef(
     ...props
   }, ref) => {
     var _a;
-    const inputRef = React17.useRef(null);
+    const { hasError } = useFormItemStatus();
+    const inputRef = React18.useRef(null);
     const isControlled = value !== void 0;
-    const [innerValue, setInnerValue] = React17.useState(defaultValue);
+    const [innerValue, setInnerValue] = React18.useState(defaultValue);
     const mergedValue = (_a = isControlled ? value : innerValue) != null ? _a : [];
     const visibleItems = mergedValue.slice(0, maxCount);
     const shouldRenderTrigger = visibleItems.length < maxCount;
-    const updateValue = React17.useCallback(
+    const mergedError = error != null ? error : hasError;
+    const mergedVisualState = mergedError ? "error" : visualState;
+    const updateValue = React18.useCallback(
       (nextValue) => {
         const normalized = nextValue.slice(0, maxCount);
         if (!isControlled) {
@@ -1185,7 +1276,7 @@ var Upload = React17.forwardRef(
       },
       [isControlled, maxCount, onChange]
     );
-    const handleSelectFiles = React17.useCallback(
+    const handleSelectFiles = React18.useCallback(
       async (event) => {
         var _a2;
         const files = Array.from((_a2 = event.target.files) != null ? _a2 : []);
@@ -1210,21 +1301,21 @@ var Upload = React17.forwardRef(
       },
       [maxCount, updateValue, visibleItems]
     );
-    const handleRemove = React17.useCallback(
+    const handleRemove = React18.useCallback(
       (index) => {
         const nextItems = visibleItems.filter((_, currentIndex) => currentIndex !== index);
         updateValue(nextItems);
       },
       [updateValue, visibleItems]
     );
-    return /* @__PURE__ */ jsxs15(
+    return /* @__PURE__ */ jsxs16(
       "div",
       {
         ref,
-        className: clsx17("lds-upload", disabled && "is-disabled", className),
+        className: clsx18("lds-upload", disabled && "is-disabled", className),
         ...props,
         children: [
-          /* @__PURE__ */ jsx17(
+          /* @__PURE__ */ jsx18(
             "input",
             {
               ref: inputRef,
@@ -1238,15 +1329,15 @@ var Upload = React17.forwardRef(
               onChange: handleSelectFiles
             }
           ),
-          /* @__PURE__ */ jsxs15("div", { className: "lds-upload__list", children: [
+          /* @__PURE__ */ jsxs16("div", { className: "lds-upload__list", children: [
             visibleItems.map((item, index) => {
               var _a2, _b, _c;
-              return /* @__PURE__ */ jsxs15(
+              return /* @__PURE__ */ jsxs16(
                 "div",
                 {
                   className: "lds-upload__item",
                   children: [
-                    /* @__PURE__ */ jsx17(
+                    /* @__PURE__ */ jsx18(
                       "img",
                       {
                         className: "lds-upload__image",
@@ -1254,14 +1345,14 @@ var Upload = React17.forwardRef(
                         alt: (_c = item.name) != null ? _c : `\u5DF2\u4E0A\u4F20\u56FE\u7247 ${index + 1}`
                       }
                     ),
-                    !disabled ? /* @__PURE__ */ jsx17(
+                    !disabled ? /* @__PURE__ */ jsx18(
                       "button",
                       {
                         type: "button",
                         className: "lds-upload__remove",
                         "aria-label": removeAriaLabel,
                         onClick: () => handleRemove(index),
-                        children: /* @__PURE__ */ jsx17(Icon, { name: "ic-error-line", "aria-hidden": "true" })
+                        children: /* @__PURE__ */ jsx18(Icon, { name: "ic-error-line", "aria-hidden": "true" })
                       }
                     ) : null
                   ]
@@ -1269,15 +1360,15 @@ var Upload = React17.forwardRef(
                 (_b = (_a2 = item.id) != null ? _a2 : item.url) != null ? _b : `${index}`
               );
             }),
-            shouldRenderTrigger ? /* @__PURE__ */ jsxs15(
+            shouldRenderTrigger ? /* @__PURE__ */ jsxs16(
               "button",
               {
                 type: "button",
-                className: clsx17(
+                className: clsx18(
                   "lds-upload__trigger",
-                  visualState === "hover" && "is-hover",
-                  visualState === "active" && "is-active",
-                  visualState === "error" && "is-error"
+                  mergedVisualState === "hover" && "is-hover",
+                  mergedVisualState === "active" && "is-active",
+                  mergedVisualState === "error" && "is-error"
                 ),
                 disabled,
                 onClick: () => {
@@ -1286,13 +1377,13 @@ var Upload = React17.forwardRef(
                 },
                 "aria-label": triggerAriaLabel,
                 children: [
-                  /* @__PURE__ */ jsx17(Icon, { name: "ic-add-line", "aria-hidden": "true" }),
-                  /* @__PURE__ */ jsx17("span", { className: "lds-upload__text", children: triggerText })
+                  /* @__PURE__ */ jsx18(Icon, { name: "ic-add-line", "aria-hidden": "true" }),
+                  /* @__PURE__ */ jsx18("span", { className: "lds-upload__text", children: triggerText })
                 ]
               }
             ) : null
           ] }),
-          children ? /* @__PURE__ */ jsx17("div", { className: "lds-upload__extra", children }) : null
+          children ? /* @__PURE__ */ jsx18("div", { className: "lds-upload__extra", children }) : null
         ]
       }
     );
@@ -1325,8 +1416,10 @@ export {
   Tag,
   Tbody,
   Td,
+  Textarea,
   Th,
   Thead,
   Tr,
-  Upload
+  Upload,
+  useFormItemStatus
 };

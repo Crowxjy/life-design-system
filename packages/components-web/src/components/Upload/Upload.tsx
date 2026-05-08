@@ -1,6 +1,7 @@
 import React from 'react';
 import { clsx } from 'clsx';
 import { Icon } from '../Icon/Icon';
+import { useFormItemStatus } from '../Form/Form';
 
 export interface UploadFileItem {
   id?: string;
@@ -55,6 +56,10 @@ export interface UploadProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
    */
   visualState?: UploadVisualState;
   /**
+   * 是否展示错误态，未显式传入时会自动继承所在 FormItem 的错误状态
+   */
+  error?: boolean;
+  /**
    * 输入框 id，方便与表单 label 关联
    */
   inputId?: string;
@@ -98,6 +103,7 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
       maxCount = 1,
       triggerText = DEFAULT_TRIGGER_TEXT,
       visualState = 'normal',
+      error,
       inputId,
       name,
       removeAriaLabel = '删除图片',
@@ -107,12 +113,15 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
     },
     ref
   ) => {
+    const { hasError } = useFormItemStatus();
     const inputRef = React.useRef<HTMLInputElement>(null);
     const isControlled = value !== undefined;
     const [innerValue, setInnerValue] = React.useState<UploadFileItem[]>(defaultValue);
     const mergedValue = (isControlled ? value : innerValue) ?? [];
     const visibleItems = mergedValue.slice(0, maxCount);
     const shouldRenderTrigger = visibleItems.length < maxCount;
+    const mergedError = error ?? hasError;
+    const mergedVisualState = mergedError ? 'error' : visualState;
 
     const updateValue = React.useCallback(
       (nextValue: UploadFileItem[]) => {
@@ -211,9 +220,9 @@ export const Upload = React.forwardRef<HTMLDivElement, UploadProps>(
               type="button"
               className={clsx(
                 'lds-upload__trigger',
-                visualState === 'hover' && 'is-hover',
-                visualState === 'active' && 'is-active',
-                visualState === 'error' && 'is-error'
+                mergedVisualState === 'hover' && 'is-hover',
+                mergedVisualState === 'active' && 'is-active',
+                mergedVisualState === 'error' && 'is-error'
               )}
               disabled={disabled}
               onClick={() => inputRef.current?.click()}

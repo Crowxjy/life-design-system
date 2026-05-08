@@ -43,8 +43,19 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, '
     onClear?: () => void;
     wrapperClassName?: string;
     isFocused?: boolean;
+    error?: boolean;
 }
 declare const Input: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<HTMLInputElement>>;
+
+interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'size'> {
+    size?: 'large' | 'default-size';
+    wrapperClassName?: string;
+    isFocused?: boolean;
+    error?: boolean;
+    showCount?: boolean;
+    showResizeHandle?: boolean;
+}
+declare const Textarea: React.ForwardRefExoticComponent<TextareaProps & React.RefAttributes<HTMLTextAreaElement>>;
 
 type FilterType = 'input' | 'select' | 'date' | 'time';
 type FilterSize = 'default-size' | 'small';
@@ -395,6 +406,9 @@ interface DrawerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'
 }
 declare const Drawer: React.ForwardRefExoticComponent<DrawerProps & React.RefAttributes<HTMLDivElement>>;
 
+declare function useFormItemStatus(): {
+    hasError: boolean;
+};
 interface FormProps extends React.HTMLAttributes<HTMLDivElement> {
     /**
      * 统一设置表单项左侧标题宽度
@@ -496,6 +510,10 @@ interface UploadProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChan
      */
     visualState?: UploadVisualState;
     /**
+     * 是否展示错误态，未显式传入时会自动继承所在 FormItem 的错误状态
+     */
+    error?: boolean;
+    /**
      * 输入框 id，方便与表单 label 关联
      */
     inputId?: string;
@@ -516,4 +534,4 @@ interface UploadProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChan
 }
 declare const Upload: React.ForwardRefExoticComponent<UploadProps & React.RefAttributes<HTMLDivElement>>;
 
-export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Capsule, type CapsuleProps, Checkbox, type CheckboxProps, Drawer, type DrawerProps, type DrawerSize, Filter, type FilterButtonProps, FilterGroup, type FilterGroupProps, type FilterInputProps, type FilterProps, type FilterSize, type FilterType, Form, FormItem, type FormItemProps, type FormProps, Icon, type IconProps, Input, type InputProps, Menu, type MenuProps, Navbar, PageHeader, type PageHeaderProps, Pagination, type PaginationProps, type PaginationSize, Tab, type TabProps, Table, TableCellAction, type TableCellActionProps, TableCellAmount, TableCellOperation, TableCellProduct, TableWrapper, Tabs, type TabsProps, Tag, type TagColor, type TagProps, type TagSize, type TagVariant, Tbody, Td, Th, Thead, Tr, Upload, type UploadFileItem, type UploadProps, type UploadVisualState };
+export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Capsule, type CapsuleProps, Checkbox, type CheckboxProps, Drawer, type DrawerProps, type DrawerSize, Filter, type FilterButtonProps, FilterGroup, type FilterGroupProps, type FilterInputProps, type FilterProps, type FilterSize, type FilterType, Form, FormItem, type FormItemProps, type FormProps, Icon, type IconProps, Input, type InputProps, Menu, type MenuProps, Navbar, PageHeader, type PageHeaderProps, Pagination, type PaginationProps, type PaginationSize, Tab, type TabProps, Table, TableCellAction, type TableCellActionProps, TableCellAmount, TableCellOperation, TableCellProduct, TableWrapper, Tabs, type TabsProps, Tag, type TagColor, type TagProps, type TagSize, type TagVariant, Tbody, Td, Textarea, type TextareaProps, Th, Thead, Tr, Upload, type UploadFileItem, type UploadProps, type UploadVisualState, useFormItemStatus };

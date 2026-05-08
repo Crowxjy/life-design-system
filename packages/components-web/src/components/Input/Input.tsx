@@ -1,6 +1,7 @@
 import React from 'react';
 import { clsx } from 'clsx';
 import { Icon } from '../Icon/Icon';
+import { useFormItemStatus } from '../Form/Form';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'> {
   size?: 'large' | 'default-size' | 'small';
@@ -10,10 +11,14 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   onClear?: () => void;
   wrapperClassName?: string;
   isFocused?: boolean;
+  error?: boolean;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, wrapperClassName, size = 'default-size', prefixIcon, suffixIcon, clearable, onClear, disabled, isFocused, ...props }, ref) => {
+  ({ className, wrapperClassName, size = 'default-size', prefixIcon, suffixIcon, clearable, onClear, disabled, isFocused, error, ...props }, ref) => {
+    const { hasError } = useFormItemStatus();
+    const mergedError = error ?? hasError;
+
     return (
       <div
         className={clsx(
@@ -21,6 +26,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           `lds-input-wrapper--${size}`,
           disabled && 'is-disabled',
           isFocused && 'is-focused',
+          mergedError && 'is-error',
           wrapperClassName
         )}
       >

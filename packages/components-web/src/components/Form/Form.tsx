@@ -3,6 +3,7 @@ import { clsx } from 'clsx';
 import { Icon } from '../Icon/Icon';
 
 const DEFAULT_LABEL_WIDTH = '90px';
+const FormItemStatusContext = React.createContext<{ hasError: boolean }>({ hasError: false });
 
 function toCssSize(value?: number | string) {
   if (value === undefined) {
@@ -10,6 +11,10 @@ function toCssSize(value?: number | string) {
   }
 
   return typeof value === 'number' ? `${value}px` : value;
+}
+
+export function useFormItemStatus() {
+  return React.useContext(FormItemStatusContext);
 }
 
 export interface FormProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -140,7 +145,9 @@ export const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
         </div>
 
         <div className="lds-form-item__main">
-          <div className="lds-form-item__control">{children}</div>
+          <FormItemStatusContext.Provider value={{ hasError }}>
+            <div className="lds-form-item__control">{children}</div>
+          </FormItemStatusContext.Provider>
           {message ? (
             <div
               className={clsx('lds-form-item__message', hasError && 'is-error')}

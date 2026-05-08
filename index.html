@@ -306,6 +306,7 @@
     <a href="#capsule" class="nav-item" data-target="capsule">Capsule</a>
     <a href="#checkbox" class="nav-item" data-target="checkbox">Checkbox</a>
     <a href="#input" class="nav-item" data-target="input">Input</a>
+    <a href="#textarea" class="nav-item" data-target="textarea">Textarea</a>
     <a href="#filter" class="nav-item" data-target="filter">Filter</a>
     <a href="#filtergroup" class="nav-item" data-target="filtergroup">FilterGroup</a>
     <a href="#tabs" class="nav-item" data-target="tabs">Tabs</a>
@@ -357,6 +358,11 @@
   const FILTER_SIZES = [
     { id: 'default-size', label: '默认 (Default)', meta: 'Body Regular · 9/12px · h40' },
     { id: 'small', label: '小号 (Small)', meta: 'Body Regular · 7/12px · h36' },
+  ];
+
+  const TEXTAREA_SIZES = [
+    { id: 'default-size', label: '默认 (Default)', meta: 'Body Regular · 8/12/4px · h120' },
+    { id: 'large', label: '大号 (Large)', meta: 'Subtitle Regular · 8/12/4px · h120' },
   ];
 
   const STATES = [
@@ -473,6 +479,55 @@
               value: state.id === 'active' ? '输入中...' : '',
               placeholder: 'Placeholder',
               clearable: state.id === 'active'
+            });
+            return `<div id="${id}"></div>`;
+          }
+        }
+      ]
+    },
+    textarea: {
+      title: 'Textarea (React Component)',
+      sizes: TEXTAREA_SIZES,
+      desc: 'A multi-line text field for longer copy input. Supports count display, error state, and the Figma 3.0 large/default typography specs.',
+      variants: [
+        {
+          title: 'Standard',
+          desc: 'Normal, hover, focus and disabled states for general multi-line input.',
+          render: (size, state) => {
+            const id = `textarea-${size.id}-${state.id}`;
+            const wrapperClassName = `${state.id==='hover'?'is-hover':''}`;
+            window.pendingReactRenders.push({
+              id,
+              type: 'textarea',
+              size: size.id,
+              wrapperClassName,
+              disabled: state.props.includes('disabled'),
+              isFocused: state.id === 'active',
+              error: false,
+              value: state.id === 'active' ? '农夫山泉纯' : '',
+              placeholder: '请输入',
+              maxLength: 200
+            });
+            return `<div id="${id}"></div>`;
+          }
+        },
+        {
+          title: 'Error',
+          desc: 'Validation failure keeps the danger border while preserving count and multi-line layout.',
+          render: (size, state) => {
+            const id = `textarea-error-${size.id}-${state.id}`;
+            const wrapperClassName = `${state.id==='hover'?'is-hover':''}`;
+            window.pendingReactRenders.push({
+              id,
+              type: 'textarea',
+              size: size.id,
+              wrapperClassName,
+              disabled: state.props.includes('disabled'),
+              isFocused: state.id === 'active',
+              error: !state.props.includes('disabled'),
+              value: state.id === 'disabled' ? '农夫山泉纯净水550ml' : '农夫山泉纯净水550ml',
+              placeholder: '请输入',
+              maxLength: 200
             });
             return `<div id="${id}"></div>`;
           }
@@ -894,7 +949,7 @@
     mainEl.innerHTML = html;
 
     // Trigger custom event so React script knows to mount
-    if (['button', 'capsule', 'checkbox', 'input', 'filter', 'filtergroup', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'form', 'upload', 'table', 'tag', 'pagination'].includes(compId)) {
+    if (['button', 'capsule', 'checkbox', 'input', 'textarea', 'filter', 'filtergroup', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'form', 'upload', 'table', 'tag', 'pagination'].includes(compId)) {
       window.dispatchEvent(new CustomEvent('renderReactButtons'));
     }
   }
@@ -934,7 +989,7 @@
 
   // Also trigger initial render in case it was already button
   setTimeout(() => {
-    if (['button', 'capsule', 'input', 'filter', 'filtergroup', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'form', 'upload', 'table', 'tag', 'pagination'].includes(hash) || !hash) {
+    if (['button', 'capsule', 'input', 'textarea', 'filter', 'filtergroup', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'form', 'upload', 'table', 'tag', 'pagination'].includes(hash) || !hash) {
       window.dispatchEvent(new CustomEvent('renderReactButtons'));
     }
   }, 200);
@@ -944,7 +999,7 @@
   import React from 'react';
   import { createRoot } from 'react-dom/client';
   import { 
-    Button, Icon, Capsule, Input, Tabs, Tab,
+    Button, Icon, Capsule, Input, Textarea, Tabs, Tab,
     Filter,
     FilterGroup,
     Navbar,
@@ -997,9 +1052,47 @@
           </div>
         );
       } else if (item.type === 'input') {
-        root.render(
-          <Input size={item.size} wrapperClassName={item.wrapperClassName} disabled={item.disabled} isFocused={item.isFocused} value={item.value} placeholder={item.placeholder} clearable={item.clearable} readOnly />
-        );
+        const InputCell = () => {
+          const [value, setValue] = React.useState(item.value ?? '');
+
+          return (
+            <Input
+              size={item.size}
+              wrapperClassName={item.wrapperClassName}
+              disabled={item.disabled}
+              isFocused={item.isFocused}
+              value={value}
+              placeholder={item.placeholder}
+              clearable={item.clearable && value.length > 0}
+              autoFocus={item.isFocused}
+              onChange={(event) => setValue(event.target.value)}
+              onClear={() => setValue('')}
+            />
+          );
+        };
+
+        root.render(<InputCell />);
+      } else if (item.type === 'textarea') {
+        const TextareaCell = () => {
+          const [value, setValue] = React.useState(item.value ?? '');
+
+          return (
+            <Textarea
+              size={item.size}
+              wrapperClassName={item.wrapperClassName}
+              disabled={item.disabled}
+              isFocused={item.isFocused}
+              error={item.error}
+              value={value}
+              placeholder={item.placeholder}
+              maxLength={item.maxLength}
+              autoFocus={item.isFocused}
+              onChange={(event) => setValue(event.target.value)}
+            />
+          );
+        };
+
+        root.render(<TextareaCell />);
       } else if (item.type === 'filter') {
         const label = '字段标题';
         const placeholder = item.filterType === 'input' ? '请输入' : '请选择';
@@ -1174,9 +1267,11 @@
         root.render(<DrawerDemo />);
       } else if (item.type === 'form-demo') {
         const controlId = `form-control-${item.id}`;
-        const secondaryId = `form-secondary-${item.id}`;
+        const textareaId = `form-textarea-${item.id}`;
+        const uploadId = `form-upload-${item.id}`;
         const FormDemo = () => {
           const [images, setImages] = React.useState([]);
+          const isErrorMode = item.mode === 'error';
 
           return (
             <div style={{ width: '100%', maxWidth: 720, padding: 24, border: '1px dashed var(--color-border-normal)', borderRadius: 16, boxSizing: 'border-box' }}>
@@ -1186,19 +1281,34 @@
                   htmlFor={controlId}
                   required
                   tooltip="录入字段说明"
-                  description={item.mode === 'error' ? '录入项说明文案，录入信息时需要注意的相关事项' : '录入项说明文案，录入信息时需要注意的相关事项'}
-                  error={item.mode === 'error' ? '报错说明' : undefined}
+                  description="录入项说明文案，录入信息时需要注意的相关事项"
+                  error={isErrorMode ? '报错说明' : undefined}
                 >
                   <Input id={controlId} size="default-size" placeholder="请输入" />
                 </FormItem>
 
                 <FormItem
+                  label={item.labelWidth > 90 ? '较长多行标题' : '补充描述'}
+                  htmlFor={textareaId}
+                  description="适合填写更长的补充说明、描述信息或规则说明。"
+                  error={isErrorMode ? '报错说明' : undefined}
+                >
+                  <Textarea
+                    id={textareaId}
+                    size="default-size"
+                    placeholder="请输入"
+                    maxLength={200}
+                  />
+                </FormItem>
+
+                <FormItem
                   label={item.labelWidth > 90 ? '较长字段标题' : '商品图片'}
-                  htmlFor={secondaryId}
+                  htmlFor={uploadId}
                   description="支持上传最多 4 张 JPG / PNG 图片，上传后可直接预览和删除。"
+                  error={isErrorMode ? '请上传商品图片' : undefined}
                 >
                   <Upload
-                    inputId={secondaryId}
+                    inputId={uploadId}
                     value={images}
                     onChange={setImages}
                     multiple

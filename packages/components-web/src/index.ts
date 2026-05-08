@@ -2,6 +2,7 @@ export * from './components/Button/Button';
 export * from './components/Icon/Icon';
 export * from './components/Capsule/Capsule';
 export * from './components/Input/Input';
+export * from './components/Textarea/Textarea';
 export * from './components/Filter/Filter';
 export * from './components/FilterGroup/FilterGroup';
 export * from './components/Tabs/Tabs';
