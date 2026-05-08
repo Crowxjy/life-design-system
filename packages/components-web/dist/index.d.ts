@@ -327,4 +327,193 @@ interface PaginationProps extends Omit<React.HTMLAttributes<HTMLElement>, 'onCha
 }
 declare const Pagination: React.ForwardRefExoticComponent<PaginationProps & React.RefAttributes<HTMLElement>>;
 
-export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Capsule, type CapsuleProps, Checkbox, type CheckboxProps, Filter, type FilterButtonProps, FilterGroup, type FilterGroupProps, type FilterInputProps, type FilterProps, type FilterSize, type FilterType, Icon, type IconProps, Input, type InputProps, Menu, type MenuProps, Navbar, PageHeader, type PageHeaderProps, Pagination, type PaginationProps, type PaginationSize, Tab, type TabProps, Table, TableCellAction, type TableCellActionProps, TableCellAmount, TableCellOperation, TableCellProduct, TableWrapper, Tabs, type TabsProps, Tag, type TagColor, type TagProps, type TagSize, type TagVariant, Tbody, Td, Th, Thead, Tr };
+type DrawerSize = 'large' | 'default-size' | 'small';
+interface DrawerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
+    /**
+     * 是否打开抽屉
+     * @default false
+     */
+    open?: boolean;
+    /**
+     * 标题区域
+     */
+    title?: React.ReactNode;
+    /**
+     * 抽屉尺寸
+     * @default 'default-size'
+     */
+    size?: DrawerSize;
+    /**
+     * 自定义底部区域
+     */
+    footer?: React.ReactNode;
+    /**
+     * 是否显示底部区域
+     * 默认跟随 footer 是否传入
+     */
+    showFooter?: boolean;
+    /**
+     * 标题区域右侧附加内容
+     */
+    extra?: React.ReactNode;
+    /**
+     * 点击蒙层是否关闭
+     * @default true
+     */
+    maskClosable?: boolean;
+    /**
+     * 按下 Esc 是否关闭
+     * @default true
+     */
+    closeOnEsc?: boolean;
+    /**
+     * 是否显示右上角关闭按钮
+     * @default true
+     */
+    showCloseButton?: boolean;
+    /**
+     * 关闭回调
+     */
+    onClose?: () => void;
+    /**
+     * 获取挂载容器，默认挂载到 document.body
+     */
+    getContainer?: () => HTMLElement | null;
+    /**
+     * 自定义抽屉宽度，会覆盖 size 对应的默认宽度
+     */
+    width?: number | string;
+    /**
+     * 自定义内容区域类名
+     */
+    bodyClassName?: string;
+    /**
+     * 关闭按钮可访问名称
+     * @default '关闭抽屉'
+     */
+    closeLabel?: string;
+}
+declare const Drawer: React.ForwardRefExoticComponent<DrawerProps & React.RefAttributes<HTMLDivElement>>;
+
+interface FormProps extends React.HTMLAttributes<HTMLDivElement> {
+    /**
+     * 统一设置表单项左侧标题宽度
+     * @default 90
+     */
+    labelWidth?: number | string;
+}
+interface FormItemProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
+    /**
+     * 左侧标题内容
+     */
+    label?: React.ReactNode;
+    /**
+     * 当前项对应的控件 id，用于 label 关联
+     */
+    htmlFor?: string;
+    /**
+     * 是否展示必填标识
+     * @default false
+     */
+    required?: boolean;
+    /**
+     * 帮助提示文案，会以浏览器原生 title 的形式挂在问号图标上
+     */
+    tooltip?: string;
+    /**
+     * 点击帮助图标的回调
+     */
+    onTooltipClick?: React.MouseEventHandler<HTMLButtonElement>;
+    /**
+     * 帮助图标无障碍名称
+     * @default '查看字段说明'
+     */
+    tooltipAriaLabel?: string;
+    /**
+     * 底部常规说明文案
+     */
+    description?: React.ReactNode;
+    /**
+     * 底部报错文案，存在时会覆盖 description 并切换为错误态
+     */
+    error?: React.ReactNode;
+    /**
+     * 单独覆盖当前项的标题宽度
+     */
+    labelWidth?: number | string;
+}
+declare const Form: React.ForwardRefExoticComponent<FormProps & React.RefAttributes<HTMLDivElement>>;
+declare const FormItem: React.ForwardRefExoticComponent<FormItemProps & React.RefAttributes<HTMLDivElement>>;
+
+interface UploadFileItem {
+    id?: string;
+    name?: string;
+    url: string;
+    file?: File;
+}
+type UploadVisualState = 'normal' | 'hover' | 'active' | 'error';
+interface UploadProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {
+    /**
+     * 当前文件列表，受控模式
+     */
+    value?: UploadFileItem[];
+    /**
+     * 默认文件列表，非受控模式
+     */
+    defaultValue?: UploadFileItem[];
+    /**
+     * 文件列表变化回调
+     */
+    onChange?: (files: UploadFileItem[]) => void;
+    /**
+     * 是否禁用
+     * @default false
+     */
+    disabled?: boolean;
+    /**
+     * 原生 input accept
+     * @default 'image/*'
+     */
+    accept?: string;
+    /**
+     * 是否允许多选
+     * @default false
+     */
+    multiple?: boolean;
+    /**
+     * 最大文件数量
+     * @default 1
+     */
+    maxCount?: number;
+    /**
+     * 上传按钮文案
+     * @default '上传'
+     */
+    triggerText?: React.ReactNode;
+    /**
+     * 强制视觉状态，用于文档演示
+     * @default 'normal'
+     */
+    visualState?: UploadVisualState;
+    /**
+     * 输入框 id，方便与表单 label 关联
+     */
+    inputId?: string;
+    /**
+     * 输入框 name
+     */
+    name?: string;
+    /**
+     * 删除按钮无障碍名称
+     * @default '删除图片'
+     */
+    removeAriaLabel?: string;
+    /**
+     * 上传按钮无障碍名称
+     * @default '上传图片'
+     */
+    triggerAriaLabel?: string;
+}
+declare const Upload: React.ForwardRefExoticComponent<UploadProps & React.RefAttributes<HTMLDivElement>>;
+
+export { Button, type ButtonProps, type ButtonSize, type ButtonVariant, Capsule, type CapsuleProps, Checkbox, type CheckboxProps, Drawer, type DrawerProps, type DrawerSize, Filter, type FilterButtonProps, FilterGroup, type FilterGroupProps, type FilterInputProps, type FilterProps, type FilterSize, type FilterType, Form, FormItem, type FormItemProps, type FormProps, Icon, type IconProps, Input, type InputProps, Menu, type MenuProps, Navbar, PageHeader, type PageHeaderProps, Pagination, type PaginationProps, type PaginationSize, Tab, type TabProps, Table, TableCellAction, type TableCellActionProps, TableCellAmount, TableCellOperation, TableCellProduct, TableWrapper, Tabs, type TabsProps, Tag, type TagColor, type TagProps, type TagSize, type TagVariant, Tbody, Td, Th, Thead, Tr, Upload, type UploadFileItem, type UploadProps, type UploadVisualState };

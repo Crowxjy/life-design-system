@@ -11,10 +11,8 @@
     "sync-icons": "npm run sync-icons --workspace=@life-ds/icons",
     "sync-skills": "mkdir -p packages/skills/content && cp -r skills/* packages/skills/content/"
   },
-  "devDependencies": {
-  },
   "dependencies": {
-    "@life-ds/components-web": "^1.0.17",
+    "@life-ds/components-web": "^1.0.18",
     "@life-ds/icons": "^1.0.4",
     "@life-ds/skills": "^1.1.1",
     "@life-ds/tokens": "^1.0.6"

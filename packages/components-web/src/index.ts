@@ -12,3 +12,6 @@ export * from './components/Table/Table';
 export * from './components/Checkbox/Checkbox';
 export * from './components/Tag/Tag';
 export * from './components/Pagination/Pagination';
+export * from './components/Drawer/Drawer';
+export * from './components/Form/Form';
+export * from './components/Upload/Upload';

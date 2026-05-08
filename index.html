@@ -15,6 +15,7 @@
       "imports": {
         "react": "https://esm.sh/react@18.3.1",
         "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+        "react-dom": "https://esm.sh/react-dom@18.3.1",
         "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
         "clsx": "https://esm.sh/clsx@2.1.1",
         "@life-ds/components-web": "./packages/components-web/dist/index.mjs?v=tag-1"
@@ -311,6 +312,9 @@
     <a href="#navbar" class="nav-item" data-target="navbar">Navbar</a>
     <a href="#menu" class="nav-item" data-target="menu">Menu</a>
     <a href="#pageheader" class="nav-item" data-target="pageheader">PageHeader</a>
+    <a href="#drawer" class="nav-item" data-target="drawer">Drawer</a>
+    <a href="#form" class="nav-item" data-target="form">Form</a>
+    <a href="#upload" class="nav-item" data-target="upload">Upload</a>
     <a href="#table" class="nav-item" data-target="table">Table</a>
     <a href="#pagination" class="nav-item" data-target="pagination">Pagination</a>
     <a href="#tag" class="nav-item" data-target="tag">Tag</a>
@@ -393,6 +397,20 @@
             const id = `btn-text-${size.id}-${state.id}`;
             const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
             window.pendingReactRenders.push({ id, variant: 'text', size: size.id, className, disabled: state.props.includes('disabled'), text: 'Button' });
+            return `<div id="${id}"></div>`;
+        }},
+        { title: 'With Left Icon', desc: 'Configurable leading icon inside a standard button', render: (size, state) => {
+            const id = `btn-leading-icon-${size.id}-${state.id}`;
+            const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
+            window.pendingReactRenders.push({
+              id,
+              variant: 'primary',
+              size: size.id,
+              className,
+              disabled: state.props.includes('disabled'),
+              text: 'Button',
+              iconName: 'ic-add-round-line'
+            });
             return `<div id="${id}"></div>`;
         }},
         { title: 'Icon', desc: 'Icon only variant', render: (size, state) => {
@@ -583,7 +601,7 @@
     pageheader: {
       title: 'PageHeader (React Component)',
       layout: 'full',
-      sizes: [{ id: 'default', label: 'Default', meta: 'Height: Hug, Padding: 32/32/24' }],
+      sizes: [{ id: 'default', label: 'Default', meta: 'Height: Hug, Padding: 32/32/24/0' }],
       desc: 'Top section of a page that contains a title and optional primary navigation tabs.',
       variants: [
         { 
@@ -601,6 +619,93 @@
           render: (size, state) => {
             const id = `ph-tabs-${size.id}-${state.id}`;
             window.pendingReactRenders.push({ id, type: 'pageheader', withTabs: true });
+            return `<div id="${id}"></div>`;
+          }
+        }
+      ]
+    },
+    drawer: {
+      title: 'Drawer (React Component)',
+      layout: 'full',
+      sizes: [
+        { id: 'large', label: '大号 (Large)', meta: '920px · 默认带 Footer' },
+        { id: 'default-size', label: '中号 (Default)', meta: '640px · 默认尺寸' },
+        { id: 'small', label: '小号 (Small)', meta: '480px · 紧凑场景' }
+      ],
+      desc: 'Slides in from the right edge of the page with a page-level mask. Supports configurable footer, three widths, and a free-form content area.',
+      variants: [
+        {
+          title: 'With Footer',
+          desc: 'A common form/task drawer with bottom action buttons.',
+          render: (size, _state) => {
+            const id = `drawer-with-footer-${size.id}`;
+            window.pendingReactRenders.push({ id, type: 'drawer-demo', size: size.id, showFooter: true });
+            return `<div id="${id}"></div>`;
+          }
+        },
+        {
+          title: 'Without Footer',
+          desc: 'Keeps only the header and content region for read-only or lightweight tasks.',
+          render: (size, _state) => {
+            const id = `drawer-no-footer-${size.id}`;
+            window.pendingReactRenders.push({ id, type: 'drawer-demo', size: size.id, showFooter: false });
+            return `<div id="${id}"></div>`;
+          }
+        }
+      ]
+    },
+    form: {
+      title: 'Form (React Component)',
+      layout: 'full',
+      sizes: [
+        { id: 'default', label: '默认标题宽度', meta: 'labelWidth: 90px' },
+        { id: 'wide-label', label: '自定义标题宽度', meta: 'labelWidth: 132px' }
+      ],
+      desc: 'A horizontal form composition component for field editing. Provides a fixed-width left label area, right-side control region, optional help/required marks, and default/error messages.',
+      variants: [
+        {
+          title: 'Standard',
+          desc: 'Typical field rows with help icon, required mark and supportive descriptions.',
+          render: (size, _state) => {
+            const id = `form-standard-${size.id}`;
+            window.pendingReactRenders.push({ id, type: 'form-demo', mode: 'standard', labelWidth: size.id === 'wide-label' ? 132 : 90 });
+            return `<div id="${id}"></div>`;
+          }
+        },
+        {
+          title: 'Error State',
+          desc: 'The bottom message switches to error tone when validation fails.',
+          render: (size, _state) => {
+            const id = `form-error-${size.id}`;
+            window.pendingReactRenders.push({ id, type: 'form-demo', mode: 'error', labelWidth: size.id === 'wide-label' ? 132 : 90 });
+            return `<div id="${id}"></div>`;
+          }
+        }
+      ]
+    },
+    upload: {
+      title: 'Upload (React Component)',
+      layout: 'full',
+      sizes: [
+        { id: 'default', label: '默认规格', meta: '76px · 图片上传' }
+      ],
+      desc: 'A compact image upload tile with dashed border, preview thumbnail, remove action, and support for disabled / error states from the Figma spec.',
+      variants: [
+        {
+          title: 'States',
+          desc: 'Covers default, hover, active, completed, error and disabled states from the design draft.',
+          render: (size, _state) => {
+            const id = `upload-states-${size.id}`;
+            window.pendingReactRenders.push({ id, type: 'upload-states' });
+            return `<div id="${id}"></div>`;
+          }
+        },
+        {
+          title: 'Interactive',
+          desc: 'Supports selecting multiple images and removing uploaded previews.',
+          render: (size, _state) => {
+            const id = `upload-interactive-${size.id}`;
+            window.pendingReactRenders.push({ id, type: 'upload-interactive' });
             return `<div id="${id}"></div>`;
           }
         }
@@ -789,7 +894,7 @@
     mainEl.innerHTML = html;
 
     // Trigger custom event so React script knows to mount
-    if (['button', 'capsule', 'checkbox', 'input', 'filter', 'filtergroup', 'tabs', 'navbar', 'menu', 'pageheader', 'table', 'tag', 'pagination'].includes(compId)) {
+    if (['button', 'capsule', 'checkbox', 'input', 'filter', 'filtergroup', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'form', 'upload', 'table', 'tag', 'pagination'].includes(compId)) {
       window.dispatchEvent(new CustomEvent('renderReactButtons'));
     }
   }
@@ -829,7 +934,7 @@
 
   // Also trigger initial render in case it was already button
   setTimeout(() => {
-    if (['button', 'capsule', 'input', 'filter', 'filtergroup', 'tabs', 'navbar', 'menu', 'pageheader', 'table', 'tag', 'pagination'].includes(hash) || !hash) {
+    if (['button', 'capsule', 'input', 'filter', 'filtergroup', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'form', 'upload', 'table', 'tag', 'pagination'].includes(hash) || !hash) {
       window.dispatchEvent(new CustomEvent('renderReactButtons'));
     }
   }, 200);
@@ -844,7 +949,7 @@
     FilterGroup,
     Navbar,
     Menu,
-    PageHeader, Checkbox,
+    PageHeader, Checkbox, Drawer, Form, FormItem, Upload,
     TableWrapper, Table, Thead, Tbody, Tr, Th, Td, TableCellProduct, TableCellAmount, TableCellOperation, TableCellAction,
     Tag,
     Pagination
@@ -1014,6 +1119,133 @@
             ) : null}
           />
         );
+      } else if (item.type === 'drawer-demo') {
+        const DrawerDemo = () => {
+          const [open, setOpen] = React.useState(false);
+
+          return (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <Button variant="primary" size="default-size" onClick={() => setOpen(true)}>
+                打开抽屉
+              </Button>
+              <span style={{ font: 'var(--body-regular)', color: 'var(--color-text-secondary)' }}>
+                {item.size === 'large' ? '适合复杂表单/批量操作' : item.size === 'small' ? '适合轻量编辑/详情补充' : '默认推荐尺寸'}
+              </span>
+
+              <Drawer
+                open={open}
+                size={item.size}
+                title="申请开票"
+                showFooter={item.showFooter}
+                onClose={() => setOpen(false)}
+                footer={item.showFooter ? (
+                  <>
+                    <Button variant="default">批量操作</Button>
+                    <Button variant="primary">创建商品</Button>
+                  </>
+                ) : null}
+              >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 48 }}>
+                  <section style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                      <Tag size="default-size" variant="light" color="blue">流程说明</Tag>
+                      <span style={{ font: 'var(--body-regular)', color: 'var(--color-text-secondary)' }}>
+                        内容区域用于承载任意表单、说明和操作模块。
+                      </span>
+                    </div>
+                    <div style={{ display: 'grid', gap: 16 }}>
+                      <Input size="default-size" value="北京朝阳门店" readOnly />
+                      <Input size="default-size" value="增值税普通发票" readOnly />
+                    </div>
+                  </section>
+
+                  <section style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    <h3 style={{ margin: 0, font: 'var(--subtitle-medium)', color: 'var(--color-text-primary)' }}>补充信息</h3>
+                    <p style={{ margin: 0, font: 'var(--body-regular)', color: 'var(--color-text-secondary)', lineHeight: '24px' }}>
+                      抽屉从页面右侧滑入，使用页面级蒙层承托当前任务。默认推荐使用中号宽度，复杂任务可切换到大号，轻量场景可使用小号。
+                    </p>
+                  </section>
+                </div>
+              </Drawer>
+            </div>
+          );
+        };
+
+        root.render(<DrawerDemo />);
+      } else if (item.type === 'form-demo') {
+        const controlId = `form-control-${item.id}`;
+        const secondaryId = `form-secondary-${item.id}`;
+        const FormDemo = () => {
+          const [images, setImages] = React.useState([]);
+
+          return (
+            <div style={{ width: '100%', maxWidth: 720, padding: 24, border: '1px dashed var(--color-border-normal)', borderRadius: 16, boxSizing: 'border-box' }}>
+              <Form labelWidth={item.labelWidth}>
+                <FormItem
+                  label="输入表单"
+                  htmlFor={controlId}
+                  required
+                  tooltip="录入字段说明"
+                  description={item.mode === 'error' ? '录入项说明文案，录入信息时需要注意的相关事项' : '录入项说明文案，录入信息时需要注意的相关事项'}
+                  error={item.mode === 'error' ? '报错说明' : undefined}
+                >
+                  <Input id={controlId} size="default-size" placeholder="请输入" />
+                </FormItem>
+
+                <FormItem
+                  label={item.labelWidth > 90 ? '较长字段标题' : '商品图片'}
+                  htmlFor={secondaryId}
+                  description="支持上传最多 4 张 JPG / PNG 图片，上传后可直接预览和删除。"
+                >
+                  <Upload
+                    inputId={secondaryId}
+                    value={images}
+                    onChange={setImages}
+                    multiple
+                    maxCount={4}
+                  />
+                </FormItem>
+              </Form>
+            </div>
+          );
+        };
+
+        root.render(<FormDemo />);
+      } else if (item.type === 'upload-states') {
+        const states = [
+          { label: '默认', props: {} },
+          { label: '悬停', props: { visualState: 'hover' } },
+          { label: '点击', props: { visualState: 'active' } },
+          { label: '上传完成', props: { value: [{ id: 'demo-uploaded', name: '示例图片', url: './assets/shangpin.png' }] } },
+          { label: '报错', props: { visualState: 'error' } },
+          { label: '禁用', props: { disabled: true } }
+        ];
+
+        root.render(
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+            {states.map(state => (
+              <div key={state.label} style={{ display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center' }}>
+                <Upload {...state.props} />
+                <span style={{ font: 'var(--caption-regular)', color: 'var(--color-text-secondary)' }}>{state.label}</span>
+              </div>
+            ))}
+          </div>
+        );
+      } else if (item.type === 'upload-interactive') {
+        const UploadInteractiveDemo = () => {
+          const [files, setFiles] = React.useState([]);
+
+          return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <Upload value={files} onChange={setFiles} multiple maxCount={4} />
+              <span style={{ font: 'var(--caption-regular)', color: 'var(--color-text-secondary)' }}>
+                最多上传 4 张图片，推荐使用 1:1 商品图。
+              </span>
+            </div>
+          );
+        };
+
+        root.render(<UploadInteractiveDemo />);
       } else if (item.type === 'table') {
         root.render(
           <TableWrapper>

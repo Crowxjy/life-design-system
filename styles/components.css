@@ -29,6 +29,17 @@
   justify-content: center;
 }
 
+.lds-btn--large:not(.lds-btn--icon) .lds-btn__icon .icon {
+  width: 20px;
+  height: 20px;
+}
+
+.lds-btn--default-size:not(.lds-btn--icon) .lds-btn__icon .icon,
+.lds-btn--small:not(.lds-btn--icon) .lds-btn__icon .icon {
+  width: 18px;
+  height: 18px;
+}
+
 /* Button Sizes */
 .lds-btn--large {
   height: var(--spacing-12x, 48px);
@@ -795,25 +806,26 @@ button.lds-filter {
   width: 200px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-left: var(--spacing-6x, 24px);
   cursor: pointer;
   box-sizing: border-box;
 }
 
 .lds-navbar__logo-image {
   width: 145px;
-  height: 32px;
+  height: 44px;
   display: block;
   flex-shrink: 0;
   background-image: url('../assets/logo-laike.svg');
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: left center;
   background-size: contain;
 }
 
 .lds-navbar__logo img,
 .lds-navbar__logo svg {
-  height: 32px; /* 根据设计稿调整 */
+  height: 44px;
   width: auto;
   display: block;
 }
@@ -1052,7 +1064,7 @@ button.lds-filter {
 .lds-page-header {
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-8x, 32px) var(--spacing-8x, 32px) var(--spacing-6x, 24px);
+  padding: var(--spacing-8x, 32px) var(--spacing-8x, 32px) var(--spacing-6x, 24px) 0;
   gap: var(--spacing-4x, 16px);
   box-sizing: border-box;
   width: 100%;
@@ -1068,8 +1080,7 @@ button.lds-filter {
   margin-top: 0;
 }
 
-/* PageHeader with tabs may adjust padding slightly to match Figma's visual weight if needed, 
-   but based on layout_G7MAWW, it's 32-32-24. */
+/* PageHeader keeps top/right/bottom spacing while aligning the left edge to the content area. */
 
 /* 12. 表格组件 (Table) */
 .lds-table-wrapper {

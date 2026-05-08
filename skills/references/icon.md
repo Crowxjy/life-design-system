@@ -37,7 +37,8 @@ import '@life-ds/icons';
 
 • 在同一层级区域内保持图标尺寸一致。
 
-• 常用尺寸：24,、20、16、12等
+• 常用尺寸参考：12、14、16、18、20、24
+• 当 icon 与文字同时使用时，icon 的尺寸应选择小于文字 `line-height` 的那一档
 • 纯图标控件必须始终具备可访问名称。
 • 不要凭记忆捏造图标的 ID 名称，请核实 `sprite.svg` 中确切的图标 ID。
 • 优先使用标准的 `lds-icon` 类名来控制图标的样式和尺寸。
@@ -74,6 +75,7 @@ import '@life-ds/icons';
 | ic-warning-round-line | 警告提示     |
 | ic-error-round-line   | 错误提示     |
 | ic-time-round-line    | 时间、历史    |
+| ic-help-line          | 提示、详情、疑问 |
 
 <br />
 
@@ -116,3 +118,4 @@ import '@life-ds/icons';
 1. 仓库其他地方已在使用的图标
 2. 功能语义更清晰的图标
 3. 视觉上更简洁的图标
+

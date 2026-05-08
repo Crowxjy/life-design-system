@@ -33,8 +33,11 @@ __export(index_exports, {
   Button: () => Button,
   Capsule: () => Capsule,
   Checkbox: () => Checkbox,
+  Drawer: () => Drawer,
   Filter: () => Filter,
   FilterGroup: () => FilterGroup,
+  Form: () => Form,
+  FormItem: () => FormItem,
   Icon: () => Icon,
   Input: () => Input,
   Menu: () => Menu,
@@ -54,7 +57,8 @@ __export(index_exports, {
   Td: () => Td,
   Th: () => Th,
   Thead: () => Thead,
-  Tr: () => Tr
+  Tr: () => Tr,
+  Upload: () => Upload
 });
 module.exports = __toCommonJS(index_exports);
 
@@ -970,13 +974,405 @@ var Pagination = import_react14.default.forwardRef(
   }
 );
 Pagination.displayName = "Pagination";
+
+// src/components/Drawer/Drawer.tsx
+var import_react15 = __toESM(require("react"));
+var import_react_dom = require("react-dom");
+var import_clsx15 = require("clsx");
+var import_jsx_runtime15 = require("react/jsx-runtime");
+var DRAWER_ANIMATION_MS = 280;
+var Drawer = import_react15.default.forwardRef(
+  ({
+    className,
+    open = false,
+    title,
+    size = "default-size",
+    footer,
+    showFooter,
+    extra,
+    children,
+    maskClosable = true,
+    closeOnEsc = true,
+    showCloseButton = true,
+    onClose,
+    getContainer,
+    width,
+    bodyClassName,
+    closeLabel = "\u5173\u95ED\u62BD\u5C49",
+    style,
+    ...props
+  }, ref) => {
+    const titleId = (0, import_react15.useId)();
+    const [shouldRender, setShouldRender] = (0, import_react15.useState)(open);
+    const [visible, setVisible] = (0, import_react15.useState)(open);
+    const container = (0, import_react15.useMemo)(() => {
+      var _a;
+      if (typeof document === "undefined") return null;
+      return (_a = getContainer == null ? void 0 : getContainer()) != null ? _a : document.body;
+    }, [getContainer]);
+    (0, import_react15.useEffect)(() => {
+      if (open) {
+        setShouldRender(true);
+        setVisible(false);
+        let rafId2 = 0;
+        const rafId1 = window.requestAnimationFrame(() => {
+          rafId2 = window.requestAnimationFrame(() => {
+            setVisible(true);
+          });
+        });
+        return () => {
+          window.cancelAnimationFrame(rafId1);
+          window.cancelAnimationFrame(rafId2);
+        };
+      }
+      setVisible(false);
+      const timer = window.setTimeout(() => {
+        setShouldRender(false);
+      }, DRAWER_ANIMATION_MS);
+      return () => window.clearTimeout(timer);
+    }, [open]);
+    (0, import_react15.useEffect)(() => {
+      if (!shouldRender || !closeOnEsc) {
+        return void 0;
+      }
+      const handleKeyDown = (event) => {
+        if (event.key === "Escape") {
+          onClose == null ? void 0 : onClose();
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [closeOnEsc, onClose, shouldRender]);
+    (0, import_react15.useEffect)(() => {
+      if (!shouldRender || typeof document === "undefined") {
+        return void 0;
+      }
+      const { body } = document;
+      const previousOverflow = body.style.overflow;
+      body.style.overflow = "hidden";
+      return () => {
+        body.style.overflow = previousOverflow;
+      };
+    }, [shouldRender]);
+    if (!shouldRender || !container) {
+      return null;
+    }
+    const mergedStyle = {
+      ...style,
+      ...width !== void 0 ? {
+        ["--lds-drawer-width"]: typeof width === "number" ? `${width}px` : width
+      } : null
+    };
+    const shouldShowFooter = showFooter != null ? showFooter : footer !== void 0;
+    return (0, import_react_dom.createPortal)(
+      /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
+        "div",
+        {
+          className: (0, import_clsx15.clsx)("lds-drawer-root", visible && "is-open"),
+          onClick: (event) => {
+            if (event.target === event.currentTarget && maskClosable) {
+              onClose == null ? void 0 : onClose();
+            }
+          },
+          children: [
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "lds-drawer-root__mask", "aria-hidden": "true" }),
+            /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)(
+              "div",
+              {
+                ref,
+                className: (0, import_clsx15.clsx)("lds-drawer", `lds-drawer--${size}`, className),
+                role: "dialog",
+                "aria-modal": "true",
+                "aria-labelledby": title ? titleId : void 0,
+                style: mergedStyle,
+                ...props,
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "lds-drawer__header", children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime15.jsxs)("div", { className: "lds-drawer__header-main", children: [
+                      title ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("h2", { id: titleId, className: "lds-drawer__title", children: title }) : null,
+                      extra ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "lds-drawer__extra", children: extra }) : null
+                    ] }),
+                    showCloseButton ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(
+                      "button",
+                      {
+                        type: "button",
+                        className: "lds-drawer__close",
+                        onClick: () => onClose == null ? void 0 : onClose(),
+                        "aria-label": closeLabel,
+                        children: /* @__PURE__ */ (0, import_jsx_runtime15.jsx)(Icon, { name: "ic-error-line", "aria-hidden": "true" })
+                      }
+                    ) : null
+                  ] }),
+                  /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: (0, import_clsx15.clsx)("lds-drawer__body", bodyClassName), children }),
+                  shouldShowFooter ? /* @__PURE__ */ (0, import_jsx_runtime15.jsx)("div", { className: "lds-drawer__footer", children: footer }) : null
+                ]
+              }
+            )
+          ]
+        }
+      ),
+      container
+    );
+  }
+);
+Drawer.displayName = "Drawer";
+
+// src/components/Form/Form.tsx
+var import_react16 = __toESM(require("react"));
+var import_clsx16 = require("clsx");
+var import_jsx_runtime16 = require("react/jsx-runtime");
+var DEFAULT_LABEL_WIDTH = "90px";
+function toCssSize(value) {
+  if (value === void 0) {
+    return void 0;
+  }
+  return typeof value === "number" ? `${value}px` : value;
+}
+var Form = import_react16.default.forwardRef(
+  ({ className, style, labelWidth = 90, ...props }, ref) => {
+    var _a;
+    const mergedStyle = {
+      ...style,
+      ["--lds-form-label-width"]: (_a = toCssSize(labelWidth)) != null ? _a : DEFAULT_LABEL_WIDTH
+    };
+    return /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { ref, className: (0, import_clsx16.clsx)("lds-form", className), style: mergedStyle, ...props });
+  }
+);
+Form.displayName = "Form";
+var FormItem = import_react16.default.forwardRef(
+  ({
+    className,
+    label,
+    htmlFor,
+    required = false,
+    tooltip,
+    onTooltipClick,
+    tooltipAriaLabel = "\u67E5\u770B\u5B57\u6BB5\u8BF4\u660E",
+    description,
+    error,
+    labelWidth,
+    children,
+    style,
+    ...props
+  }, ref) => {
+    const message = error != null ? error : description;
+    const hasError = error !== void 0 && error !== null && error !== false;
+    const shouldRenderTooltip = Boolean(tooltip) || Boolean(onTooltipClick);
+    const mergedStyle = {
+      ...style,
+      ...labelWidth !== void 0 ? {
+        ["--lds-form-label-width"]: toCssSize(labelWidth)
+      } : null
+    };
+    const labelContent = /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)(import_jsx_runtime16.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { className: "lds-form-item__label-text", children: label }),
+      shouldRenderTooltip ? /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+        "button",
+        {
+          type: "button",
+          className: "lds-form-item__tooltip",
+          title: tooltip,
+          "aria-label": tooltipAriaLabel,
+          onClick: onTooltipClick,
+          children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(Icon, { name: "ic-help-line", "aria-hidden": "true" })
+        }
+      ) : null,
+      required ? /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("span", { className: "lds-form-item__required", "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(Icon, { name: "ic-required-line" }) }) : null
+    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { ref, className: (0, import_clsx16.clsx)("lds-form-item", className), style: mergedStyle, ...props, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: "lds-form-item__label", children: htmlFor ? /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("label", { className: "lds-form-item__label-inner", htmlFor, children: labelContent }) : /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: "lds-form-item__label-inner", children: labelContent }) }),
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: "lds-form-item__main", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("div", { className: "lds-form-item__control", children }),
+        message ? /* @__PURE__ */ (0, import_jsx_runtime16.jsx)(
+          "div",
+          {
+            className: (0, import_clsx16.clsx)("lds-form-item__message", hasError && "is-error"),
+            role: hasError ? "alert" : void 0,
+            children: message
+          }
+        ) : null
+      ] })
+    ] });
+  }
+);
+FormItem.displayName = "FormItem";
+
+// src/components/Upload/Upload.tsx
+var import_react17 = __toESM(require("react"));
+var import_clsx17 = require("clsx");
+var import_jsx_runtime17 = require("react/jsx-runtime");
+var DEFAULT_TRIGGER_TEXT = "\u4E0A\u4F20";
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(typeof reader.result === "string" ? reader.result : "");
+    reader.onerror = () => {
+      var _a;
+      return reject((_a = reader.error) != null ? _a : new Error("Failed to read file."));
+    };
+    reader.readAsDataURL(file);
+  });
+}
+var Upload = import_react17.default.forwardRef(
+  ({
+    className,
+    value,
+    defaultValue = [],
+    onChange,
+    disabled = false,
+    accept = "image/*",
+    multiple = false,
+    maxCount = 1,
+    triggerText = DEFAULT_TRIGGER_TEXT,
+    visualState = "normal",
+    inputId,
+    name,
+    removeAriaLabel = "\u5220\u9664\u56FE\u7247",
+    triggerAriaLabel = "\u4E0A\u4F20\u56FE\u7247",
+    children,
+    ...props
+  }, ref) => {
+    var _a;
+    const inputRef = import_react17.default.useRef(null);
+    const isControlled = value !== void 0;
+    const [innerValue, setInnerValue] = import_react17.default.useState(defaultValue);
+    const mergedValue = (_a = isControlled ? value : innerValue) != null ? _a : [];
+    const visibleItems = mergedValue.slice(0, maxCount);
+    const shouldRenderTrigger = visibleItems.length < maxCount;
+    const updateValue = import_react17.default.useCallback(
+      (nextValue) => {
+        const normalized = nextValue.slice(0, maxCount);
+        if (!isControlled) {
+          setInnerValue(normalized);
+        }
+        onChange == null ? void 0 : onChange(normalized);
+      },
+      [isControlled, maxCount, onChange]
+    );
+    const handleSelectFiles = import_react17.default.useCallback(
+      async (event) => {
+        var _a2;
+        const files = Array.from((_a2 = event.target.files) != null ? _a2 : []);
+        if (!files.length) {
+          return;
+        }
+        const availableCount = Math.max(maxCount - visibleItems.length, 0);
+        const selectedFiles = files.slice(0, availableCount);
+        try {
+          const nextItems = await Promise.all(
+            selectedFiles.map(async (file, index) => ({
+              id: `${file.name}-${file.lastModified}-${index}`,
+              name: file.name,
+              url: await readFileAsDataUrl(file),
+              file
+            }))
+          );
+          updateValue([...visibleItems, ...nextItems]);
+        } finally {
+          event.target.value = "";
+        }
+      },
+      [maxCount, updateValue, visibleItems]
+    );
+    const handleRemove = import_react17.default.useCallback(
+      (index) => {
+        const nextItems = visibleItems.filter((_, currentIndex) => currentIndex !== index);
+        updateValue(nextItems);
+      },
+      [updateValue, visibleItems]
+    );
+    return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+      "div",
+      {
+        ref,
+        className: (0, import_clsx17.clsx)("lds-upload", disabled && "is-disabled", className),
+        ...props,
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+            "input",
+            {
+              ref: inputRef,
+              id: inputId,
+              className: "lds-upload__input",
+              type: "file",
+              accept,
+              multiple,
+              name,
+              disabled,
+              onChange: handleSelectFiles
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "lds-upload__list", children: [
+            visibleItems.map((item, index) => {
+              var _a2, _b, _c;
+              return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+                "div",
+                {
+                  className: "lds-upload__item",
+                  children: [
+                    /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+                      "img",
+                      {
+                        className: "lds-upload__image",
+                        src: item.url,
+                        alt: (_c = item.name) != null ? _c : `\u5DF2\u4E0A\u4F20\u56FE\u7247 ${index + 1}`
+                      }
+                    ),
+                    !disabled ? /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
+                      "button",
+                      {
+                        type: "button",
+                        className: "lds-upload__remove",
+                        "aria-label": removeAriaLabel,
+                        onClick: () => handleRemove(index),
+                        children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(Icon, { name: "ic-error-line", "aria-hidden": "true" })
+                      }
+                    ) : null
+                  ]
+                },
+                (_b = (_a2 = item.id) != null ? _a2 : item.url) != null ? _b : `${index}`
+              );
+            }),
+            shouldRenderTrigger ? /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
+              "button",
+              {
+                type: "button",
+                className: (0, import_clsx17.clsx)(
+                  "lds-upload__trigger",
+                  visualState === "hover" && "is-hover",
+                  visualState === "active" && "is-active",
+                  visualState === "error" && "is-error"
+                ),
+                disabled,
+                onClick: () => {
+                  var _a2;
+                  return (_a2 = inputRef.current) == null ? void 0 : _a2.click();
+                },
+                "aria-label": triggerAriaLabel,
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(Icon, { name: "ic-add-line", "aria-hidden": "true" }),
+                  /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "lds-upload__text", children: triggerText })
+                ]
+              }
+            ) : null
+          ] }),
+          children ? /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "lds-upload__extra", children }) : null
+        ]
+      }
+    );
+  }
+);
+Upload.displayName = "Upload";
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   Button,
   Capsule,
   Checkbox,
+  Drawer,
   Filter,
   FilterGroup,
+  Form,
+  FormItem,
   Icon,
   Input,
   Menu,
@@ -996,5 +1392,6 @@ Pagination.displayName = "Pagination";
   Td,
   Th,
   Thead,
-  Tr
+  Tr,
+  Upload
 });

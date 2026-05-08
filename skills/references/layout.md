@@ -40,17 +40,16 @@ export function AppLayoutDemo() {
         </aside>
 
         <div className="app-body">
-          <PageHeader
-            title="页面标题"
-            tabs={
-              <Tabs variant="primary" size="small" defaultValue="tab-1">
-                <Tab value="tab-1">标签一</Tab>
-                <Tab value="tab-2">标签二</Tab>
-              </Tabs>
-            }
-          />
-
           <div className="app-content">
+            <PageHeader
+              title="页面标题"
+              tabs={
+                <Tabs variant="primary" size="small" defaultValue="tab-1">
+                  <Tab value="tab-1">标签一</Tab>
+                  <Tab value="tab-2">标签二</Tab>
+                </Tabs>
+              }
+            />
             {/* 核心业务内容放在这里 */}
           </div>
         </div>
@@ -64,8 +63,9 @@ export function AppLayoutDemo() {
 
 1. **初始化结构**：始终从 `.app-container` 开始构建页面。
 2. **内容填充**：将具体业务逻辑放入 `.app-content` 中，并根据 [布局模式](#布局模式) 选择合适的布局。
-3. **样式覆盖**：除非用户明确要求，否则不要修改 `base.css` 中核心框架的 `width`、`z-index` 和 `flex` 属性。
-4. **阴影处理**：严格遵循base.css与基础框架示例代码，`.app-body` 的 `z-index` 高于侧边栏和导航栏，以保证 `shadow-large` 投影效果正常显示。
+3. **PageHeader 位置**：`<PageHeader />` 必须放在 `.app-content` 内部，不能放在 `.app-body` 直属层级；因为 `.app-content` 同时承担页面滚动和左右内边距，放到外面会看起来像固定头部，并与内容区左右边距错位。
+4. **样式覆盖**：除非用户明确要求，否则不要修改 `base.css` 中核心框架的 `width`、`z-index` 和 `flex` 属性。
+5. **阴影处理**：严格遵循base.css与基础框架示例代码，`.app-body` 的 `z-index` 高于侧边栏和导航栏，以保证 `shadow-large` 投影效果正常显示。
 
 ## 页面类型
 
@@ -85,7 +85,7 @@ export function AppLayoutDemo() {
     ├── <PageHeader /> (页面标题区)
     ├── <FilterGroup /> (搜索/筛选区，可选)
     ├── .lds-action-bar (状态与操作工具栏)
-    │   ├── <Tabs variant="capsule" /> (左侧: 数据状态页签)
+    │   ├── <Tabs /> (左侧: 数据状态页签/筛选项，请根据 tabs.md 的指南选择合适的 variant)
     │   └── .lds-actions (右侧: 新建/导出等全局操作)
     ├── <TableWrapper /> (数据表格区域)
     │   └── <Table /> (核心数据表格)
@@ -152,7 +152,7 @@ export function ListPageLayoutDemo() {
           <Tab value="target-member">定向会员发放</Tab>
         </Tabs>
         <div className="lds-actions">
-          <Button variant="primary" size="default-size" leftIcon={<Icon name="ic-plus-line" />}>
+          <Button variant="primary" size="default-size" icon={<Icon name="ic-plus-line" />}>
             新建会员优惠券
           </Button>
         </div>
