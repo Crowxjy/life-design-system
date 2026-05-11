@@ -126,6 +126,8 @@ var import_react4 = __toESM(require("react"));
 var import_clsx4 = require("clsx");
 var import_jsx_runtime4 = require("react/jsx-runtime");
 var DEFAULT_LABEL_WIDTH = "90px";
+var DEFAULT_LAYOUT = "horizontal";
+var FormLayoutContext = import_react4.default.createContext(DEFAULT_LAYOUT);
 var FormItemStatusContext = import_react4.default.createContext({ hasError: false });
 function toCssSize(value) {
   if (value === void 0) {
@@ -137,13 +139,21 @@ function useFormItemStatus() {
   return import_react4.default.useContext(FormItemStatusContext);
 }
 var Form = import_react4.default.forwardRef(
-  ({ className, style, labelWidth = 90, ...props }, ref) => {
+  ({ className, style, labelWidth = 90, layout = DEFAULT_LAYOUT, ...props }, ref) => {
     var _a;
     const mergedStyle = {
       ...style,
       ["--lds-form-label-width"]: (_a = toCssSize(labelWidth)) != null ? _a : DEFAULT_LABEL_WIDTH
     };
-    return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { ref, className: (0, import_clsx4.clsx)("lds-form", className), style: mergedStyle, ...props });
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(FormLayoutContext.Provider, { value: layout, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+      "div",
+      {
+        ref,
+        className: (0, import_clsx4.clsx)("lds-form", `lds-form--${layout}`, className),
+        style: mergedStyle,
+        ...props
+      }
+    ) });
   }
 );
 Form.displayName = "Form";
@@ -159,10 +169,13 @@ var FormItem = import_react4.default.forwardRef(
     description,
     error,
     labelWidth,
+    layout,
     children,
     style,
     ...props
   }, ref) => {
+    const inheritedLayout = import_react4.default.useContext(FormLayoutContext);
+    const resolvedLayout = layout != null ? layout : inheritedLayout;
     const message = error != null ? error : description;
     const hasError = error !== void 0 && error !== null && error !== false;
     const shouldRenderTooltip = Boolean(tooltip) || Boolean(onTooltipClick);
@@ -187,20 +200,29 @@ var FormItem = import_react4.default.forwardRef(
       ) : null,
       required ? /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: "lds-form-item__required", "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Icon, { name: "ic-required-line" }) }) : null
     ] });
-    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { ref, className: (0, import_clsx4.clsx)("lds-form-item", className), style: mergedStyle, ...props, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "lds-form-item__label", children: htmlFor ? /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "lds-form-item__label-inner", htmlFor, children: labelContent }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "lds-form-item__label-inner", children: labelContent }) }),
-      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "lds-form-item__main", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(FormItemStatusContext.Provider, { value: { hasError }, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "lds-form-item__control", children }) }),
-        message ? /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
-          "div",
-          {
-            className: (0, import_clsx4.clsx)("lds-form-item__message", hasError && "is-error"),
-            role: hasError ? "alert" : void 0,
-            children: message
-          }
-        ) : null
-      ] })
-    ] });
+    return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+      "div",
+      {
+        ref,
+        className: (0, import_clsx4.clsx)("lds-form-item", `lds-form-item--${resolvedLayout}`, className),
+        style: mergedStyle,
+        ...props,
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "lds-form-item__label", children: htmlFor ? /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("label", { className: "lds-form-item__label-inner", htmlFor, children: labelContent }) : /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "lds-form-item__label-inner", children: labelContent }) }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: "lds-form-item__main", children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(FormItemStatusContext.Provider, { value: { hasError }, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: "lds-form-item__control", children }) }),
+            message ? /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+              "div",
+              {
+                className: (0, import_clsx4.clsx)("lds-form-item__message", hasError && "is-error"),
+                role: hasError ? "alert" : void 0,
+                children: message
+              }
+            ) : null
+          ] })
+        ]
+      }
+    );
   }
 );
 FormItem.displayName = "FormItem";
@@ -208,9 +230,13 @@ FormItem.displayName = "FormItem";
 // src/components/Input/Input.tsx
 var import_jsx_runtime5 = require("react/jsx-runtime");
 var Input = import_react5.default.forwardRef(
-  ({ className, wrapperClassName, size = "default-size", prefixIcon, suffixIcon, clearable, onClear, disabled, isFocused, error, ...props }, ref) => {
+  ({ className, wrapperClassName, size = "default-size", prefixIcon, suffixIcon, clearable, onClear, disabled, isFocused, error, showCount = false, value, defaultValue, maxLength, ...props }, ref) => {
+    var _a;
     const { hasError } = useFormItemStatus();
     const mergedError = error != null ? error : hasError;
+    const countValue = (_a = value != null ? value : defaultValue) != null ? _a : "";
+    const currentLength = typeof countValue === "number" ? String(countValue).length : String(countValue).length;
+    const countText = maxLength !== void 0 ? `${currentLength}/${maxLength}` : `${currentLength}`;
     return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
       "div",
       {
@@ -230,9 +256,13 @@ var Input = import_react5.default.forwardRef(
               ref,
               className: (0, import_clsx5.clsx)("lds-input", className),
               disabled,
+              value,
+              defaultValue,
+              maxLength,
               ...props
             }
           ),
+          showCount ? /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "lds-input__count", children: countText }) : null,
           clearable && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "lds-input__clear", onClick: onClear, children: /* @__PURE__ */ (0, import_jsx_runtime5.jsx)(Icon, { name: "ic-error-round" }) }),
           suffixIcon && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "lds-input__suffix", children: suffixIcon })
         ]

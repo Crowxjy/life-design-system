@@ -3,6 +3,8 @@ import { clsx } from 'clsx';
 import { Icon } from '../Icon/Icon';
 
 const DEFAULT_LABEL_WIDTH = '90px';
+const DEFAULT_LAYOUT = 'horizontal';
+const FormLayoutContext = React.createContext<FormLayout>(DEFAULT_LAYOUT);
 const FormItemStatusContext = React.createContext<{ hasError: boolean }>({ hasError: false });
 
 function toCssSize(value?: number | string) {
@@ -17,12 +19,19 @@ export function useFormItemStatus() {
   return React.useContext(FormItemStatusContext);
 }
 
+export type FormLayout = 'horizontal' | 'vertical';
+
 export interface FormProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * 统一设置表单项左侧标题宽度
    * @default 90
    */
   labelWidth?: number | string;
+  /**
+   * 表单项排列方式
+   * @default 'horizontal'
+   */
+  layout?: FormLayout;
 }
 
 export interface FormItemProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
@@ -64,16 +73,29 @@ export interface FormItemProps extends Omit<React.HTMLAttributes<HTMLDivElement>
    * 单独覆盖当前项的标题宽度
    */
   labelWidth?: number | string;
+  /**
+   * 单独覆盖当前项的排列方式
+   */
+  layout?: FormLayout;
 }
 
 export const Form = React.forwardRef<HTMLDivElement, FormProps>(
-  ({ className, style, labelWidth = 90, ...props }, ref) => {
+  ({ className, style, labelWidth = 90, layout = DEFAULT_LAYOUT, ...props }, ref) => {
     const mergedStyle = {
       ...style,
       ['--lds-form-label-width' as const]: toCssSize(labelWidth) ?? DEFAULT_LABEL_WIDTH,
     } as React.CSSProperties;
 
-    return <div ref={ref} className={clsx('lds-form', className)} style={mergedStyle} {...props} />;
+    return (
+      <FormLayoutContext.Provider value={layout}>
+        <div
+          ref={ref}
+          className={clsx('lds-form', `lds-form--${layout}`, className)}
+          style={mergedStyle}
+          {...props}
+        />
+      </FormLayoutContext.Provider>
+    );
   }
 );
 
@@ -92,12 +114,15 @@ export const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
       description,
       error,
       labelWidth,
+      layout,
       children,
       style,
       ...props
     },
     ref
   ) => {
+    const inheritedLayout = React.useContext(FormLayoutContext);
+    const resolvedLayout = layout ?? inheritedLayout;
     const message = error ?? description;
     const hasError = error !== undefined && error !== null && error !== false;
     const shouldRenderTooltip = Boolean(tooltip) || Boolean(onTooltipClick);
@@ -133,7 +158,12 @@ export const FormItem = React.forwardRef<HTMLDivElement, FormItemProps>(
     );
 
     return (
-      <div ref={ref} className={clsx('lds-form-item', className)} style={mergedStyle} {...props}>
+      <div
+        ref={ref}
+        className={clsx('lds-form-item', `lds-form-item--${resolvedLayout}`, className)}
+        style={mergedStyle}
+        {...props}
+      >
         <div className="lds-form-item__label">
           {htmlFor ? (
             <label className="lds-form-item__label-inner" htmlFor={htmlFor}>

@@ -7,6 +7,7 @@
   justify-content: center;
   gap: var(--spacing-1x, 4px);
   box-sizing: border-box;
+  min-width: 88px;
   font-family: var(--font-normal, "PingFang SC", sans-serif);
   font-weight: 400;
   text-align: center;
@@ -163,6 +164,7 @@
 /* 5. 图标按钮 Icon (Square) */
 .lds-btn--icon {
   padding: 0;
+  min-width: 0;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -384,9 +386,14 @@
   cursor: not-allowed;
 }
 
-.lds-input-wrapper.is-disabled .lds-input {
+.lds-input-wrapper.is-disabled .lds-input,
+.lds-input-wrapper.is-disabled .lds-input::placeholder {
   color: var(--color-text-disable);
   cursor: not-allowed;
+}
+
+.lds-input-wrapper.is-disabled .lds-input__count {
+  color: var(--color-text-disable);
 }
 
 /* Prefix and Suffix */
@@ -408,6 +415,26 @@
 .lds-input__clear .icon {
   width: 16px;
   height: 16px;
+}
+
+.lds-input__count {
+  flex: 0 0 auto;
+  color: var(--color-text-caption);
+  white-space: nowrap;
+  margin-left: 8px;
+}
+
+.lds-input-wrapper--large .lds-input__count {
+  font: var(--subtitle-regular);
+}
+
+.lds-input-wrapper--default-size .lds-input__count,
+.lds-input-wrapper--small .lds-input__count {
+  font: var(--body-regular);
+}
+
+.lds-input-wrapper--mini .lds-input__count {
+  font: var(--caption-regular);
 }
 
 /* Clear Icon */
@@ -499,12 +526,15 @@
   display: flex;
   justify-content: flex-end;
   min-height: 18px;
-  padding-right: 12px;
 }
 
 .lds-textarea__count {
   color: var(--color-text-caption);
   font: var(--caption-regular);
+}
+
+.lds-textarea-wrapper.is-disabled .lds-textarea__count {
+  color: var(--color-text-disable);
 }
 
 .lds-textarea__resize-handle {
@@ -1533,10 +1563,15 @@ button.lds-filter {
   font-family: var(--font-normal, "PingFang SC", sans-serif);
 }
 
+.lds-form-item--vertical {
+  flex-direction: column;
+  gap: var(--spacing-2x, 8px);
+}
+
 .lds-form-item__label {
-  width: var(--lds-form-label-width, 90px);
-  min-width: var(--lds-form-label-width, 90px);
-  flex: 0 0 var(--lds-form-label-width, 90px);
+  width: max(var(--lds-form-label-width, 90px), 70px);
+  min-width: 70px;
+  flex: 0 0 max(var(--lds-form-label-width, 90px), 70px);
 }
 
 .lds-form-item__label-inner {
@@ -1555,8 +1590,6 @@ button.lds-filter {
 
 .lds-form-item__tooltip,
 .lds-form-item__required {
-  width: 16px;
-  height: 16px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1564,6 +1597,8 @@ button.lds-filter {
 }
 
 .lds-form-item__tooltip {
+  width: 16px;
+  height: 16px;
   padding: 0;
   border: none;
   border-radius: var(--radius-s, 6px);
@@ -1597,7 +1632,14 @@ button.lds-filter {
 }
 
 .lds-form-item__required {
+  width: 10px;
+  height: 10px;
   color: var(--color-danger-normal);
+}
+
+.lds-form-item__required .icon {
+  width: 10px;
+  height: 10px;
 }
 
 .lds-form-item__main {
@@ -1606,6 +1648,21 @@ button.lds-filter {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-base, 4px);
+}
+
+.lds-form-item--vertical .lds-form-item__label {
+  width: 100%;
+  min-width: 0;
+  flex: none;
+}
+
+.lds-form-item--vertical .lds-form-item__label-inner {
+  min-height: 0;
+  width: 100%;
+}
+
+.lds-form-item--vertical .lds-form-item__main {
+  width: 100%;
 }
 
 .lds-form-item__control {

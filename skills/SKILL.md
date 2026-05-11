@@ -16,6 +16,7 @@ description: 使用 @life-ds 构建或优化 抖音来客原生风格的 React W
 6. **在能提升清晰度的地方考虑使用动效。** 对于交互状态变化（展开/收起、切换、焦点滑动、错误反馈），优先使用 life-ds 组件内置的动效。仅对非组件元素使用自定义动效，并遵循 [references/motion.md](references/motion.md) 的预设以保持一致性。
 7. **遵循现有项目模式。** 如果仓库中已经使用了 life-ds 组件或本地封装组件，请在其基础上进行扩展，而不是创建平行的结构。
 8. 每个项目的页面，需要增加字体平滑的代码：`-webkit-font-smoothing: antialiased`
+9. 设计原则是所有页面的底层指导规则，务必在实现页面是阅读内容并遵循原则：[references/design.md](references/design.md)
 
 ***
 
@@ -101,18 +102,22 @@ description: 使用 @life-ds 构建或优化 抖音来客原生风格的 React W
 - 筛选器 ：[references/filter.md](references/filter.md)
 - 标签 ：[references/tag.md](references/tag.md)
 - 多选框 ：[references/checkbox.md](references/checkbox.md)
+- 胶囊 ：[references/capsule.md](references/capsule.md)
+- 抽屉 ：[references/drawer.md](references/drawer.md)
 
 ***
 
 <br />
 
-## 3. 需要时阅读图片指引
+## 3. 阅读图片指引
 
-如果用户提供了截图、设计稿或其他视觉参考，也请阅读：
+如果用户提供了截图、设计稿或其他视觉参考，必须阅读文档：
 
 - [references/image-analysis.md](references/image-analysis.md)
 
 使用图片来推断布局结构、层级、组件、Token 角色和状态 —— 然后使用 life-ds 组件和 Tokens 进行实现。
+
+若截图内容为原型图等简单的线框图，请不要严格按照截图的样式和布局实现，务必保证其涉及风格、布局框架、组件使用、样式token等符合来客设计规范、页面规范、组件规范和样式规范。
 
 如果追求像素级完美的克隆会导致糟糕的 Web 端实现效果，请不要这么做。在需要时使用占位图（例如 `https://picsum.photos/seed/reel-fashion/720/1280`）。
 

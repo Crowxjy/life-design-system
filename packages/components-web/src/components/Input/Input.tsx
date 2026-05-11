@@ -12,12 +12,16 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
   wrapperClassName?: string;
   isFocused?: boolean;
   error?: boolean;
+  showCount?: boolean;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, wrapperClassName, size = 'default-size', prefixIcon, suffixIcon, clearable, onClear, disabled, isFocused, error, ...props }, ref) => {
+  ({ className, wrapperClassName, size = 'default-size', prefixIcon, suffixIcon, clearable, onClear, disabled, isFocused, error, showCount = false, value, defaultValue, maxLength, ...props }, ref) => {
     const { hasError } = useFormItemStatus();
     const mergedError = error ?? hasError;
+    const countValue = value ?? defaultValue ?? '';
+    const currentLength = typeof countValue === 'number' ? String(countValue).length : String(countValue).length;
+    const countText = maxLength !== undefined ? `${currentLength}/${maxLength}` : `${currentLength}`;
 
     return (
       <div
@@ -35,8 +39,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           className={clsx('lds-input', className)}
           disabled={disabled}
+          value={value}
+          defaultValue={defaultValue}
+          maxLength={maxLength}
           {...props}
         />
+        {showCount ? <span className="lds-input__count">{countText}</span> : null}
         {clearable && (
           <span className="lds-input__clear" onClick={onClear}>
             <Icon name="ic-error-round" />

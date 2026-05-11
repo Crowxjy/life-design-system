@@ -59,6 +59,8 @@ import React4 from "react";
 import { clsx as clsx4 } from "clsx";
 import { Fragment, jsx as jsx4, jsxs as jsxs3 } from "react/jsx-runtime";
 var DEFAULT_LABEL_WIDTH = "90px";
+var DEFAULT_LAYOUT = "horizontal";
+var FormLayoutContext = React4.createContext(DEFAULT_LAYOUT);
 var FormItemStatusContext = React4.createContext({ hasError: false });
 function toCssSize(value) {
   if (value === void 0) {
@@ -70,13 +72,21 @@ function useFormItemStatus() {
   return React4.useContext(FormItemStatusContext);
 }
 var Form = React4.forwardRef(
-  ({ className, style, labelWidth = 90, ...props }, ref) => {
+  ({ className, style, labelWidth = 90, layout = DEFAULT_LAYOUT, ...props }, ref) => {
     var _a;
     const mergedStyle = {
       ...style,
       ["--lds-form-label-width"]: (_a = toCssSize(labelWidth)) != null ? _a : DEFAULT_LABEL_WIDTH
     };
-    return /* @__PURE__ */ jsx4("div", { ref, className: clsx4("lds-form", className), style: mergedStyle, ...props });
+    return /* @__PURE__ */ jsx4(FormLayoutContext.Provider, { value: layout, children: /* @__PURE__ */ jsx4(
+      "div",
+      {
+        ref,
+        className: clsx4("lds-form", `lds-form--${layout}`, className),
+        style: mergedStyle,
+        ...props
+      }
+    ) });
   }
 );
 Form.displayName = "Form";
@@ -92,10 +102,13 @@ var FormItem = React4.forwardRef(
     description,
     error,
     labelWidth,
+    layout,
     children,
     style,
     ...props
   }, ref) => {
+    const inheritedLayout = React4.useContext(FormLayoutContext);
+    const resolvedLayout = layout != null ? layout : inheritedLayout;
     const message = error != null ? error : description;
     const hasError = error !== void 0 && error !== null && error !== false;
     const shouldRenderTooltip = Boolean(tooltip) || Boolean(onTooltipClick);
@@ -120,20 +133,29 @@ var FormItem = React4.forwardRef(
       ) : null,
       required ? /* @__PURE__ */ jsx4("span", { className: "lds-form-item__required", "aria-hidden": "true", children: /* @__PURE__ */ jsx4(Icon, { name: "ic-required-line" }) }) : null
     ] });
-    return /* @__PURE__ */ jsxs3("div", { ref, className: clsx4("lds-form-item", className), style: mergedStyle, ...props, children: [
-      /* @__PURE__ */ jsx4("div", { className: "lds-form-item__label", children: htmlFor ? /* @__PURE__ */ jsx4("label", { className: "lds-form-item__label-inner", htmlFor, children: labelContent }) : /* @__PURE__ */ jsx4("div", { className: "lds-form-item__label-inner", children: labelContent }) }),
-      /* @__PURE__ */ jsxs3("div", { className: "lds-form-item__main", children: [
-        /* @__PURE__ */ jsx4(FormItemStatusContext.Provider, { value: { hasError }, children: /* @__PURE__ */ jsx4("div", { className: "lds-form-item__control", children }) }),
-        message ? /* @__PURE__ */ jsx4(
-          "div",
-          {
-            className: clsx4("lds-form-item__message", hasError && "is-error"),
-            role: hasError ? "alert" : void 0,
-            children: message
-          }
-        ) : null
-      ] })
-    ] });
+    return /* @__PURE__ */ jsxs3(
+      "div",
+      {
+        ref,
+        className: clsx4("lds-form-item", `lds-form-item--${resolvedLayout}`, className),
+        style: mergedStyle,
+        ...props,
+        children: [
+          /* @__PURE__ */ jsx4("div", { className: "lds-form-item__label", children: htmlFor ? /* @__PURE__ */ jsx4("label", { className: "lds-form-item__label-inner", htmlFor, children: labelContent }) : /* @__PURE__ */ jsx4("div", { className: "lds-form-item__label-inner", children: labelContent }) }),
+          /* @__PURE__ */ jsxs3("div", { className: "lds-form-item__main", children: [
+            /* @__PURE__ */ jsx4(FormItemStatusContext.Provider, { value: { hasError }, children: /* @__PURE__ */ jsx4("div", { className: "lds-form-item__control", children }) }),
+            message ? /* @__PURE__ */ jsx4(
+              "div",
+              {
+                className: clsx4("lds-form-item__message", hasError && "is-error"),
+                role: hasError ? "alert" : void 0,
+                children: message
+              }
+            ) : null
+          ] })
+        ]
+      }
+    );
   }
 );
 FormItem.displayName = "FormItem";
@@ -141,9 +163,13 @@ FormItem.displayName = "FormItem";
 // src/components/Input/Input.tsx
 import { jsx as jsx5, jsxs as jsxs4 } from "react/jsx-runtime";
 var Input = React5.forwardRef(
-  ({ className, wrapperClassName, size = "default-size", prefixIcon, suffixIcon, clearable, onClear, disabled, isFocused, error, ...props }, ref) => {
+  ({ className, wrapperClassName, size = "default-size", prefixIcon, suffixIcon, clearable, onClear, disabled, isFocused, error, showCount = false, value, defaultValue, maxLength, ...props }, ref) => {
+    var _a;
     const { hasError } = useFormItemStatus();
     const mergedError = error != null ? error : hasError;
+    const countValue = (_a = value != null ? value : defaultValue) != null ? _a : "";
+    const currentLength = typeof countValue === "number" ? String(countValue).length : String(countValue).length;
+    const countText = maxLength !== void 0 ? `${currentLength}/${maxLength}` : `${currentLength}`;
     return /* @__PURE__ */ jsxs4(
       "div",
       {
@@ -163,9 +189,13 @@ var Input = React5.forwardRef(
               ref,
               className: clsx5("lds-input", className),
               disabled,
+              value,
+              defaultValue,
+              maxLength,
               ...props
             }
           ),
+          showCount ? /* @__PURE__ */ jsx5("span", { className: "lds-input__count", children: countText }) : null,
           clearable && /* @__PURE__ */ jsx5("span", { className: "lds-input__clear", onClick: onClear, children: /* @__PURE__ */ jsx5(Icon, { name: "ic-error-round" }) }),
           suffixIcon && /* @__PURE__ */ jsx5("span", { className: "lds-input__suffix", children: suffixIcon })
         ]

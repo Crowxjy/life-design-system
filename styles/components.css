@@ -7,6 +7,7 @@
   justify-content: center;
   gap: var(--spacing-1x, 4px);
   box-sizing: border-box;
+  min-width: 88px;
   font-family: var(--font-normal, "PingFang SC", sans-serif);
   font-weight: 400;
   text-align: center;
@@ -163,6 +164,7 @@
 /* 5. 图标按钮 Icon (Square) */
 .lds-btn--icon {
   padding: 0;
+  min-width: 0;
   display: inline-flex;
   justify-content: center;
   align-items: center;
