@@ -26,6 +26,8 @@
 - 当筛选项数量 **小于等于 3 个** 时：一般 **不配置** “查询 / 重置”按钮，筛选值变更后可直接触发刷新。
 - 当筛选项数量 **较多** 或请求成本较高时：才配置“查询 / 重置”，避免频繁请求。
 
+> ⚠️ **“查询 / 重置”按钮已经由 `FilterGroup` 内置**。需要时只需传入 `onQuery` / `onReset` 回调，**严禁在 `FilterGroup` 外部或内部手写 `<Button>查询</Button>` / `<Button>重置</Button>`**，否则会出现两套样式、间距错乱以及与设计系统不一致的问题。
+
 ## 如何识别筛选器
 
 可能的筛选器通常表现为：
@@ -304,6 +306,7 @@ export function FilterGroupWithActionsDemo() {
 - 默认用 `FilterGroup` 做容器，不要自己写 `display: grid` / `grid-template-columns` 去拼筛选区。
 - `Filter` 是基础触发器，不要误把它当作完整选择器使用。
 - `FilterSelect` / `FilterDatePicker` / `FilterTimePicker` 已经封装好了 `Popover`，业务层不要再额外包一层自定义浮层。
+- **不要自己用 `<Button>` 实现“查询 / 重置”，必须使用 `FilterGroup` 自带的 `onQuery` / `onReset` 配置项。**
 - “查询 / 重置”仅在筛选项较多时启用；小于等于 3 个筛选项时一般不需要操作按钮。
 
 ```tsx
@@ -319,6 +322,20 @@ export function FilterGroupWithActionsDemo() {
     { label: '进行中', value: 'running' },
   ]}
 />
+```
+
+```tsx
+// ❌ 不推荐：在 FilterGroup 内部为单个筛选器自定义 width
+<FilterGroup>
+  <FilterSelect label="状态" width={200} options={statusOptions} />
+  <FilterDatePicker label="日期" width={360} />
+</FilterGroup>
+
+// ✅ 推荐：保持组件默认宽度，由 FilterGroup 统一控制布局
+<FilterGroup>
+  <FilterSelect label="状态" options={statusOptions} />
+  <FilterDatePicker label="日期" />
+</FilterGroup>
 ```
 
 ```html
