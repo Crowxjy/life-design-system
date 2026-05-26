@@ -312,6 +312,7 @@
     <a href="#search" class="nav-item" data-target="search">Search</a>
     <a href="#select" class="nav-item" data-target="select">Select</a>
     <a href="#datepicker" class="nav-item" data-target="datepicker">DatePicker</a>
+    <a href="#timepicker" class="nav-item" data-target="timepicker">TimePicker</a>
     <a href="#textarea" class="nav-item" data-target="textarea">Textarea</a>
     <a href="#filter" class="nav-item" data-target="filter">Filter</a>
     <a href="#filtergroup" class="nav-item" data-target="filtergroup">FilterGroup</a>
@@ -613,6 +614,41 @@
           render: (_size, _state) => {
             const id = 'datepicker-form-usage';
             window.pendingReactRenders.push({ id, type: 'datepicker-demo', mode: 'form' });
+            return `<div id="${id}"></div>`;
+          }
+        }
+      ]
+    },
+    timepicker: {
+      title: 'TimePicker (React Component)',
+      layout: 'full',
+      sizes: [{ id: 'default', label: '默认规格', meta: '通用时间选择器 · 单时间 / 时间区间' }],
+      desc: 'A general-purpose TimePicker for form fields and wider data-entry scenes. The trigger follows the same visual language as Select and DatePicker, while the popup supports both the FilterTimePicker single-time panel and the dedicated range-time panel.',
+      variants: [
+        {
+          title: 'States',
+          desc: 'Shows both single-time and range-time triggers across three sizes, including default, hover, active, filled, disabled and error states.',
+          render: (_size, _state) => {
+            const id = 'timepicker-states';
+            window.pendingReactRenders.push({ id, type: 'timepicker-demo', mode: 'states' });
+            return `<div id="${id}"></div>`;
+          }
+        },
+        {
+          title: 'Panel',
+          desc: 'Demonstrates both the single-time popup and the range-time popup with dedicated start/end sections.',
+          render: (_size, _state) => {
+            const id = 'timepicker-panel';
+            window.pendingReactRenders.push({ id, type: 'timepicker-demo', mode: 'panel' });
+            return `<div id="${id}"></div>`;
+          }
+        },
+        {
+          title: 'In Form',
+          desc: 'Demonstrates how TimePicker is used as a standard field control inside Form for both single-time and range-time fields.',
+          render: (_size, _state) => {
+            const id = 'timepicker-form-usage';
+            window.pendingReactRenders.push({ id, type: 'timepicker-demo', mode: 'form' });
             return `<div id="${id}"></div>`;
           }
         }
@@ -1233,7 +1269,7 @@
     mainEl.innerHTML = html;
 
     // Trigger custom event so React script knows to mount
-    if (['button', 'alert', 'radio', 'checkbox', 'switch', 'input', 'search', 'select', 'datepicker', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(compId)) {
+    if (['button', 'alert', 'radio', 'checkbox', 'switch', 'input', 'search', 'select', 'datepicker', 'timepicker', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(compId)) {
       window.dispatchEvent(new CustomEvent('renderReactButtons'));
     }
   }
@@ -1273,7 +1309,7 @@
 
   // Also trigger initial render in case it was already button
   setTimeout(() => {
-    if (['button', 'alert', 'radio', 'switch', 'input', 'search', 'select', 'datepicker', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(hash) || !hash) {
+    if (['button', 'alert', 'radio', 'switch', 'input', 'search', 'select', 'datepicker', 'timepicker', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(hash) || !hash) {
       window.dispatchEvent(new CustomEvent('renderReactButtons'));
     }
   }, 200);
@@ -1283,7 +1319,7 @@
   import React from 'react';
   import { createRoot } from 'react-dom/client';
   import { 
-    Button, Alert, Icon, Radio, Input, Search, Select, DatePicker, Textarea, Tabs, Tab,
+    Button, Alert, Icon, Radio, Input, Search, Select, DatePicker, TimePicker, Textarea, Tabs, Tab,
     Filter,
     FilterSelect,
     FilterDatePicker,
@@ -1756,6 +1792,207 @@
         };
 
         root.render(<DatePickerDemo />);
+      } else if (item.type === 'timepicker-demo') {
+        const columns = SELECT_SIZES;
+        const timeValue = '18:36';
+        const timeRangeValue = ['09:30', '18:30'];
+
+        const PreviewTable = ({ rows, renderCell }) => (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: `120px repeat(${columns.length}, minmax(220px, max-content))`, gap: 12, alignItems: 'end' }}>
+              <div />
+              {columns.map((column) => (
+                <div key={column.id} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <strong style={{ font: 'var(--caption-medium)', color: 'var(--color-text-primary)' }}>{column.label}</strong>
+                  <span style={{ font: 'var(--caption-regular)', color: 'var(--color-text-caption)' }}>{column.meta}</span>
+                </div>
+              ))}
+            </div>
+            {rows.map((row) => (
+              <div key={row.id} style={{ display: 'grid', gridTemplateColumns: `120px repeat(${columns.length}, minmax(220px, max-content))`, gap: 12, alignItems: 'center' }}>
+                <span style={{ font: 'var(--caption-medium)', color: 'var(--color-text-secondary)' }}>{row.label}</span>
+                {columns.map((column) => (
+                  <div key={column.id} style={{ width: 360, maxWidth: '100%' }}>
+                    {renderCell(column, row)}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        );
+
+        const TimePickerDemo = () => {
+          if (item.mode === 'panel') {
+            return (
+              <div style={{ display: 'grid', gap: 24 }}>
+                <div style={{ width: 360, maxWidth: '100%' }}>
+                  <TimePicker
+                    aria-label="时间面板示例"
+                    defaultValue={timeValue}
+                    defaultOpen
+                  />
+                </div>
+
+                <div style={{ width: 360, maxWidth: '100%' }}>
+                  <TimePicker
+                    aria-label="时间区间面板示例"
+                    picker="range"
+                    defaultValue={timeRangeValue}
+                    defaultOpen
+                  />
+                </div>
+
+                <span style={{ font: 'var(--caption-regular)', color: 'var(--color-text-caption)' }}>
+                  单时间面板沿用 FilterTimePicker 的双列时间滚动列表，区间时间面板则拆分为开始时间和结束时间两个独立半区。
+                </span>
+              </div>
+            );
+          }
+
+          if (item.mode === 'form') {
+            const TimePickerFormUsage = () => {
+              const [startTime, setStartTime] = React.useState();
+              const [deadline, setDeadline] = React.useState(timeValue);
+              const [timeRange, setTimeRange] = React.useState(timeRangeValue);
+
+              return (
+                <div style={{ display: 'grid', gap: 24, gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
+                  <div style={{ padding: 24, border: '1px dashed var(--color-border-normal)', borderRadius: 16 }}>
+                    <Form labelWidth={90}>
+                      <FormItem
+                        label="开始时间"
+                        required
+                        description="单时间面板沿用 FilterTimePicker 的时间列样式。"
+                      >
+                        <TimePicker
+                          id="timepicker-form-start"
+                          aria-label="开始时间"
+                          size="default-size"
+                          width="100%"
+                          value={startTime}
+                          onChange={setStartTime}
+                          placeholder="请选择"
+                        />
+                      </FormItem>
+                    </Form>
+                  </div>
+
+                  <div style={{ padding: 24, border: '1px dashed var(--color-border-normal)', borderRadius: 16 }}>
+                    <Form labelWidth={90}>
+                      <FormItem
+                        label="营业时段"
+                        description="时间区间面板按开始时间 / 结束时间两个半区展示。"
+                        error="请选择完整营业时段"
+                      >
+                        <TimePicker
+                          id="timepicker-form-range"
+                          aria-label="营业时段"
+                          picker="range"
+                          size="default-size"
+                          width="100%"
+                          value={timeRange}
+                          onChange={setTimeRange}
+                        />
+                      </FormItem>
+                    </Form>
+                  </div>
+
+                  <div style={{ padding: 24, border: '1px dashed var(--color-border-normal)', borderRadius: 16 }}>
+                    <Form labelWidth={90}>
+                      <FormItem
+                        label="截止时间"
+                        required
+                        error="请选择截止时间"
+                      >
+                        <TimePicker
+                          id="timepicker-form-deadline"
+                          aria-label="截止时间"
+                          size="default-size"
+                          width="100%"
+                          value={deadline}
+                          onChange={setDeadline}
+                        />
+                      </FormItem>
+                    </Form>
+                  </div>
+                </div>
+              );
+            };
+
+            return <TimePickerFormUsage />;
+          }
+
+          const singleRows = [
+            { id: 'single-default', label: '单时间默认', className: '', isFocused: false, disabled: false, value: null, error: false },
+            { id: 'single-hover', label: '单时间悬停', className: 'is-hover', isFocused: false, disabled: false, value: null, error: false },
+            { id: 'single-active', label: '单时间激活', className: '', isFocused: true, disabled: false, value: timeValue, error: false },
+            { id: 'single-filled', label: '单时间已选', className: '', isFocused: false, disabled: false, value: timeValue, error: false },
+            { id: 'single-disabled', label: '单时间禁用', className: '', isFocused: false, disabled: true, value: null, error: false },
+            { id: 'single-error', label: '单时间报错', className: '', isFocused: false, disabled: false, value: null, error: true },
+          ];
+
+          const rangeRows = [
+            { id: 'range-default', label: '区间默认', className: '', isFocused: false, disabled: false, value: [null, null], error: false },
+            { id: 'range-hover', label: '区间悬停', className: 'is-hover', isFocused: false, disabled: false, value: [null, null], error: false },
+            { id: 'range-active', label: '区间激活', className: '', isFocused: true, disabled: false, value: ['12:00', null], error: false },
+            { id: 'range-filled', label: '区间已选', className: '', isFocused: false, disabled: false, value: timeRangeValue, error: false },
+            { id: 'range-disabled', label: '区间禁用', className: '', isFocused: false, disabled: true, value: [null, null], error: false },
+            { id: 'range-error', label: '区间报错', className: '', isFocused: false, disabled: false, value: [null, null], error: true },
+          ];
+
+          return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <strong style={{ font: 'var(--caption-medium)', color: 'var(--color-text-primary)' }}>单时间</strong>
+                <PreviewTable
+                  rows={singleRows}
+                  renderCell={(column, row) => (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      <TimePicker
+                        aria-label={`${row.label}-${column.label}`}
+                        size={column.id}
+                        className={row.className}
+                        isFocused={row.isFocused}
+                        disabled={row.disabled}
+                        error={row.error}
+                        defaultValue={row.value}
+                      />
+                      {row.error ? (
+                        <span style={{ font: 'var(--caption-regular)', color: 'var(--color-danger-normal)' }}>报错文案保持清晰、简洁</span>
+                      ) : null}
+                    </div>
+                  )}
+                />
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <strong style={{ font: 'var(--caption-medium)', color: 'var(--color-text-primary)' }}>时间区间</strong>
+                <PreviewTable
+                  rows={rangeRows}
+                  renderCell={(column, row) => (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      <TimePicker
+                        aria-label={`${row.label}-${column.label}`}
+                        picker="range"
+                        size={column.id}
+                        className={row.className}
+                        isFocused={row.isFocused}
+                        disabled={row.disabled}
+                        error={row.error}
+                        defaultValue={row.value}
+                      />
+                      {row.error ? (
+                        <span style={{ font: 'var(--caption-regular)', color: 'var(--color-danger-normal)' }}>报错文案保持清晰、简洁</span>
+                      ) : null}
+                    </div>
+                  )}
+                />
+              </div>
+            </div>
+          );
+        };
+
+        root.render(<TimePickerDemo />);
       } else if (item.type === 'select-demo') {
         const selectOptions = [
           { label: '生活服务 / 到店综合', value: 'life-service', iconName: 'ic-sell-line' },
@@ -2394,10 +2631,14 @@
         const rangeDateId = `form-date-range-${item.id}`;
         const textareaId = `form-textarea-${item.id}`;
         const uploadId = `form-upload-${item.id}`;
+        const timeId = `form-time-${item.id}`;
+        const timeRangeId = `form-time-range-${item.id}`;
         const FormDemo = () => {
           const [images, setImages] = React.useState([]);
           const [category, setCategory] = React.useState();
           const [publishDate, setPublishDate] = React.useState(null);
+          const [startTime, setStartTime] = React.useState();
+          const [activeTimeRange, setActiveTimeRange] = React.useState(['09:30', '18:30']);
           const [dateRange, setDateRange] = React.useState([new Date(2025, 11, 23), new Date(2025, 11, 29)]);
           const isErrorMode = item.mode === 'error';
           const isVertical = item.layout === 'vertical';
@@ -2469,6 +2710,38 @@
                     value={dateRange}
                     maxRangeDays={31}
                     onChange={setDateRange}
+                  />
+                </FormItem>
+
+                <FormItem
+                  label={isVertical ? '时间选择' : item.labelWidth > 90 ? '开始时间选择' : '时间选择'}
+                  description="通用 TimePicker 单时间面板沿用 FilterTimePicker 的时间列样式。"
+                  error={isErrorMode ? '请选择开始时间' : undefined}
+                >
+                  <TimePicker
+                    id={timeId}
+                    aria-label="开始时间"
+                    size="default-size"
+                    width="100%"
+                    value={startTime}
+                    onChange={setStartTime}
+                    placeholder="请选择"
+                  />
+                </FormItem>
+
+                <FormItem
+                  label={isVertical ? '时间区间' : item.labelWidth > 90 ? '营业时段选择' : '时间区间'}
+                  description="时间区间使用独立的开始时间 / 结束时间双半区面板。"
+                  error={isErrorMode ? '请选择完整时间区间' : undefined}
+                >
+                  <TimePicker
+                    id={timeRangeId}
+                    aria-label="营业时段"
+                    picker="range"
+                    size="default-size"
+                    width="100%"
+                    value={activeTimeRange}
+                    onChange={setActiveTimeRange}
                   />
                 </FormItem>
 

@@ -1224,7 +1224,20 @@
   height: 20px;
 }
 
-.lds-date-picker__range {
+.lds-time-picker__popover {
+  padding: 0;
+  box-shadow: var(--shadow-normal);
+}
+
+.lds-select--large .lds-time-picker__icon-svg,
+.lds-select--default-size .lds-time-picker__icon-svg,
+.lds-select--small .lds-time-picker__icon-svg {
+  width: 20px;
+  height: 20px;
+}
+
+.lds-date-picker__range,
+.lds-time-picker__range {
   display: grid;
   align-items: center;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -1233,7 +1246,8 @@
   min-width: 0;
 }
 
-.lds-date-picker__range-value {
+.lds-date-picker__range-value,
+.lds-time-picker__range-value {
   flex: 1 1 auto;
   min-width: 0;
   overflow: hidden;
@@ -1241,21 +1255,66 @@
   white-space: nowrap;
 }
 
-.lds-date-picker__range-value.is-placeholder {
+.lds-date-picker__range-value.is-placeholder,
+.lds-time-picker__range-value.is-placeholder {
   color: var(--color-text-caption);
 }
 
-.lds-date-picker__range-separator {
+.lds-date-picker__range-separator,
+.lds-time-picker__range-separator {
   color: var(--color-text-primary);
 }
 
-.lds-date-picker__range-value.is-selected {
+.lds-date-picker__range-value.is-selected,
+.lds-time-picker__range-value.is-selected {
   color: var(--color-text-primary);
 }
 
 .lds-date-picker__range-popover {
   padding: 0;
   box-shadow: var(--shadow-normal);
+}
+
+.lds-time-picker__range-popover {
+  padding: 0;
+  box-shadow: var(--shadow-normal);
+}
+
+.lds-time-picker__range-panel {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  background: var(--color-bg-white);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.lds-time-picker__range-section {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.lds-time-picker__range-section.is-end {
+  border-left: 1px solid var(--color-border-normal);
+}
+
+.lds-time-picker__range-section-header {
+  height: 40px;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: var(--subtitle-medium);
+  color: var(--color-text-primary);
+}
+
+.lds-time-picker__range-section-body {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-4x, 16px);
+  padding: var(--spacing-3x, 12px);
+  box-sizing: border-box;
 }
 
 .lds-date-picker__range-panel {

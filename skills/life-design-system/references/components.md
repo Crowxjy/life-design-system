@@ -44,6 +44,7 @@
 - 搜索框 (Search)
 - 选择器 (Select)
 - 日期选择器 (DatePicker)
+- 时间选择器 (TimePicker)
 - 筛选器 (Filter)
 - 筛选器组 (FilterGroup)
 - 页面标题区 (PageHeader)
@@ -76,6 +77,7 @@
 - UI中需要图标时：[icon.md](icon.md)；
 - UI中需要选择器时：[select.md](select.md)；
 - UI中需要日期选择器时：[datepicker.md](datepicker.md)；
+- UI中需要时间选择器时：[timepicker.md](timepicker.md)；
 - UI中需要搜索输入框时：[search.md](search.md)；
 - UI中需要标签页时：[tabs.md](tabs.md)；
 - UI中需要筛选器或筛选器组时：[filter.md](filter.md)；

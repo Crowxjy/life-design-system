@@ -190,6 +190,30 @@ interface DatePickerProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElem
 }
 declare const DatePicker: React.ForwardRefExoticComponent<DatePickerProps & React.RefAttributes<HTMLButtonElement>>;
 
+type TimePickerSize = 'large' | 'default-size' | 'small';
+type TimePickerType = 'time' | 'range';
+type TimeRangeValue = [string | null, string | null];
+type TimePickerValue = string | TimeRangeValue | null;
+interface TimePickerProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'defaultValue' | 'onChange' | 'size' | 'value'> {
+    picker?: TimePickerType;
+    size?: TimePickerSize;
+    placeholder?: React.ReactNode;
+    rangePlaceholder?: [React.ReactNode, React.ReactNode];
+    width?: number | string;
+    value?: TimePickerValue;
+    defaultValue?: TimePickerValue;
+    open?: boolean;
+    defaultOpen?: boolean;
+    onOpenChange?: (open: boolean) => void;
+    onChange?: (value: TimePickerValue) => void;
+    panelWidth?: number | string;
+    isFocused?: boolean;
+    error?: boolean;
+    hourStep?: number;
+    minuteStep?: number;
+}
+declare const TimePicker: React.ForwardRefExoticComponent<TimePickerProps & React.RefAttributes<HTMLButtonElement>>;
+
 type FilterType = 'input' | 'select' | 'date' | 'time';
 type FilterSize = 'default-size' | 'small';
 type CommonProps = {
@@ -909,4 +933,4 @@ interface UploadProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChan
 }
 declare const Upload: React.ForwardRefExoticComponent<UploadProps & React.RefAttributes<HTMLDivElement>>;
 
-export { Alert, type AlertProps, type AlertVariant, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Checkbox, type CheckboxProps, DatePicker, type DatePickerProps, type DatePickerSize, type DatePickerType, type DatePickerValue, type DateRangeValue, Dialog, type DialogProps, type DialogType, Drawer, type DrawerProps, type DrawerSize, Filter, type FilterButtonProps, FilterDatePicker, type FilterDatePickerProps, FilterGroup, type FilterGroupProps, type FilterInputProps, type FilterProps, FilterSelect, type FilterSelectOption, type FilterSelectProps, type FilterSize, FilterTimePicker, type FilterTimePickerProps, type FilterType, Form, FormItem, type FormItemProps, type FormLayout, type FormProps, Icon, type IconProps, Input, type InputProps, Menu, type MenuProps, Navbar, PageHeader, type PageHeaderProps, Pagination, type PaginationProps, type PaginationSize, Popover, type PopoverPlacement, type PopoverProps, Radio, type RadioProps, type RadioSize, type RadioVariant, Search, type SearchProps, Select, type SelectOption, type SelectProps, type SelectSize, Switch, type SwitchProps, Tab, type TabProps, Table, TableCellAction, type TableCellActionProps, TableCellAmount, TableCellOperation, TableCellProduct, TableWrapper, Tabs, type TabsProps, Tag, type TagColor, type TagProps, type TagSize, type TagVariant, Tbody, Td, Textarea, type TextareaProps, Th, Thead, Tr, Upload, type UploadFileItem, type UploadProps, type UploadVisualState, useFormItemStatus };
+export { Alert, type AlertProps, type AlertVariant, Button, type ButtonProps, type ButtonSize, type ButtonVariant, Checkbox, type CheckboxProps, DatePicker, type DatePickerProps, type DatePickerSize, type DatePickerType, type DatePickerValue, type DateRangeValue, Dialog, type DialogProps, type DialogType, Drawer, type DrawerProps, type DrawerSize, Filter, type FilterButtonProps, FilterDatePicker, type FilterDatePickerProps, FilterGroup, type FilterGroupProps, type FilterInputProps, type FilterProps, FilterSelect, type FilterSelectOption, type FilterSelectProps, type FilterSize, FilterTimePicker, type FilterTimePickerProps, type FilterType, Form, FormItem, type FormItemProps, type FormLayout, type FormProps, Icon, type IconProps, Input, type InputProps, Menu, type MenuProps, Navbar, PageHeader, type PageHeaderProps, Pagination, type PaginationProps, type PaginationSize, Popover, type PopoverPlacement, type PopoverProps, Radio, type RadioProps, type RadioSize, type RadioVariant, Search, type SearchProps, Select, type SelectOption, type SelectProps, type SelectSize, Switch, type SwitchProps, Tab, type TabProps, Table, TableCellAction, type TableCellActionProps, TableCellAmount, TableCellOperation, TableCellProduct, TableWrapper, Tabs, type TabsProps, Tag, type TagColor, type TagProps, type TagSize, type TagVariant, Tbody, Td, Textarea, type TextareaProps, Th, Thead, TimePicker, type TimePickerProps, type TimePickerSize, type TimePickerType, type TimePickerValue, type TimeRangeValue, Tr, Upload, type UploadFileItem, type UploadProps, type UploadVisualState, useFormItemStatus };

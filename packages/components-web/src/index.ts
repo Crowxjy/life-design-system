@@ -7,6 +7,7 @@ export * from './components/Search/Search';
 export * from './components/Textarea/Textarea';
 export * from './components/Select/Select';
 export * from './components/DatePicker/DatePicker';
+export * from './components/TimePicker/TimePicker';
 export * from './components/Filter/Filter';
 export * from './components/FilterSelect/FilterSelect';
 export * from './components/FilterDatePicker/FilterDatePicker';
