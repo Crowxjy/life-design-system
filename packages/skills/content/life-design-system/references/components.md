@@ -42,6 +42,7 @@
 - 标签页 (Tabs)
 - 输入框 (Input)
 - 搜索框 (Search)
+- 选择器 (Select)
 - 筛选器 (Filter)
 - 筛选器组 (FilterGroup)
 - 页面标题区 (PageHeader)
@@ -70,6 +71,7 @@
 - UI中需要按钮时：[button.md](button.md)；
 - UI中需要提示、公告或状态反馈条时：[alert.md](alert.md)；
 - UI中需要图标时：[icon.md](icon.md)；
+- UI中需要选择器时：[select.md](select.md)；
 - UI中需要搜索输入框时：[search.md](search.md)；
 - UI中需要标签页时：[tabs.md](tabs.md)；
 - UI中需要筛选器或筛选器组时：[filter.md](filter.md)；

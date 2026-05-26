@@ -310,6 +310,7 @@
     <a href="#switch" class="nav-item" data-target="switch">Switch</a>
     <a href="#input" class="nav-item" data-target="input">Input</a>
     <a href="#search" class="nav-item" data-target="search">Search</a>
+    <a href="#select" class="nav-item" data-target="select">Select</a>
     <a href="#textarea" class="nav-item" data-target="textarea">Textarea</a>
     <a href="#filter" class="nav-item" data-target="filter">Filter</a>
     <a href="#filtergroup" class="nav-item" data-target="filtergroup">FilterGroup</a>
@@ -349,6 +350,12 @@
     { id: 'small', label: '小号 (Small)', meta: 'Body Regular · 7/12px · h36' },
     { id: 'default-size', label: '默认 (Default)', meta: 'Body Regular · 9/12px · h40' },
     { id: 'large', label: '大号 (Large)', meta: 'Subtitle Regular · 12/12px · h48' }
+  ];
+
+  const SELECT_SIZES = [
+    { id: 'large', label: '大号 (Large)', meta: 'Subtitle Regular · 12/12px · h48' },
+    { id: 'default-size', label: '默认 (Default)', meta: 'Body Regular · 9/12px · h40' },
+    { id: 'small', label: '小号 (Small)', meta: 'Body Regular · 7/12px · h36' }
   ];
 
   const TAB_SIZES = [
@@ -544,6 +551,32 @@
           render: (size, _state) => {
             const id = `switch-interactive-${size.id}`;
             window.pendingReactRenders.push({ id, type: 'switch-demo', size: size.id, mode: 'interactive' });
+            return `<div id="${id}"></div>`;
+          }
+        }
+      ]
+    },
+    select: {
+      title: 'Select (React Component)',
+      layout: 'full',
+      sizes: [{ id: 'default', label: '默认规格', meta: '通用字段选择器 · 大 / 默认 / 小三种尺寸' }],
+      desc: 'A general-purpose single select for form fields and wider data-entry scenes. It stays distinct from FilterSelect while reusing the same Popover dropdown list style and option behavior.',
+      variants: [
+        {
+          title: 'States',
+          desc: 'Three trigger sizes with default, hover, active, filled, disabled and error states. Supports the optional prefix area from the Figma source.',
+          render: (_size, _state) => {
+            const id = 'select-states';
+            window.pendingReactRenders.push({ id, type: 'select-demo', mode: 'states' });
+            return `<div id="${id}"></div>`;
+          }
+        },
+        {
+          title: 'In Form',
+          desc: 'Demonstrates how Select is used as a standard field control inside Form and how error styling is inherited from FormItem.',
+          render: (_size, _state) => {
+            const id = 'select-form-usage';
+            window.pendingReactRenders.push({ id, type: 'select-demo', mode: 'form' });
             return `<div id="${id}"></div>`;
           }
         }
@@ -1164,7 +1197,7 @@
     mainEl.innerHTML = html;
 
     // Trigger custom event so React script knows to mount
-    if (['button', 'alert', 'radio', 'checkbox', 'switch', 'input', 'search', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(compId)) {
+    if (['button', 'alert', 'radio', 'checkbox', 'switch', 'input', 'search', 'select', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(compId)) {
       window.dispatchEvent(new CustomEvent('renderReactButtons'));
     }
   }
@@ -1204,7 +1237,7 @@
 
   // Also trigger initial render in case it was already button
   setTimeout(() => {
-    if (['button', 'alert', 'radio', 'switch', 'input', 'search', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(hash) || !hash) {
+    if (['button', 'alert', 'radio', 'switch', 'input', 'search', 'select', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(hash) || !hash) {
       window.dispatchEvent(new CustomEvent('renderReactButtons'));
     }
   }, 200);
@@ -1214,7 +1247,7 @@
   import React from 'react';
   import { createRoot } from 'react-dom/client';
   import { 
-    Button, Alert, Icon, Radio, Input, Search, Textarea, Tabs, Tab,
+    Button, Alert, Icon, Radio, Input, Search, Select, Textarea, Tabs, Tab,
     Filter,
     FilterSelect,
     FilterDatePicker,
@@ -1504,6 +1537,161 @@
         };
 
         root.render(<SwitchDemo />);
+      } else if (item.type === 'select-demo') {
+        const selectOptions = [
+          { label: '生活服务 / 到店综合', value: 'life-service', iconName: 'ic-sell-line' },
+          { label: '酒旅 / 主题乐园', value: 'travel-theme-park', iconName: 'ic-drink-line' },
+          { label: '美容美发 / 洗剪吹', value: 'beauty-hair', iconName: 'ic-store-line' },
+          { label: '医疗健康 / 口腔洁牙', value: 'health-dental', iconName: 'ic-heart-line' },
+        ];
+
+        const columns = SELECT_SIZES;
+        const PreviewTable = ({ rows, renderCell }) => (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: `120px repeat(${columns.length}, minmax(220px, max-content))`, gap: 12, alignItems: 'end' }}>
+              <div />
+              {columns.map((column) => (
+                <div key={column.id} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <strong style={{ font: 'var(--caption-medium)', color: 'var(--color-text-primary)' }}>{column.label}</strong>
+                  <span style={{ font: 'var(--caption-regular)', color: 'var(--color-text-caption)' }}>{column.meta}</span>
+                </div>
+              ))}
+            </div>
+            {rows.map((row) => (
+              <div key={row.id} style={{ display: 'grid', gridTemplateColumns: `120px repeat(${columns.length}, minmax(220px, max-content))`, gap: 12, alignItems: 'center' }}>
+                <span style={{ font: 'var(--caption-medium)', color: 'var(--color-text-secondary)' }}>{row.label}</span>
+                {columns.map((column) => (
+                  <div key={column.id} style={{ width: 360, maxWidth: '100%' }}>
+                    {renderCell(column, row)}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        );
+
+        const SelectDemo = () => {
+          if (item.mode === 'form') {
+            const SelectFormUsage = () => {
+              const [city, setCity] = React.useState();
+              const [category, setCategory] = React.useState();
+
+              return (
+                <div style={{ display: 'grid', gap: 24, gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
+                  <div style={{ padding: 24, border: '1px dashed var(--color-border-normal)', borderRadius: 16 }}>
+                    <Form labelWidth={90}>
+                      <FormItem
+                        label="所属城市"
+                        required
+                        description="支持在前缀区域展示上级地理范围，下拉选项通过 Popover 展开。"
+                      >
+                        <Select
+                          id="select-form-city"
+                          aria-label="所属城市"
+                          size="default-size"
+                          width="100%"
+                          prefix="北京市"
+                          prefixIcon={<Icon name="ic-local-line" />}
+                          options={selectOptions}
+                          value={city}
+                          onChange={setCity}
+                          placeholder="请选择区县"
+                        />
+                      </FormItem>
+                    </Form>
+                  </div>
+
+                  <div style={{ padding: 24, border: '1px dashed var(--color-border-normal)', borderRadius: 16 }}>
+                    <Form labelWidth={90}>
+                      <FormItem
+                        label="经营类目"
+                        required
+                        error="请选择经营类目"
+                      >
+                        <Select
+                          id="select-form-category"
+                          aria-label="经营类目"
+                          size="default-size"
+                          width="100%"
+                          options={selectOptions}
+                          value={category}
+                          onChange={setCategory}
+                          placeholder="请选择"
+                        />
+                      </FormItem>
+                    </Form>
+                  </div>
+                </div>
+              );
+            };
+
+            return <SelectFormUsage />;
+          }
+
+          const normalRows = [
+            { id: 'default', label: '默认', className: '', isFocused: false, disabled: false, value: undefined, withPrefix: false },
+            { id: 'hover', label: '悬停', className: 'is-hover', isFocused: false, disabled: false, value: undefined, withPrefix: false },
+            { id: 'active', label: '激活', className: '', isFocused: true, disabled: false, value: 'life-service', withPrefix: false },
+            { id: 'filled', label: '已选', className: '', isFocused: false, disabled: false, value: 'travel-theme-park', withPrefix: true },
+            { id: 'disabled', label: '禁用', className: '', isFocused: false, disabled: true, value: undefined, withPrefix: false },
+            { id: 'filled-disabled', label: '已选禁用', className: '', isFocused: false, disabled: true, value: 'beauty-hair', withPrefix: true },
+          ];
+
+          const errorRows = [
+            { id: 'error-default', label: '报错', className: '', isFocused: false, disabled: false, value: undefined, withPrefix: false },
+            { id: 'error-hover', label: '报错悬停', className: 'is-hover', isFocused: false, disabled: false, value: undefined, withPrefix: false },
+            { id: 'error-active', label: '报错激活', className: '', isFocused: true, disabled: false, value: 'life-service', withPrefix: false },
+          ];
+
+          return (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <strong style={{ font: 'var(--caption-medium)', color: 'var(--color-text-primary)' }}>常规态</strong>
+                <PreviewTable
+                  rows={normalRows}
+                  renderCell={(column, row) => (
+                    <Select
+                      aria-label={`${row.label}-${column.label}`}
+                      size={column.id}
+                      className={row.className}
+                      isFocused={row.isFocused}
+                      disabled={row.disabled}
+                      defaultValue={row.value}
+                      prefix={row.withPrefix ? '北京市' : undefined}
+                      prefixIcon={row.withPrefix ? <Icon name="ic-local-line" /> : undefined}
+                      options={selectOptions}
+                      placeholder="请选择"
+                    />
+                  )}
+                />
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <strong style={{ font: 'var(--caption-medium)', color: 'var(--color-text-primary)' }}>报错态</strong>
+                <PreviewTable
+                  rows={errorRows}
+                  renderCell={(column, row) => (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      <Select
+                        aria-label={`${row.label}-${column.label}`}
+                        size={column.id}
+                        className={row.className}
+                        isFocused={row.isFocused}
+                        error
+                        defaultValue={row.value}
+                        options={selectOptions}
+                        placeholder="请选择"
+                      />
+                      <span style={{ font: 'var(--caption-regular)', color: 'var(--color-danger-normal)' }}>报错文案保持清晰、简洁</span>
+                    </div>
+                  )}
+                />
+              </div>
+            </div>
+          );
+        };
+
+        root.render(<SelectDemo />);
       } else if (item.type === 'input') {
         const InputCell = () => {
           const [value, setValue] = React.useState(item.value ?? '');
@@ -1982,12 +2170,20 @@
         root.render(<DialogDemo />);
       } else if (item.type === 'form-demo') {
         const controlId = `form-control-${item.id}`;
+        const selectId = `form-select-${item.id}`;
         const textareaId = `form-textarea-${item.id}`;
         const uploadId = `form-upload-${item.id}`;
         const FormDemo = () => {
           const [images, setImages] = React.useState([]);
+          const [category, setCategory] = React.useState();
           const isErrorMode = item.mode === 'error';
           const isVertical = item.layout === 'vertical';
+          const selectOptions = [
+            { label: '生活服务 / 到店综合', value: 'life-service', iconName: 'ic-sell-line' },
+            { label: '酒旅 / 主题乐园', value: 'travel-theme-park', iconName: 'ic-drink-line' },
+            { label: '美容美发 / 洗剪吹', value: 'beauty-hair', iconName: 'ic-store-line' },
+            { label: '医疗健康 / 口腔洁牙', value: 'health-dental', iconName: 'ic-heart-line' },
+          ];
 
           return (
             <div style={{ width: '100%', maxWidth: isVertical ? 420 : 720, padding: 24, border: '1px dashed var(--color-border-normal)', borderRadius: 16, boxSizing: 'border-box' }}>
@@ -2001,6 +2197,23 @@
                   error={isErrorMode ? '报错说明' : undefined}
                 >
                   <Input id={controlId} size="default-size" placeholder="请输入" />
+                </FormItem>
+
+                <FormItem
+                  label={isVertical ? '下拉选择' : item.labelWidth > 90 ? '业务类目选择' : '下拉选择'}
+                  description="通用 Select 用于表单字段和更广泛的选择场景，下拉面板与 FilterSelect 保持一致。"
+                  error={isErrorMode ? '请选择经营类目' : undefined}
+                >
+                  <Select
+                    id={selectId}
+                    aria-label="经营类目"
+                    size="default-size"
+                    width="100%"
+                    options={selectOptions}
+                    value={category}
+                    onChange={setCategory}
+                    placeholder="请选择"
+                  />
                 </FormItem>
 
                 <FormItem

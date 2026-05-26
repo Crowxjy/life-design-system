@@ -1041,7 +1041,185 @@
   }
 }
 
-/* 7.5 筛选-元件 (Filter) */
+/* 7.5 选择器 (Select) */
+.lds-select {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  background: var(--color-bg-normal);
+  box-shadow: inset 0 0 0 1px var(--color-border-normal);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    box-shadow 0.2s cubic-bezier(0.645, 0.045, 0.355, 1),
+    background-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1),
+    color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.lds-select__prefix-group,
+.lds-select__prefix {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.lds-select__prefix {
+  gap: 4px;
+  max-width: 100%;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.lds-select__prefix-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+}
+
+.lds-select__divider {
+  width: 2px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--color-divider-normal);
+}
+
+.lds-select__value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-text-caption);
+}
+
+.lds-select.is-filled .lds-select__value {
+  color: var(--color-text-primary);
+}
+
+.lds-select__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  color: var(--color-text-caption);
+}
+
+.lds-select__icon-svg {
+  width: 18px;
+  height: 18px;
+}
+
+.lds-select--large {
+  height: 48px;
+  padding: 12px;
+  border-radius: 12px;
+  font: var(--subtitle-regular);
+}
+
+.lds-select--large .lds-select__divider {
+  height: 14px;
+}
+
+.lds-select--large .lds-select__icon-svg,
+.lds-select--large .lds-select__prefix-icon .icon {
+  width: 20px;
+  height: 20px;
+}
+
+.lds-select--default-size {
+  height: 40px;
+  padding: 9px 12px;
+  border-radius: 12px;
+  font: var(--body-regular);
+}
+
+.lds-select--default-size .lds-select__divider {
+  height: 12px;
+}
+
+.lds-select--default-size .lds-select__icon-svg,
+.lds-select--default-size .lds-select__prefix-icon .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.lds-select--small {
+  height: 36px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  font: var(--body-regular);
+}
+
+.lds-select--small .lds-select__divider {
+  height: 12px;
+}
+
+.lds-select--small .lds-select__icon-svg,
+.lds-select--small .lds-select__prefix-icon .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.lds-select:hover,
+.lds-select.is-hover {
+  box-shadow: inset 0 0 0 1px var(--color-primary-hover);
+}
+
+.lds-select:focus-visible,
+.lds-select.is-active {
+  box-shadow: inset 0 0 0 1.5px var(--color-primary-normal);
+}
+
+.lds-select.is-error {
+  box-shadow: inset 0 0 0 1px var(--color-danger-normal);
+}
+
+.lds-select.is-error:hover,
+.lds-select.is-error.is-hover {
+  box-shadow: inset 0 0 0 1px var(--color-danger-normal);
+}
+
+.lds-select.is-error:focus-visible,
+.lds-select.is-error.is-active {
+  box-shadow: inset 0 0 0 1.5px var(--color-danger-normal);
+}
+
+.lds-select.is-disabled,
+.lds-select:disabled {
+  background: var(--color-fill-disable);
+  box-shadow: inset 0 0 0 1px var(--color-border-disable);
+  cursor: not-allowed;
+}
+
+.lds-select.is-disabled .lds-select__value,
+.lds-select:disabled .lds-select__value,
+.lds-select.is-disabled .lds-select__prefix,
+.lds-select:disabled .lds-select__prefix,
+.lds-select.is-disabled .lds-select__prefix-icon,
+.lds-select:disabled .lds-select__prefix-icon,
+.lds-select.is-disabled .lds-select__icon,
+.lds-select:disabled .lds-select__icon {
+  color: var(--color-text-disable);
+}
+
+.lds-select.is-disabled .lds-select__divider,
+.lds-select:disabled .lds-select__divider {
+  background: var(--color-border-disable);
+}
+
+/* 7.6 筛选-元件 (Filter) */
 .lds-filter {
   display: inline-flex;
   align-items: center;
@@ -1780,6 +1958,15 @@ button.lds-filter {
 .lds-filter-select__option:focus-visible,
 .lds-filter-select__option.is-selected {
   background: var(--color-fill-hover);
+}
+
+.lds-filter-select__option:disabled {
+  color: var(--color-text-disable);
+  cursor: not-allowed;
+}
+
+.lds-filter-select__option:disabled:hover {
+  background: transparent;
 }
 
 .lds-filter-select__option:focus-visible {
