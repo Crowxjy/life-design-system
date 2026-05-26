@@ -3,6 +3,7 @@ export * from './components/Alert/Alert';
 export * from './components/Icon/Icon';
 export * from './components/Radio/Radio';
 export * from './components/Input/Input';
+export * from './components/Search/Search';
 export * from './components/Textarea/Textarea';
 export * from './components/Filter/Filter';
 export * from './components/FilterSelect/FilterSelect';

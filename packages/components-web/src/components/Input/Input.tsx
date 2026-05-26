@@ -47,7 +47,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {showCount ? <span className="lds-input__count">{countText}</span> : null}
         {clearable && (
           <span className="lds-input__clear" onClick={onClear}>
-            <Icon name="ic-error-round" />
+            <Icon name="ic-error-round-fill" />
           </span>
         )}
         {suffixIcon && <span className="lds-input__suffix">{suffixIcon}</span>}

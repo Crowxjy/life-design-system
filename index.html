@@ -286,6 +286,7 @@
     
     /* Input forced wrapper states */
     .lds-input-wrapper.is-hover { box-shadow: inset 0 0 0 1px var(--color-primary-hover); }
+    .lds-search.is-hover { border-color: var(--color-primary-normal); }
 
     /* Tab forced hover states for preview */
     .lds-tabs--primary .lds-tab.is-hover::before { background-color: var(--color-fill-hover); }
@@ -308,6 +309,7 @@
     <a href="#checkbox" class="nav-item" data-target="checkbox">Checkbox</a>
     <a href="#switch" class="nav-item" data-target="switch">Switch</a>
     <a href="#input" class="nav-item" data-target="input">Input</a>
+    <a href="#search" class="nav-item" data-target="search">Search</a>
     <a href="#textarea" class="nav-item" data-target="textarea">Textarea</a>
     <a href="#filter" class="nav-item" data-target="filter">Filter</a>
     <a href="#filtergroup" class="nav-item" data-target="filtergroup">FilterGroup</a>
@@ -341,6 +343,12 @@
     { id: 'small', label: 'MD', meta: '14px · 6/16px · h36' },
     { id: 'default-size', label: 'LG', meta: '14px · 8/16px · h40' },
     { id: 'large', label: 'XL', meta: '16px · 12/20px · h48' }
+  ];
+
+  const SEARCH_SIZES = [
+    { id: 'small', label: '小号 (Small)', meta: 'Body Regular · 7/12px · h36' },
+    { id: 'default-size', label: '默认 (Default)', meta: 'Body Regular · 9/12px · h40' },
+    { id: 'large', label: '大号 (Large)', meta: 'Subtitle Regular · 12/12px · h48' }
   ];
 
   const TAB_SIZES = [
@@ -389,25 +397,25 @@
             const id = `btn-primary-${size.id}-${state.id}`;
             const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
             window.pendingReactRenders.push({ id, variant: 'primary', size: size.id, className, disabled: state.props.includes('disabled'), text: 'Button' });
-            return `<div id="${id}"></div>`;
+            return `<div id="${id}" style="width: 100%;"></div>`;
         }},
         { title: 'Default', desc: 'Outlined — medium emphasis', render: (size, state) => {
             const id = `btn-default-${size.id}-${state.id}`;
             const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
             window.pendingReactRenders.push({ id, variant: 'default', size: size.id, className, disabled: state.props.includes('disabled'), text: 'Button' });
-            return `<div id="${id}"></div>`;
+            return `<div id="${id}" style="width: 100%;"></div>`;
         }},
         { title: 'Secondary', desc: 'Subtle fill — low emphasis', render: (size, state) => {
             const id = `btn-secondary-${size.id}-${state.id}`;
             const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
             window.pendingReactRenders.push({ id, variant: 'secondary', size: size.id, className, disabled: state.props.includes('disabled'), text: 'Button' });
-            return `<div id="${id}"></div>`;
+            return `<div id="${id}" style="width: 100%; flex: 1 1 auto; min-width: 0;"></div>`;
         }},
         { title: 'Text', desc: 'No fill — lowest emphasis', render: (size, state) => {
             const id = `btn-text-${size.id}-${state.id}`;
             const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
             window.pendingReactRenders.push({ id, variant: 'text', size: size.id, className, disabled: state.props.includes('disabled'), text: 'Button' });
-            return `<div id="${id}"></div>`;
+            return `<div id="${id}" style="width: 100%; flex: 1 1 auto; min-width: 0;"></div>`;
         }},
         { title: 'With Left Icon', desc: 'Configurable leading icon inside a standard button', render: (size, state) => {
             const id = `btn-leading-icon-${size.id}-${state.id}`;
@@ -421,13 +429,13 @@
               text: 'Button',
               iconName: 'ic-add-round-line'
             });
-            return `<div id="${id}"></div>`;
+            return `<div id="${id}" style="width: 100%; flex: 1 1 auto; min-width: 0;"></div>`;
         }},
         { title: 'Icon', desc: 'Icon only variant', render: (size, state) => {
             const id = `btn-icon-${size.id}-${state.id}`;
             const className = `${state.id==='hover'?'is-hover':''} ${state.id==='active'?'is-active':''}`;
             window.pendingReactRenders.push({ id, variant: 'icon', size: size.id, className, disabled: state.props.includes('disabled'), iconName: 'ic-add-round-line' });
-            return `<div id="${id}"></div>`;
+            return `<div id="${id}" style="width: 100%; flex: 1 1 auto; min-width: 0;"></div>`;
         }}
       ]
     },
@@ -574,6 +582,53 @@
               maxLength: 20
             });
             return `<div id="${id}"></div>`;
+          }
+        }
+      ]
+    },
+    search: {
+      title: 'Search (React Component)',
+      sizes: SEARCH_SIZES,
+      desc: 'A dedicated search field with a leading search icon, three Figma sizes, and hover/focus/disabled states.',
+      variants: [
+        {
+          title: 'Empty',
+          desc: 'Placeholder state across normal, hover, active and disabled.',
+          render: (size, state) => {
+            const id = `search-empty-${size.id}-${state.id}`;
+            const wrapperClassName = `${state.id==='hover'?'is-hover':''}`;
+            window.pendingReactRenders.push({
+              id,
+              type: 'search',
+              size: size.id,
+              wrapperClassName,
+              disabled: state.props.includes('disabled'),
+              isFocused: state.id === 'active',
+              value: '',
+              placeholder: '请输入',
+              clearable: true
+            });
+            return `<div id="${id}" style="width: 100%; flex: 1 1 auto; min-width: 0;"></div>`;
+          }
+        },
+        {
+          title: 'Filled',
+          desc: 'Value-present state, with the clear affordance appearing on hover or focus.',
+          render: (size, state) => {
+            const id = `search-filled-${size.id}-${state.id}`;
+            const wrapperClassName = `${state.id==='hover'?'is-hover':''}`;
+            window.pendingReactRenders.push({
+              id,
+              type: 'search',
+              size: size.id,
+              wrapperClassName,
+              disabled: state.props.includes('disabled'),
+              isFocused: state.id === 'active',
+              value: state.id === 'active' ? '农夫山泉纯' : '农夫山泉纯净水500ml',
+              placeholder: '请输入',
+              clearable: true
+            });
+            return `<div id="${id}" style="width: 100%; flex: 1 1 auto; min-width: 0;"></div>`;
           }
         }
       ]
@@ -1109,7 +1164,7 @@
     mainEl.innerHTML = html;
 
     // Trigger custom event so React script knows to mount
-    if (['button', 'alert', 'radio', 'checkbox', 'switch', 'input', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(compId)) {
+    if (['button', 'alert', 'radio', 'checkbox', 'switch', 'input', 'search', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(compId)) {
       window.dispatchEvent(new CustomEvent('renderReactButtons'));
     }
   }
@@ -1149,7 +1204,7 @@
 
   // Also trigger initial render in case it was already button
   setTimeout(() => {
-    if (['button', 'alert', 'radio', 'switch', 'input', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(hash) || !hash) {
+    if (['button', 'alert', 'radio', 'switch', 'input', 'search', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(hash) || !hash) {
       window.dispatchEvent(new CustomEvent('renderReactButtons'));
     }
   }, 200);
@@ -1159,7 +1214,7 @@
   import React from 'react';
   import { createRoot } from 'react-dom/client';
   import { 
-    Button, Alert, Icon, Radio, Input, Textarea, Tabs, Tab,
+    Button, Alert, Icon, Radio, Input, Search, Textarea, Tabs, Tab,
     Filter,
     FilterSelect,
     FilterDatePicker,
@@ -1472,6 +1527,27 @@
         };
 
         root.render(<InputCell />);
+      } else if (item.type === 'search') {
+        const SearchCell = () => {
+          const [value, setValue] = React.useState(item.value ?? '');
+
+          return (
+            <Search
+              size={item.size}
+              wrapperClassName={item.wrapperClassName}
+              disabled={item.disabled}
+              isFocused={item.isFocused}
+              value={value}
+              placeholder={item.placeholder}
+              clearable={item.clearable}
+              autoFocus={item.isFocused}
+              onChange={(event) => setValue(event.target.value)}
+              onClear={() => setValue('')}
+            />
+          );
+        };
+
+        root.render(<SearchCell />);
       } else if (item.type === 'textarea') {
         const TextareaCell = () => {
           const [value, setValue] = React.useState(item.value ?? '');
