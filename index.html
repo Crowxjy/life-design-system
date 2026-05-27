@@ -121,6 +121,13 @@
       max-width: 1200px;
       box-sizing: border-box;
     }
+    .doc-main--home {
+      max-width: 1120px;
+    }
+    .doc-main--wide {
+      max-width: none;
+      padding: 48px 48px 64px;
+    }
     .breadcrumb {
       font-size: 11px;
       font-weight: 600;
@@ -150,6 +157,163 @@
       line-height: 1.6;
       max-width: 500px;
       margin: 0;
+    }
+    .home-hero {
+      display: grid;
+      gap: var(--spacing-5x);
+      margin-bottom: var(--spacing-10x);
+    }
+    .home-eyebrow {
+      font: var(--caption-medium);
+      color: var(--color-text-caption);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .home-title {
+      margin: 0;
+      font: var(--display-medium);
+      color: var(--color-text-primary);
+      letter-spacing: -0.5px;
+    }
+    .home-desc {
+      max-width: 640px;
+      margin: 0;
+      font: var(--body-regular);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+    .home-entry-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--spacing-6x);
+    }
+    .home-entry-card {
+      display: grid;
+      gap: var(--spacing-5x);
+      min-height: 220px;
+      padding: var(--spacing-8x);
+      color: var(--color-text-primary);
+      text-decoration: none;
+      background: var(--color-bg-sub);
+      border: 1px solid var(--color-border-normal);
+      border-radius: var(--radius-xxl);
+      box-sizing: border-box;
+      transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    }
+    .home-entry-card:hover {
+      transform: translateY(-2px);
+      background: var(--color-bg-container);
+      border-color: var(--color-primary-normal);
+    }
+    .home-entry-card__meta {
+      font: var(--caption-medium);
+      color: var(--color-primary-normal);
+    }
+    .home-entry-card__title {
+      margin: 0;
+      font: var(--headline-medium);
+      color: var(--color-text-primary);
+    }
+    .home-entry-card__desc {
+      margin: 0;
+      font: var(--body-regular);
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+    }
+    .home-entry-card__link {
+      align-self: end;
+      font: var(--body-medium);
+      color: var(--color-primary-normal);
+    }
+    .page-preview-shell {
+      width: 100%;
+      min-width: 960px;
+      border: 1px solid var(--color-border-normal);
+      border-radius: var(--radius-xxl);
+      overflow: hidden;
+      background: var(--color-bg-normal);
+      box-sizing: border-box;
+    }
+    .page-preview-shell .app-container {
+      width: 100%;
+      height: 760px;
+    }
+    .page-preview-shell .lds-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-3x);
+    }
+    .page-preview-form-content {
+      width: 872px;
+      min-width: 648px;
+      max-width: 872px;
+      margin: 0 auto;
+      padding-top: var(--spacing-2x);
+      padding-bottom: var(--spacing-8x);
+      box-sizing: border-box;
+    }
+    .page-preview-hero {
+      display: flex;
+      gap: var(--spacing-5x);
+      box-sizing: border-box;
+    }
+    .page-preview-hero-divider {
+      margin: var(--spacing-8x) 0;
+      border-top: 1px dashed var(--color-border-normal);
+    }
+    .page-preview-hero__media {
+      width: 84px;
+      height: 84px;
+      flex: 0 0 auto;
+      border-radius: var(--radius-m);
+      background: var(--color-fill-tertiary);
+      overflow: hidden;
+    }
+    .page-preview-hero__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .page-preview-section {
+      display: grid;
+      gap: var(--spacing-5x);
+    }
+    .page-preview-section + .page-preview-section {
+      margin-top: var(--spacing-8x);
+    }
+    .page-preview-section__title {
+      margin: 0;
+      font: var(--title-medium);
+      color: var(--color-text-primary);
+    }
+    .page-preview-actions {
+      display: grid;
+      padding: var(--spacing-5x) var(--spacing-8x);
+      border-top: 1px solid var(--color-divider-normal);
+      background: var(--color-bg-normal);
+    }
+    .page-preview-actions__inner {
+      width: 872px;
+      min-width: 648px;
+      max-width: 872px;
+      margin: 0 auto;
+      display: grid;
+      justify-content: center;
+      gap: var(--spacing-4x);
+    }
+    .page-preview-actions__buttons {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-3x);
+    }
+    @media (max-width: 960px) {
+      .home-entry-grid {
+        grid-template-columns: 1fr;
+      }
+      .doc-main--wide {
+        padding: 32px;
+      }
     }
     .component-stats {
       position: absolute;
@@ -302,8 +466,12 @@
       LIFE DESIGN
       <button class="theme-toggle" id="theme-toggle" title="Toggle Theme">🌙</button>
     </div>
+    <div class="nav-group">HOME</div>
+    <a href="#home" class="nav-item active" data-target="home">首页</a>
+    <div class="nav-group">PAGES</div>
+    <a href="#pages" class="nav-item" data-target="pages">典型页面</a>
     <div class="nav-group">COMPONENTS</div>
-    <a href="#button" class="nav-item active" data-target="button">Button</a>
+    <a href="#button" class="nav-item" data-target="button">Button</a>
     <a href="#alert" class="nav-item" data-target="alert">Alert</a>
     <a href="#message" class="nav-item" data-target="message">Message</a>
     <a href="#radio" class="nav-item" data-target="radio">Radio</a>
@@ -1269,9 +1437,72 @@
   // 2. Renderer Function
   const mainEl = document.getElementById('doc-main');
 
+  function renderHome() {
+    mainEl.className = 'doc-main doc-main--home';
+    window.pendingReactRenders = [];
+    mainEl.innerHTML = `
+      <section class="home-hero">
+        <div class="home-eyebrow">Life Design System</div>
+        <h1 class="home-title">来客设计系统预览中心</h1>
+        <p class="home-desc">
+          在这里查看组件能力与典型页面组合。组件入口延续现有的组件矩阵预览，页面入口提供基于 layout 规范生成的列表页与表单页示例。
+        </p>
+      </section>
+
+      <section class="home-entry-grid" aria-label="预览入口">
+        <a class="home-entry-card" href="#button" data-home-target="button">
+          <div class="home-entry-card__meta">Components</div>
+          <div>
+            <h2 class="home-entry-card__title">组件</h2>
+            <p class="home-entry-card__desc">
+              查看 Button、Form、Table、PageHeader 等现有组件预览，覆盖尺寸、状态与常见组合方式。
+            </p>
+          </div>
+          <span class="home-entry-card__link">进入组件预览</span>
+        </a>
+
+        <a class="home-entry-card" href="#pages" data-home-target="pages">
+          <div class="home-entry-card__meta">Pages</div>
+          <div>
+            <h2 class="home-entry-card__title">页面</h2>
+            <p class="home-entry-card__desc">
+              查看符合来客布局规范的典型列表页与表单页，包含基础框架、导航、筛选、表格、表单分组和全局操作区。
+            </p>
+          </div>
+          <span class="home-entry-card__link">进入页面预览</span>
+        </a>
+      </section>
+    `;
+    window.dispatchEvent(new CustomEvent('renderReactButtons'));
+  }
+
+  function renderPages() {
+    mainEl.className = 'doc-main doc-main--wide';
+    window.pendingReactRenders = [{ id: 'page-gallery-root', type: 'page-gallery' }];
+    mainEl.innerHTML = `
+      <div class="component-header">
+        <div class="breadcrumb">DESIGN SYSTEM &rsaquo; PAGES &rsaquo; <strong>典型页面</strong></div>
+        <h1 class="component-title">典型页面</h1>
+        <p class="component-desc">基于 layout.md 的页面类型规范，展示来客后台中最常见的列表页与表单页组合。</p>
+      </div>
+      <div id="page-gallery-root"></div>
+    `;
+    window.dispatchEvent(new CustomEvent('renderReactButtons'));
+  }
+
   function renderView(compId) {
+    if (compId === 'home') {
+      renderHome();
+      return;
+    }
+    if (compId === 'pages') {
+      renderPages();
+      return;
+    }
+
     const comp = COMPONENTS[compId];
     if (!comp) return;
+    mainEl.className = 'doc-main';
 
     let html = `
       <div class="component-header">
@@ -1347,17 +1578,28 @@
 
   // 3. Initialization and Event Listeners
   const navItems = document.querySelectorAll('.nav-item');
-  
-  function handleNavClick(e) {
-    e.preventDefault();
-    navItems.forEach(n => n.classList.remove('active'));
-    this.classList.add('active');
-    const target = this.getAttribute('data-target');
+
+  function activateTarget(target) {
+    navItems.forEach(n => n.classList.toggle('active', n.getAttribute('data-target') === target));
     renderView(target);
     window.location.hash = target;
   }
+  
+  function handleNavClick(e) {
+    e.preventDefault();
+    const target = this.getAttribute('data-target');
+    activateTarget(target);
+  }
 
   navItems.forEach(item => item.addEventListener('click', handleNavClick));
+
+  mainEl.addEventListener('click', (e) => {
+    const targetEl = e.target instanceof Element ? e.target : e.target.parentElement;
+    const entry = targetEl?.closest('[data-home-target]');
+    if (!entry) return;
+    e.preventDefault();
+    activateTarget(entry.getAttribute('data-home-target'));
+  });
 
   // Theme toggle
   const themeToggle = document.getElementById('theme-toggle');
@@ -1370,17 +1612,17 @@
   });
 
   // Handle URL hash on load
-  const hash = window.location.hash.replace('#', '') || 'button';
+  const hash = window.location.hash.replace('#', '') || 'home';
   const initNav = document.querySelector(`.nav-item[data-target="${hash}"]`);
   if (initNav) {
     initNav.click();
   } else {
-    renderView('button');
+    activateTarget('home');
   }
 
   // Also trigger initial render in case it was already button
   setTimeout(() => {
-    if (['button', 'alert', 'message', 'radio', 'switch', 'input', 'search', 'select', 'datepicker', 'timepicker', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'steps', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(hash) || !hash) {
+    if (['home', 'pages', 'button', 'alert', 'message', 'radio', 'checkbox', 'switch', 'input', 'search', 'select', 'datepicker', 'timepicker', 'textarea', 'filter', 'filtergroup', 'popover', 'tabs', 'navbar', 'menu', 'pageheader', 'steps', 'drawer', 'dialog', 'form', 'upload', 'table', 'tag', 'pagination'].includes(hash) || !hash) {
       window.dispatchEvent(new CustomEvent('renderReactButtons'));
     }
   }, 200);
@@ -3044,6 +3286,297 @@
         };
 
         root.render(<FormDemo />);
+      } else if (item.type === 'page-gallery') {
+        const PageGallery = () => {
+          const [pageType, setPageType] = React.useState('list');
+
+          const productRows = [
+            {
+              title: '【节假日通用】资生堂烫染护理',
+              tag: '团购',
+              tagVariant: 'default',
+              id: '23468723648223',
+              amount: '￥508.00',
+              time: '2026.06.01 12:00',
+              stock: '10,000',
+              pending: '500',
+              actions: ['上架', '编辑']
+            },
+            {
+              title: '【工作日可用】高级洗剪吹套餐',
+              tag: '热销',
+              tagVariant: 'orange',
+              id: '89345723648224',
+              amount: '￥128.00',
+              time: '2026.06.02 14:30',
+              stock: '8,500',
+              pending: '240',
+              actions: ['下架', '编辑']
+            },
+            {
+              title: '【双人套餐】招牌火锅经典双人餐',
+              tag: '新品',
+              tagVariant: 'green',
+              id: '56345723648225',
+              amount: '￥198.00',
+              time: '2026.06.10 18:00',
+              stock: '3,200',
+              pending: '86',
+              actions: ['查看', '编辑']
+            }
+          ];
+
+          const categoryOptions = [
+            { label: '美食 / 火锅', value: 'hotpot', iconName: 'ic-drink-line' },
+            { label: '丽人 / 美发', value: 'beauty', iconName: 'ic-store-line' },
+            { label: '休闲娱乐 / KTV', value: 'ktv', iconName: 'ic-sell-line' }
+          ];
+
+          const ListPagePreview = () => (
+            <div className="page-preview-shell">
+              <div className="app-container">
+                <header className="app-navbar">
+                  <Navbar />
+                </header>
+                <div className="app-main-wrapper">
+                  <aside className="app-sidebar">
+                    <div className="app-sidebar__menu">
+                      <Menu />
+                    </div>
+                  </aside>
+                  <div className="app-body">
+                    <div className="app-content">
+                      <PageHeader
+                        title="团购商品管理"
+                        tabs={
+                          <Tabs variant="primary" size="small" defaultValue="all">
+                            <Tab value="all">全部商品</Tab>
+                            <Tab value="selling">出售中</Tab>
+                            <Tab value="off">已下架</Tab>
+                            <Tab value="review">审核中</Tab>
+                          </Tabs>
+                        }
+                      />
+
+                      <div style={{ marginBottom: 'var(--spacing-6x)' }}>
+                        <FilterGroup size="small" onQuery={() => {}} onReset={() => {}}>
+                          <Filter type="input" size="small" label="商品名称" placeholder="请输入" defaultValue="" onChange={() => {}} />
+                          <FilterSelect size="small" label="商品状态" placeholder="请选择" options={[
+                            { label: '全部', value: 'all' },
+                            { label: '出售中', value: 'selling' },
+                            { label: '审核中', value: 'review' }
+                          ]} />
+                          <FilterDatePicker size="small" label="售卖日期" placeholder="请选择" />
+                          <FilterTimePicker size="small" label="售卖时间" placeholder="请选择" />
+                        </FilterGroup>
+                      </div>
+
+                      <div className="lds-action-bar">
+                        <Tabs variant="capsule" size="small" defaultValue="all-member">
+                          <Tab value="all-member">全部会员可领</Tab>
+                          <Tab value="target-member">定向会员发放</Tab>
+                        </Tabs>
+                        <div className="lds-actions">
+                          <Button variant="default" size="default-size">批量导出</Button>
+                          <Button variant="primary" size="default-size" icon={<Icon name="ic-add-round-line" />}>
+                            新建会员优惠券
+                          </Button>
+                        </div>
+                      </div>
+
+                      <TableWrapper>
+                        <Table>
+                          <Thead>
+                            <Tr>
+                              <Th>商品信息</Th>
+                              <Th>价格（元）</Th>
+                              <Th>售卖时间</Th>
+                              <Th>剩余库存</Th>
+                              <Th>待核销</Th>
+                              <Th>操作</Th>
+                            </Tr>
+                          </Thead>
+                          <Tbody>
+                            {productRows.map((row) => (
+                              <Tr key={row.id}>
+                                <Td>
+                                  <TableCellProduct img="./assets/shangpin.png" title={row.title} tag={row.tag} tagVariant={row.tagVariant} id={row.id} />
+                                </Td>
+                                <Td><TableCellAmount>{row.amount}</TableCellAmount></Td>
+                                <Td>{row.time}</Td>
+                                <Td>{row.stock}</Td>
+                                <Td>{row.pending}</Td>
+                                <Td>
+                                  <TableCellOperation>
+                                    {row.actions.map((action) => (
+                                      <TableCellAction key={action} danger={action === '删除'}>{action}</TableCellAction>
+                                    ))}
+                                  </TableCellOperation>
+                                </Td>
+                              </Tr>
+                            ))}
+                          </Tbody>
+                        </Table>
+                      </TableWrapper>
+
+                      <div className="lds-pagination-wrapper">
+                        <Pagination
+                          total={500}
+                          defaultCurrent={2}
+                          defaultPageSize={10}
+                          pageSizeOptions={[10, 20, 50]}
+                          showSizeChanger
+                          showQuickJumper
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+
+          const FormPagePreview = () => (
+            <div className="page-preview-shell">
+              <div className="app-container">
+                <header className="app-navbar">
+                  <Navbar />
+                </header>
+                <div className="app-main-wrapper">
+                  <aside className="app-sidebar">
+                    <div className="app-sidebar__menu">
+                      <Menu />
+                    </div>
+                  </aside>
+                  <div className="app-body">
+                    <div className="app-content">
+                      <PageHeader
+                        variant="secondary"
+                        title="新建团购商品"
+                        onBackClick={() => setPageType('list')}
+                      />
+
+                      <div className="page-preview-form-content">
+                        <section className="page-preview-hero">
+                          <div className="page-preview-hero__media">
+                            <img src="./assets/shangpin.png" alt="商品缩略图" />
+                          </div>
+                          <div style={{ display: 'grid', gap: 'var(--spacing-2x)' }}>
+                            <h2 style={{ margin: 0, font: 'var(--title-medium)', color: 'var(--color-text-primary)' }}>
+                              资生堂烫染护理团购
+                            </h2>
+                            <div style={{ display: 'grid', gap: 'var(--spacing-base)', font: 'var(--body-regular)' }}>
+                              <div>
+                                <span style={{ color: 'var(--color-text-caption)' }}>商品编号：</span>
+                                <span style={{ color: 'var(--color-text-primary)', fontFamily: 'var(--font-number)' }}>2137279250</span>
+                              </div>
+                              <div>
+                                <span style={{ color: 'var(--color-text-caption)' }}>经营主体：</span>
+                                <span style={{ color: 'var(--color-text-primary)' }}>瑞幸咖啡（中国）有限公司</span>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+
+                        <div className="page-preview-hero-divider" aria-hidden="true" />
+
+                        <div style={{ marginBottom: 'var(--spacing-8x)' }}>
+                          <Steps
+                            current={0}
+                            items={[
+                              { title: '填写基础信息' },
+                              { title: '上传商品素材' },
+                              { title: '提交审核' }
+                            ]}
+                          />
+                        </div>
+
+                        <main>
+                          <section className="page-preview-section">
+                            <h2 className="page-preview-section__title">基础信息</h2>
+                            <Form labelWidth={120}>
+                              <FormItem label="商品名称" htmlFor="page-product-name" required description="建议控制在 20 个字以内">
+                                <Input id="page-product-name" placeholder="请输入商品名称" defaultValue="资生堂烫染护理团购" />
+                              </FormItem>
+                              <FormItem label="经营类目" required description="选择商品所属经营类目，便于平台审核和用户检索">
+                                <Select width="100%" options={categoryOptions} defaultValue="beauty" placeholder="请选择经营类目" />
+                              </FormItem>
+                              <FormItem label="商品卖点" htmlFor="page-product-summary">
+                                <Textarea id="page-product-summary" placeholder="请输入商品卖点" maxLength={200} defaultValue="节假日通用，含洗护、烫染护理和造型服务。" />
+                              </FormItem>
+                            </Form>
+                          </section>
+
+                          <section className="page-preview-section">
+                            <h2 className="page-preview-section__title">商品信息</h2>
+                            <Form labelWidth={120}>
+                              <FormItem label="售卖价格" htmlFor="page-product-price" required>
+                                <Input id="page-product-price" placeholder="请输入售卖价格" defaultValue="508.00" />
+                              </FormItem>
+                              <FormItem label="有效周期" required description="区间选择器触发器分隔符固定使用 ~">
+                                <DatePicker
+                                  picker="range"
+                                  width="100%"
+                                  defaultValue={[new Date(2026, 5, 1), new Date(2026, 5, 30)]}
+                                />
+                              </FormItem>
+                              <FormItem label="可售时段" required>
+                                <TimePicker picker="range" width="100%" defaultValue={['10:30', '22:30']} />
+                              </FormItem>
+                              <FormItem label="商品图片" htmlFor="page-product-upload" description="支持上传最多 4 张 JPG / PNG 图片，推荐使用 1:1 商品图">
+                                <Upload inputId="page-product-upload" value={[{ id: 'preview-product', name: '商品图', url: './assets/shangpin.png' }]} maxCount={4} />
+                              </FormItem>
+                            </Form>
+                          </section>
+                        </main>
+
+                      </div>
+                    </div>
+                    <footer className="page-preview-actions">
+                      <div className="page-preview-actions__inner">
+                        <Checkbox
+                          size="default-size"
+                          showLabel
+                          label={
+                            <span>
+                              请先阅读同意
+                              <a href="javascript:void(0)" style={{ color: 'var(--color-primary-normal)', textDecoration: 'none' }}>
+                                《抖音生活服务合作协议》
+                              </a>
+                              后提交
+                            </span>
+                          }
+                        />
+                        <div className="page-preview-actions__buttons">
+                          <Button variant="default">取消</Button>
+                          <Button variant="secondary">保存草稿</Button>
+                          <Button variant="primary">提交审核</Button>
+                        </div>
+                      </div>
+                    </footer>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+
+          return (
+            <div style={{ display: 'grid', gap: 'var(--spacing-6x)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 'var(--spacing-5x)', flexWrap: 'wrap' }}>
+                <Tabs variant="primary" size="small" value={pageType} onChange={setPageType}>
+                  <Tab value="list">典型列表页</Tab>
+                  <Tab value="form">典型表单页</Tab>
+                </Tabs>
+                <span style={{ font: 'var(--body-regular)', color: 'var(--color-text-secondary)' }}>
+                  使用标准基础框架，支持在页面类型间切换查看。
+                </span>
+              </div>
+              {pageType === 'list' ? <ListPagePreview /> : <FormPagePreview />}
+            </div>
+          );
+        };
+
+        root.render(<PageGallery />);
       } else if (item.type === 'upload-states') {
         const states = [
           { label: '默认', props: {} },

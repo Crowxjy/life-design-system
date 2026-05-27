@@ -5,10 +5,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-1x, 4px);
+  gap: var(--spacing-1x);
   box-sizing: border-box;
   min-width: 88px;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   font-weight: 400;
   text-align: center;
   white-space: nowrap;
@@ -43,22 +43,22 @@
 
 /* Button Sizes */
 .lds-btn--large {
-  height: var(--spacing-12x, 48px);
-  padding: 0 var(--spacing-5x, 20px);
+  height: var(--spacing-12x);
+  padding: 0 var(--spacing-5x);
   font: var(--subtitle-medium);
-  border-radius: var(--radius-m, 12px);
+  border-radius: var(--radius-m);
 }
 
 .lds-btn--default-size {
-  height: var(--spacing-10x, 40px);
-  padding: 0 var(--spacing-4x, 16px);
+  height: var(--spacing-10x);
+  padding: 0 var(--spacing-4x);
   font: var(--body-medium);
-  border-radius: var(--radius-m, 12px);
+  border-radius: var(--radius-m);
 }
 
 .lds-btn--small {
-  height: var(--spacing-9x, 36px);
-  padding: 0 var(--spacing-4x, 16px);
+  height: var(--spacing-9x);
+  padding: 0 var(--spacing-4x);
   font: var(--body-medium);
   border-radius: 10px;
 }
@@ -172,7 +172,7 @@
 
 /* 覆盖不同尺寸下的宽度，使其成为正方形 */
 .lds-btn--large.lds-btn--icon {
-  width: var(--spacing-12x, 48px);
+  width: var(--spacing-12x);
 }
 .lds-btn--large.lds-btn--icon .icon {
   width: 28px;
@@ -180,7 +180,7 @@
 }
 
 .lds-btn--default-size.lds-btn--icon {
-  width: var(--spacing-10x, 40px);
+  width: var(--spacing-10x);
 }
 .lds-btn--default-size.lds-btn--icon .icon {
   width: 24px;
@@ -188,7 +188,7 @@
 }
 
 .lds-btn--small.lds-btn--icon {
-  width: var(--spacing-9x, 36px);
+  width: var(--spacing-9x);
 }
 .lds-btn--small.lds-btn--icon .icon {
   width: 20px;
@@ -203,7 +203,7 @@
   cursor: pointer;
   user-select: none;
   vertical-align: middle;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
 }
 
 .lds-radio--disabled,
@@ -259,7 +259,7 @@
 
 /* Default radio */
 .lds-radio--default .lds-radio__visual {
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
 }
 
 .lds-radio__control {
@@ -454,29 +454,29 @@
 
 .lds-radio--capsule.lds-radio--large .lds-radio__visual,
 .lds-capsule--large {
-  height: var(--spacing-12x, 48px);
-  padding: 0 var(--spacing-5x, 20px);
+  height: var(--spacing-12x);
+  padding: 0 var(--spacing-5x);
   font: var(--subtitle-regular);
 }
 
 .lds-radio--capsule.lds-radio--default-size .lds-radio__visual,
 .lds-capsule--default-size {
-  height: var(--spacing-10x, 40px);
-  padding: 0 var(--spacing-5x, 20px);
+  height: var(--spacing-10x);
+  padding: 0 var(--spacing-5x);
   font: var(--body-regular);
 }
 
 .lds-radio--capsule.lds-radio--small .lds-radio__visual,
 .lds-capsule--small {
-  height: var(--spacing-9x, 36px);
-  padding: 0 var(--spacing-4x, 16px);
+  height: var(--spacing-9x);
+  padding: 0 var(--spacing-4x);
   font: var(--body-regular);
 }
 
 .lds-radio--capsule.lds-radio--mini .lds-radio__visual,
 .lds-capsule--mini {
-  height: var(--spacing-7x, 28px);
-  padding: 0 var(--spacing-3x, 12px);
+  height: var(--spacing-7x);
+  padding: 0 var(--spacing-3x);
   font: var(--caption-regular);
 }
 
@@ -520,42 +520,42 @@
 
 .lds-radio--capsule.lds-radio--large .lds-radio__input:checked:disabled + .lds-radio__visual,
 .lds-capsule-wrapper .lds-radio__input:checked:disabled + .lds-capsule--large {
-  padding: 0 calc(var(--spacing-5x, 20px) - 0.5px);
+  padding: 0 calc(var(--spacing-5x) - 0.5px);
 }
 
 .lds-radio--capsule.lds-radio--default-size .lds-radio__input:checked:disabled + .lds-radio__visual,
 .lds-capsule-wrapper .lds-radio__input:checked:disabled + .lds-capsule--default-size {
-  padding: 0 calc(var(--spacing-5x, 20px) - 0.5px);
+  padding: 0 calc(var(--spacing-5x) - 0.5px);
 }
 
 .lds-radio--capsule.lds-radio--small .lds-radio__input:checked:disabled + .lds-radio__visual,
 .lds-capsule-wrapper .lds-radio__input:checked:disabled + .lds-capsule--small {
-  padding: 0 calc(var(--spacing-4x, 16px) - 0.5px);
+  padding: 0 calc(var(--spacing-4x) - 0.5px);
 }
 
 .lds-radio--capsule.lds-radio--mini .lds-radio__input:checked:disabled + .lds-radio__visual,
 .lds-capsule-wrapper .lds-radio__input:checked:disabled + .lds-capsule--mini {
-  padding: 0 calc(var(--spacing-3x, 12px) - 0.5px);
+  padding: 0 calc(var(--spacing-3x) - 0.5px);
 }
 
 /* Card radio */
 .lds-radio--card .lds-radio__visual {
   width: 180px;
   justify-content: center;
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
   border-radius: 16px;
   background-color: var(--color-bg-normal);
   box-shadow: inset 0 0 0 1px var(--color-border-normal);
 }
 
 .lds-radio--card.lds-radio--large .lds-radio__visual {
-  padding: var(--spacing-4x, 16px);
+  padding: var(--spacing-4x);
 }
 
 .lds-radio--card.lds-radio--default-size .lds-radio__visual,
 .lds-radio--card.lds-radio--small .lds-radio__visual,
 .lds-radio--card.lds-radio--mini .lds-radio__visual {
-  padding: var(--spacing-3x, 12px) var(--spacing-4x, 16px);
+  padding: var(--spacing-3x) var(--spacing-4x);
 }
 
 .lds-radio--card .lds-radio__content {
@@ -637,7 +637,7 @@
   outline: none;
   background: transparent;
   color: var(--color-text-primary);
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   padding: 0;
   margin: 0;
   box-shadow: none;
@@ -650,8 +650,8 @@
 
 /* Input Sizes */
 .lds-input-wrapper--large {
-  height: var(--spacing-12x, 48px);
-  padding: 0 var(--spacing-4x, 16px);
+  height: var(--spacing-12x);
+  padding: 0 var(--spacing-4x);
   border-radius: 16px;
 }
 .lds-input-wrapper--large .lds-input {
@@ -659,8 +659,8 @@
 }
 
 .lds-input-wrapper--default-size {
-  height: var(--spacing-10x, 40px);
-  padding: 0 var(--spacing-4x, 16px);
+  height: var(--spacing-10x);
+  padding: 0 var(--spacing-4x);
   border-radius: 12px;
 }
 .lds-input-wrapper--default-size .lds-input {
@@ -668,8 +668,8 @@
 }
 
 .lds-input-wrapper--small {
-  height: var(--spacing-9x, 36px);
-  padding: 0 var(--spacing-3x, 12px);
+  height: var(--spacing-9x);
+  padding: 0 var(--spacing-3x);
   border-radius: 10px;
 }
 .lds-input-wrapper--small .lds-input {
@@ -677,8 +677,8 @@
 }
 
 .lds-input-wrapper--mini {
-  height: var(--spacing-7x, 28px);
-  padding: 0 var(--spacing-3x, 12px);
+  height: var(--spacing-7x);
+  padding: 0 var(--spacing-3x);
   border-radius: 8px;
 }
 .lds-input-wrapper--mini .lds-input {
@@ -779,7 +779,7 @@
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
   background-color: var(--color-bg-normal);
   border: 1px solid var(--color-border-normal);
   color: var(--color-text-primary);
@@ -814,7 +814,7 @@
   border: 0;
   background: transparent;
   color: var(--color-text-primary);
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   outline: none;
   appearance: none;
   -webkit-appearance: none;
@@ -851,9 +851,9 @@
 }
 
 .lds-search--large {
-  min-height: var(--spacing-12x, 48px);
+  min-height: var(--spacing-12x);
   padding: 12px;
-  border-radius: var(--radius-m, 12px);
+  border-radius: var(--radius-m);
 }
 
 .lds-search--large .lds-search__prefix .icon,
@@ -867,9 +867,9 @@
 }
 
 .lds-search--default-size {
-  min-height: var(--spacing-10x, 40px);
+  min-height: var(--spacing-10x);
   padding: 9px 12px;
-  border-radius: var(--radius-m, 12px);
+  border-radius: var(--radius-m);
 }
 
 .lds-search--default-size .lds-search__input {
@@ -877,7 +877,7 @@
 }
 
 .lds-search--small {
-  min-height: var(--spacing-9x, 36px);
+  min-height: var(--spacing-9x);
   padding: 7px 12px;
   border-radius: 10px;
 }
@@ -945,10 +945,10 @@
   width: 100%;
   min-height: 120px;
   box-sizing: border-box;
-  padding: var(--spacing-2x, 8px) var(--spacing-3x, 12px) var(--spacing-base, 4px);
+  padding: var(--spacing-2x) var(--spacing-3x) var(--spacing-base);
   background-color: var(--color-fill-normal);
   box-shadow: inset 0 0 0 1px var(--color-border-normal);
-  border-radius: var(--radius-m, 12px);
+  border-radius: var(--radius-m);
   transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
@@ -964,7 +964,7 @@
   resize: none;
   box-shadow: none;
   color: var(--color-text-primary);
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -1058,7 +1058,7 @@
   color: var(--color-text-primary);
   cursor: pointer;
   text-align: left;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition:
@@ -1312,8 +1312,8 @@
 .lds-time-picker__range-section-body {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-4x, 16px);
-  padding: var(--spacing-3x, 12px);
+  gap: var(--spacing-4x);
+  padding: var(--spacing-3x);
   box-sizing: border-box;
 }
 
@@ -1383,13 +1383,13 @@
 }
 
 .lds-date-picker__calendar--range .lds-filter-date-picker__grid {
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
 }
 
 .lds-date-picker__range-grid {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
   width: max-content;
 }
 
@@ -1398,7 +1398,7 @@
   z-index: 0;
   display: grid;
   grid-template-columns: repeat(7, 44px);
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
   width: max-content;
 }
 
@@ -1469,7 +1469,7 @@
   gap: 12px; /* Figma */
   box-sizing: border-box;
   width: 294px; /* Figma default */
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   font: var(--body-regular);
   color: var(--color-text-primary);
   background-color: var(--color-bg-normal);
@@ -1561,7 +1561,7 @@ button.lds-filter {
   margin: 0;
   color: var(--color-text-primary);
   font: inherit;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   min-width: 0;
 }
 
@@ -1645,11 +1645,11 @@ button.lds-filter {
 .lds-filter-group__grid {
   display: grid;
   align-items: start;
-  gap: var(--lds-filter-group-gap, var(--spacing-3x, 12px));
+  gap: var(--lds-filter-group-gap, var(--spacing-3x));
   /* Responsive: 3 columns on narrower widths, 4+ on wider widths (min item width = 294px by Figma) */
   grid-template-columns: repeat(
     auto-fit,
-    minmax(var(--lds-filter-group-min-item-width, 294px), 1fr)
+    minmax(var(--lds-filter-group-min-item-width), 1fr)
   );
 }
 
@@ -1661,8 +1661,8 @@ button.lds-filter {
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Always left aligned */
-  gap: var(--lds-filter-group-gap, var(--spacing-3x, 12px));
-  margin-top: var(--lds-filter-group-gap, var(--spacing-3x, 12px));
+  gap: var(--lds-filter-group-gap, var(--spacing-3x));
+  margin-top: var(--lds-filter-group-gap, var(--spacing-3x));
 }
 
 /* 8. 标签页 (Tabs) */
@@ -1670,7 +1670,7 @@ button.lds-filter {
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
 }
 
 .lds-tab {
@@ -1689,7 +1689,7 @@ button.lds-filter {
 
 /* ================== Primary Tabs (一级) ================== */
 .lds-tabs--primary {
-  gap: var(--spacing-10x, 40px);
+  gap: var(--spacing-10x);
 }
 
 .lds-tabs--primary .lds-tab {
@@ -1812,7 +1812,7 @@ button.lds-filter {
 
 /* ================== Filter Tabs (快筛) ================== */
 .lds-tabs--filter {
-  gap: var(--spacing-4x, 16px);
+  gap: var(--spacing-4x);
 }
 
 .lds-tabs--filter .lds-tab {
@@ -1851,11 +1851,11 @@ button.lds-filter {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--spacing-8x, 32px) 0 0;
+  padding: 0 var(--spacing-8x) 0 0;
   box-sizing: border-box;
   position: relative;
   z-index: 1000;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
 }
 
 .lds-navbar__left {
@@ -1869,7 +1869,7 @@ button.lds-filter {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-left: var(--spacing-6x, 24px);
+  padding-left: var(--spacing-6x);
   cursor: pointer;
   box-sizing: border-box;
 }
@@ -1896,7 +1896,7 @@ button.lds-filter {
   flex: 1;
   display: flex;
   align-items: center;
-  gap: var(--spacing-6x, 24px); /* 减小间距以适应内容 */
+  gap: var(--spacing-6x); /* 减小间距以适应内容 */
   overflow: hidden; /* 防止溢出 */
 }
 
@@ -1908,12 +1908,12 @@ button.lds-filter {
 .lds-navbar__nav {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-navbar__nav-item {
   padding: 8px 16px;
-  border-radius: var(--radius-m, 12px);
+  border-radius: var(--radius-m);
   color: var(--color-text-primary);
   font: var(--body-regular);
   cursor: pointer;
@@ -1934,7 +1934,7 @@ button.lds-filter {
 .lds-navbar__right {
   display: flex;
   align-items: center;
-  gap: var(--spacing-4x, 16px);
+  gap: var(--spacing-4x);
   flex-shrink: 0; /* 确保右侧内容不收缩以保证可读性 */
 }
 
@@ -1946,7 +1946,7 @@ button.lds-filter {
   font: var(--caption-regular);
   cursor: pointer;
   padding: 4px 8px;
-  border-radius: var(--radius-s, 6px);
+  border-radius: var(--radius-s);
   transition: all 0.2s;
 }
 
@@ -1971,7 +1971,7 @@ button.lds-filter {
   align-items: center;
   gap: 8px;
   padding: 4px 8px;
-  border-radius: var(--radius-m, 12px);
+  border-radius: var(--radius-m);
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -2026,11 +2026,11 @@ button.lds-filter {
 /* 10. 菜单组件 (Menu) */
 .lds-menu {
   width: 200px;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-2x, 8px) 0;
-  gap: var(--spacing-2x, 8px);
+  padding: var(--spacing-2x) 0;
+  gap: var(--spacing-2x);
 }
 
 .lds-menu-group {
@@ -2042,7 +2042,7 @@ button.lds-filter {
   height: 40px;
   display: flex;
   align-items: center;
-  padding: 0 var(--spacing-4x, 16px);
+  padding: 0 var(--spacing-4x);
   cursor: pointer;
   gap: 8px;
   color: var(--color-text-primary);
@@ -2079,7 +2079,7 @@ button.lds-filter {
 .lds-menu-group__content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 4px var(--spacing-2x, 8px) var(--spacing-2x, 8px);
+  padding: 4px var(--spacing-2x) var(--spacing-2x);
   gap: 4px;
   overflow: hidden;
   max-height: 500px; /* 足够容纳内容的高度 */
@@ -2126,8 +2126,8 @@ button.lds-filter {
 .lds-page-header {
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-8x, 32px) var(--spacing-8x, 32px) var(--spacing-6x, 24px) 0;
-  gap: var(--spacing-4x, 16px);
+  padding: var(--spacing-8x) var(--spacing-8x) var(--spacing-6x) 0;
+  gap: var(--spacing-4x);
   box-sizing: border-box;
   width: 100%;
 }
@@ -2145,14 +2145,14 @@ button.lds-filter {
 .lds-page-header__secondary-layout {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-3x, 12px);
+  gap: var(--spacing-3x);
   width: 100%;
 }
 
 .lds-page-header__content {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4x, 16px);
+  gap: var(--spacing-4x);
   flex: 1 1 auto;
   min-width: 0;
 }
@@ -2161,9 +2161,9 @@ button.lds-filter {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--spacing-9x, 36px);
-  height: var(--spacing-9x, 36px);
-  padding: var(--spacing-2x, 8px);
+  width: var(--spacing-9x);
+  height: var(--spacing-9x);
+  padding: var(--spacing-2x);
   border: 1px solid var(--color-border-normal);
   border-radius: 10px;
   background-color: var(--color-bg-normal);
@@ -2206,7 +2206,7 @@ button.lds-filter {
 .lds-page-header--secondary .lds-page-header__title {
   font: var(--title-medium);
   padding-block: 3px;
-  min-height: var(--spacing-9x, 36px);
+  min-height: var(--spacing-9x);
   box-sizing: border-box;
 }
 
@@ -2220,7 +2220,7 @@ button.lds-filter {
 .lds-steps {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
   width: 100%;
   box-sizing: border-box;
 }
@@ -2244,7 +2244,7 @@ button.lds-filter {
 .lds-step__main {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
   width: 100%;
 }
 
@@ -2278,7 +2278,7 @@ button.lds-filter {
 
 .lds-step__connector {
   flex: 1 1 auto;
-  min-width: var(--spacing-10x, 40px);
+  min-width: var(--spacing-10x);
   height: 1px;
   background-image: repeating-linear-gradient(
     to right,
@@ -2288,10 +2288,10 @@ button.lds-filter {
 }
 
 .lds-step__description {
-  padding-left: var(--spacing-8x, 32px);
+  padding-left: var(--spacing-8x);
   color: var(--color-text-secondary);
   font: var(--caption-regular);
-  margin-top: var(--spacing-1x, 4px);
+  margin-top: var(--spacing-1x);
 }
 
 .lds-step.is-finish .lds-step__indicator {
@@ -2323,7 +2323,7 @@ button.lds-filter {
 
 .lds-step.is-clickable {
   cursor: pointer;
-  border-radius: var(--radius-s, 6px);
+  border-radius: var(--radius-s);
   transition: opacity 0.2s ease;
 }
 
@@ -2357,9 +2357,9 @@ button.lds-filter {
   max-width: calc(100vw - 32px);
   max-height: var(--lds-popover-max-height);
   overflow: auto;
-  padding: var(--spacing-2x, 8px);
+  padding: var(--spacing-2x);
   background: var(--color-bg-popup);
-  border-radius: var(--radius-l, 16px);
+  border-radius: var(--radius-l);
   box-shadow: var(--shadow-large);
   opacity: 0;
   pointer-events: none;
@@ -2392,13 +2392,13 @@ button.lds-filter {
 }
 
 .lds-filter-select__popover {
-  padding: var(--spacing-2x, 8px);
+  padding: var(--spacing-2x);
 }
 
 .lds-filter-select__list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
 }
 
 .lds-filter-select__option {
@@ -2409,9 +2409,9 @@ button.lds-filter {
   color: var(--color-text-primary);
   display: flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
   width: 100%;
-  padding: 9px var(--spacing-2x, 8px);
+  padding: 9px var(--spacing-2x);
   font: var(--body-regular);
   font-family: var(--font-normal);
   text-align: left;
@@ -2472,8 +2472,8 @@ button.lds-filter {
 .lds-filter-date-picker {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4x, 16px);
-  padding: var(--spacing-6x, 24px);
+  gap: var(--spacing-4x);
+  padding: var(--spacing-6x);
   box-sizing: border-box;
 }
 
@@ -2481,13 +2481,13 @@ button.lds-filter {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-4x, 16px);
+  gap: var(--spacing-4x);
 }
 
 .lds-filter-date-picker__nav-group {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-4x, 16px);
+  gap: var(--spacing-4x);
 }
 
 .lds-filter-date-picker__nav {
@@ -2511,7 +2511,7 @@ button.lds-filter {
 .lds-filter-date-picker__title {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-4x, 16px);
+  gap: var(--spacing-4x);
   color: var(--color-text-primary);
   font: var(--subtitle-medium);
   font-family: var(--font-normal);
@@ -2521,7 +2521,7 @@ button.lds-filter {
 .lds-filter-date-picker__grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
 }
 
 .lds-filter-date-picker__weekday {
@@ -2586,15 +2586,15 @@ button.lds-filter {
 .lds-filter-time-picker {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-4x, 16px);
-  padding: var(--spacing-3x, 12px);
+  gap: var(--spacing-4x);
+  padding: var(--spacing-3x);
   box-sizing: border-box;
 }
 
 .lds-filter-time-picker__column {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
   max-height: 284px;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -2643,14 +2643,14 @@ button.lds-filter {
   z-index: 1200;
   display: flex;
   justify-content: flex-end;
-  padding: var(--spacing-4x, 16px);
+  padding: var(--spacing-4x);
   box-sizing: border-box;
 }
 
 .lds-drawer-root__mask {
   position: absolute;
   inset: 0;
-  background: var(--color-bg-mask, rgba(16, 17, 20, 0.5));
+  background: var(--color-bg-mask);
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -2665,14 +2665,14 @@ button.lds-filter {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  width: min(var(--lds-drawer-width), calc(100vw - var(--spacing-8x, 32px)));
+  width: min(var(--lds-drawer-width), calc(100vw - var(--spacing-8x)));
   height: 100%;
   background: var(--color-bg-popup);
-  border-radius: var(--radius-xxl, 24px);
+  border-radius: var(--radius-xxl);
   box-shadow: var(--shadow-left);
   overflow: hidden;
   box-sizing: border-box;
-  transform: translate3d(calc(100% + var(--spacing-4x, 16px)), 0, 0);
+  transform: translate3d(calc(100% + var(--spacing-4x)), 0, 0);
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -2695,8 +2695,8 @@ button.lds-filter {
 .lds-drawer__header {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
-  padding: var(--spacing-8x, 32px);
+  gap: var(--spacing-2x);
+  padding: var(--spacing-8x);
   box-sizing: border-box;
 }
 
@@ -2705,7 +2705,7 @@ button.lds-filter {
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: var(--spacing-3x, 12px);
+  gap: var(--spacing-3x);
 }
 
 .lds-drawer__title {
@@ -2719,14 +2719,14 @@ button.lds-filter {
 .lds-drawer__extra {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-drawer__close {
   width: 36px;
   height: 36px;
   border: none;
-  border-radius: var(--radius-round, 999px);
+  border-radius: var(--radius-round);
   background: var(--color-fill-hover);
   color: var(--color-text-primary);
   display: inline-flex;
@@ -2762,7 +2762,7 @@ button.lds-filter {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: 0 var(--spacing-8x, 32px) var(--spacing-8x, 32px);
+  padding: 0 var(--spacing-8x) var(--spacing-8x);
   box-sizing: border-box;
 }
 
@@ -2770,8 +2770,8 @@ button.lds-filter {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: var(--spacing-4x, 16px);
-  padding: var(--spacing-6x, 24px);
+  gap: var(--spacing-4x);
+  padding: var(--spacing-6x);
   border-top: 1px solid var(--color-divider-normal);
   background: var(--color-bg-popup);
   box-sizing: border-box;
@@ -2793,14 +2793,14 @@ button.lds-filter {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-4x, 16px);
+  padding: var(--spacing-4x);
   box-sizing: border-box;
 }
 
 .lds-dialog-root__mask {
   position: absolute;
   inset: 0;
-  background: var(--color-bg-mask, rgba(16, 17, 20, 0.5));
+  background: var(--color-bg-mask);
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -2815,10 +2815,10 @@ button.lds-filter {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  width: min(var(--lds-dialog-width), calc(100vw - var(--spacing-8x, 32px)));
-  max-height: calc(100vh - var(--spacing-8x, 32px));
+  width: min(var(--lds-dialog-width), calc(100vw - var(--spacing-8x)));
+  max-height: calc(100vh - var(--spacing-8x));
   background: var(--color-bg-popup);
-  border-radius: var(--radius-xxl, 24px);
+  border-radius: var(--radius-xxl);
   box-shadow: var(--shadow-large);
   box-sizing: border-box;
   overflow: hidden;
@@ -2840,14 +2840,14 @@ button.lds-filter {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: var(--spacing-8x, 32px) 28px var(--spacing-6x, 24px);
+  padding: var(--spacing-8x) 28px var(--spacing-6x);
   box-sizing: border-box;
 }
 
 .lds-dialog__main {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-dialog__icon {
@@ -2870,7 +2870,7 @@ button.lds-filter {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-dialog__title {
@@ -2888,14 +2888,14 @@ button.lds-filter {
 .lds-dialog__extra {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4x, 16px);
-  margin-top: var(--spacing-2x, 8px);
+  gap: var(--spacing-4x);
+  margin-top: var(--spacing-2x);
 }
 
 .lds-dialog__close {
   position: absolute;
-  top: var(--spacing-6x, 24px);
-  right: var(--spacing-6x, 24px);
+  top: var(--spacing-6x);
+  right: var(--spacing-6x);
   width: 28px;
   height: 28px;
   padding: 0;
@@ -2936,8 +2936,8 @@ button.lds-filter {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: var(--spacing-4x, 16px);
-  padding: 0 var(--spacing-6x, 24px) var(--spacing-6x, 24px);
+  gap: var(--spacing-4x);
+  padding: 0 var(--spacing-6x) var(--spacing-6x);
   box-sizing: border-box;
 }
 
@@ -2969,7 +2969,7 @@ button.lds-filter {
 .lds-form {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-5x, 20px);
+  gap: var(--spacing-5x);
   width: 100%;
   --lds-form-label-width: 90px;
 }
@@ -2977,27 +2977,27 @@ button.lds-filter {
 .lds-form-item {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-5x, 20px);
+  gap: var(--spacing-5x);
   width: 100%;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
 }
 
 .lds-form-item--vertical {
   flex-direction: column;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-form-item__label {
-  width: max(var(--lds-form-label-width, 90px), 70px);
+  width: max(var(--lds-form-label-width), 70px);
   min-width: 70px;
-  flex: 0 0 max(var(--lds-form-label-width, 90px), 70px);
+  flex: 0 0 max(var(--lds-form-label-width), 70px);
 }
 
 .lds-form-item__label-inner {
-  min-height: var(--spacing-10x, 40px);
+  min-height: var(--spacing-10x);
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
   color: var(--color-text-secondary);
   font: var(--body-regular);
   text-decoration: none;
@@ -3020,7 +3020,7 @@ button.lds-filter {
   height: 16px;
   padding: 0;
   border: none;
-  border-radius: var(--radius-s, 6px);
+  border-radius: var(--radius-s);
   background: transparent;
   color: var(--color-text-caption);
   cursor: pointer;
@@ -3066,7 +3066,7 @@ button.lds-filter {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
 }
 
 .lds-form-item--vertical .lds-form-item__label {
@@ -3101,7 +3101,7 @@ button.lds-filter {
 /* 15. 图片上传组件 (Upload) */
 .lds-upload {
   width: 100%;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
 }
 
 .lds-upload__input {
@@ -3119,7 +3119,7 @@ button.lds-filter {
 .lds-upload__list {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-3x, 12px);
+  gap: var(--spacing-3x);
 }
 
 .lds-upload__trigger,
@@ -3137,7 +3137,7 @@ button.lds-filter {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
   padding: 15px 0;
   border: 1px dashed var(--color-border-normal);
   background: var(--color-bg-popup);
@@ -3202,8 +3202,8 @@ button.lds-filter {
 
 .lds-upload__remove {
   position: absolute;
-  top: var(--spacing-base, 4px);
-  right: var(--spacing-base, 4px);
+  top: var(--spacing-base);
+  right: var(--spacing-base);
   width: 18px;
   height: 18px;
   display: inline-flex;
@@ -3211,9 +3211,9 @@ button.lds-filter {
   justify-content: center;
   padding: 0;
   border: none;
-  border-radius: var(--radius-round, 999px);
+  border-radius: var(--radius-round);
   background: rgba(12, 13, 15, 0.5);
-  color: var(--color-text-inverse, #fff);
+  color: var(--color-text-inverse);
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -3239,7 +3239,7 @@ button.lds-filter {
 }
 
 .lds-upload__extra {
-  margin-top: var(--spacing-2x, 8px);
+  margin-top: var(--spacing-2x);
 }
 
 /* 16. 表格组件 (Table) */
@@ -3250,7 +3250,7 @@ button.lds-filter {
   overflow: hidden;
   box-sizing: border-box;
   background-color: var(--color-bg-normal);
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
 }
 
 .lds-table {
@@ -3265,7 +3265,7 @@ button.lds-filter {
 }
 
 .lds-table__th {
-  padding: var(--spacing-3x, 12px) var(--spacing-4x, 16px);
+  padding: var(--spacing-3x) var(--spacing-4x);
   font: var(--body-medium);
   color: var(--color-text-secondary);
   border-bottom: 1px solid var(--color-divider-normal);
@@ -3287,7 +3287,7 @@ button.lds-filter {
 }
 
 .lds-table__td {
-  padding: var(--spacing-4x, 16px);
+  padding: var(--spacing-4x);
   font: var(--body-regular);
   color: var(--color-text-primary);
   border-bottom: 1px solid var(--color-divider-normal);
@@ -3298,7 +3298,7 @@ button.lds-filter {
 .lds-table-cell--product {
   display: flex;
   align-items: center;
-  gap: var(--spacing-3x, 12px);
+  gap: var(--spacing-3x);
 }
 
 .lds-table-cell__product-img {
@@ -3314,13 +3314,13 @@ button.lds-filter {
 .lds-table-cell__product-info {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
 }
 
 .lds-table-cell__product-title-wrap {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-table-cell__product-title {
@@ -3337,7 +3337,7 @@ button.lds-filter {
 .lds-table-cell__product-meta {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-table-cell__product-id {
@@ -3355,7 +3355,7 @@ button.lds-filter {
   justify-content: center;
   box-sizing: border-box;
   max-width: 100%;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   font-weight: 400;
   color: var(--lds-tag-fg);
   background-color: var(--lds-tag-bg);
@@ -3391,9 +3391,9 @@ button.lds-filter {
 }
 
 .lds-tag--large {
-  height: var(--spacing-9x, 36px);
-  padding: 0 var(--spacing-3x, 12px);
-  gap: var(--spacing-base, 4px);
+  height: var(--spacing-9x);
+  padding: 0 var(--spacing-3x);
+  gap: var(--spacing-base);
   border-radius: 10px;
   font: var(--subtitle-regular);
 }
@@ -3409,8 +3409,8 @@ button.lds-filter {
 }
 
 .lds-tag--default-size {
-  height: var(--spacing-7x, 28px);
-  padding: 0 var(--spacing-2x, 8px);
+  height: var(--spacing-7x);
+  padding: 0 var(--spacing-2x);
   gap: 2px;
   border-radius: 8px;
   font: var(--body-regular);
@@ -3430,7 +3430,7 @@ button.lds-filter {
   height: 20px;
   padding: 0 6px;
   gap: 2px;
-  border-radius: var(--radius-s, 6px);
+  border-radius: var(--radius-s);
   font: var(--caption-regular);
 }
 
@@ -3527,13 +3527,13 @@ button.lds-filter {
   --lds-alert-description-color: var(--color-text-secondary);
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-3x, 12px);
+  gap: var(--spacing-3x);
   width: 100%;
   box-sizing: border-box;
-  padding: 9px var(--spacing-4x, 16px);
-  border-radius: var(--radius-m, 12px);
+  padding: 9px var(--spacing-4x);
+  border-radius: var(--radius-m);
   background-color: var(--lds-alert-bg);
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -3583,7 +3583,7 @@ button.lds-filter {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1x, 4px);
+  gap: var(--spacing-1x);
 }
 
 .lds-alert__title {
@@ -3613,14 +3613,14 @@ button.lds-filter {
 .lds-alert__extra {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1x, 4px);
+  gap: var(--spacing-1x);
 }
 
 .lds-alert__action {
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-3x, 12px);
+  gap: var(--spacing-3x);
   padding: 3px 0 3px 12px;
 }
 
@@ -3659,14 +3659,14 @@ button.lds-filter {
 /* 19. 全局提示 Message */
 .lds-message-viewport {
   position: fixed;
-  top: var(--spacing-4x, 16px);
+  top: var(--spacing-4x);
   left: 50%;
   z-index: 1230;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: max-content;
-  max-width: calc(100vw - var(--spacing-8x, 32px));
+  max-width: calc(100vw - var(--spacing-8x));
   transform: translateX(-50%);
   pointer-events: none;
 }
@@ -3686,7 +3686,7 @@ button.lds-filter {
 
 .lds-message-viewport__item.is-visible {
   max-height: 80px;
-  margin-bottom: var(--spacing-3x, 12px);
+  margin-bottom: var(--spacing-3x);
   opacity: 1;
 }
 
@@ -3700,18 +3700,18 @@ button.lds-filter {
   --lds-message-icon-color: var(--color-primary-normal);
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-3x, 12px);
+  gap: var(--spacing-3x);
   min-height: 46px;
-  max-width: min(520px, calc(100vw - var(--spacing-8x, 32px)));
+  max-width: min(520px, calc(100vw - var(--spacing-8x)));
   box-sizing: border-box;
-  padding: 13px var(--spacing-4x, 16px);
+  padding: 13px var(--spacing-4x);
   border: 1px solid var(--lds-message-border);
-  border-radius: var(--radius-m, 12px);
+  border-radius: var(--radius-m);
   background-color: var(--lds-message-bg);
   box-shadow: var(--shadow-normal);
   color: var(--color-text-primary);
   font: var(--body-medium);
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transform: translateY(-12px) scale(0.96);
@@ -3849,7 +3849,7 @@ button.lds-filter {
   height: var(--lds-switch-height);
   padding: 2px;
   box-sizing: border-box;
-  border-radius: var(--radius-round, 999px);
+  border-radius: var(--radius-round);
   background: var(--lds-switch-track-bg);
   transition:
     background-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
@@ -3859,7 +3859,7 @@ button.lds-filter {
 .lds-switch__thumb {
   width: var(--lds-switch-thumb-width);
   height: var(--lds-switch-thumb-height);
-  border-radius: var(--radius-round, 999px);
+  border-radius: var(--radius-round);
   background: var(--color-text-white);
   box-shadow: var(--shadow-small);
   transform: translate3d(var(--lds-switch-thumb-translate-x), 0, 0) scale(var(--lds-switch-thumb-scale));
@@ -3967,7 +3967,7 @@ button.lds-filter {
 /* 金额列样式 */
 .lds-table-cell--amount {
   font: var(--body-regular);
-  font-family: var(--font-number, var(--font-normal, "PingFang SC", sans-serif));
+  font-family: var(--font-number, var(--font-normal));
   color: var(--color-text-primary);
 }
 
@@ -3975,7 +3975,7 @@ button.lds-filter {
 .lds-table-cell--operation {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-table-cell__action {
@@ -4000,18 +4000,18 @@ button.lds-filter {
 
 /* 17. 页面内容布局组件 (Page Layout Wrappers) */
 .lds-filter-card {
-  margin-bottom: var(--spacing-5x, 20px);
+  margin-bottom: var(--spacing-5x);
 }
 
 .lds-action-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing-4x, 16px);
+  margin-bottom: var(--spacing-4x);
 }
 
 .lds-pagination-wrapper {
-  margin-top: var(--spacing-5x, 20px);
+  margin-top: var(--spacing-5x);
   display: flex;
   justify-content: flex-end;
 }
@@ -4021,22 +4021,22 @@ button.lds-filter {
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
-  gap: var(--spacing-3x, 12px);
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  gap: var(--spacing-3x);
+  font-family: var(--font-normal);
   color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .lds-pagination--default-size {
-  --lds-pagination-item-size: var(--spacing-9x, 36px);
-  --lds-pagination-item-radius: var(--radius-m, 12px);
+  --lds-pagination-item-size: var(--spacing-9x);
+  --lds-pagination-item-radius: var(--radius-m);
   --lds-pagination-arrow-radius: 10px; /* Figma */
   font: var(--body-regular);
 }
 
 .lds-pagination--small {
-  --lds-pagination-item-size: var(--spacing-7x, 28px);
+  --lds-pagination-item-size: var(--spacing-7x);
   --lds-pagination-item-radius: 10px; /* Figma */
   --lds-pagination-arrow-radius: 8px; /* Figma */
   font: var(--caption-regular);
@@ -4050,7 +4050,7 @@ button.lds-filter {
 .lds-pagination__pages {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-pagination__arrow,
@@ -4112,13 +4112,13 @@ button.lds-filter {
 }
 
 .lds-pagination--default-size .lds-pagination__icon {
-  width: var(--spacing-5x, 20px);
-  height: var(--spacing-5x, 20px);
+  width: var(--spacing-5x);
+  height: var(--spacing-5x);
 }
 
 .lds-pagination--small .lds-pagination__icon {
-  width: var(--spacing-4x, 16px);
-  height: var(--spacing-4x, 16px);
+  width: var(--spacing-4x);
+  height: var(--spacing-4x);
 }
 
 /* Page size changer (visual wrapper + native select overlay) */
@@ -4126,9 +4126,9 @@ button.lds-filter {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-3x, 12px);
+  gap: var(--spacing-3x);
   height: var(--lds-pagination-item-size);
-  padding: 0 var(--spacing-3x, 12px);
+  padding: 0 var(--spacing-3x);
   box-sizing: border-box;
   border: 1px solid var(--color-border-normal);
   border-radius: 10px; /* Figma: 10px */
@@ -4153,8 +4153,8 @@ button.lds-filter {
 }
 
 .lds-pagination__size-icon {
-  width: var(--spacing-4x, 16px);
-  height: var(--spacing-4x, 16px);
+  width: var(--spacing-4x);
+  height: var(--spacing-4x);
   color: var(--color-text-caption);
 }
 
@@ -4162,7 +4162,7 @@ button.lds-filter {
 .lds-pagination__quick-jumper {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
   color: var(--color-text-primary);
 }
 
@@ -4173,8 +4173,8 @@ button.lds-filter {
 
 .lds-pagination__quick-input .lds-input-wrapper {
   width: 40px; /* Figma */
-  padding-left: var(--spacing-3x, 12px);
-  padding-right: var(--spacing-3x, 12px);
+  padding-left: var(--spacing-3x);
+  padding-right: var(--spacing-3x);
 }
 
 .lds-pagination__quick-input .lds-input {
@@ -4185,10 +4185,10 @@ button.lds-filter {
 .lds-checkbox {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
   cursor: pointer;
   user-select: none;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   color: var(--color-text-primary);
   vertical-align: middle;
 }

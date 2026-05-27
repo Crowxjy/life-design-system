@@ -5,10 +5,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-1x, 4px);
+  gap: var(--spacing-1x);
   box-sizing: border-box;
   min-width: 88px;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   font-weight: 400;
   text-align: center;
   white-space: nowrap;
@@ -43,22 +43,22 @@
 
 /* Button Sizes */
 .lds-btn--large {
-  height: var(--spacing-12x, 48px);
-  padding: 0 var(--spacing-5x, 20px);
+  height: var(--spacing-12x);
+  padding: 0 var(--spacing-5x);
   font: var(--subtitle-medium);
-  border-radius: var(--radius-m, 12px);
+  border-radius: var(--radius-m);
 }
 
 .lds-btn--default-size {
-  height: var(--spacing-10x, 40px);
-  padding: 0 var(--spacing-4x, 16px);
+  height: var(--spacing-10x);
+  padding: 0 var(--spacing-4x);
   font: var(--body-medium);
-  border-radius: var(--radius-m, 12px);
+  border-radius: var(--radius-m);
 }
 
 .lds-btn--small {
-  height: var(--spacing-9x, 36px);
-  padding: 0 var(--spacing-4x, 16px);
+  height: var(--spacing-9x);
+  padding: 0 var(--spacing-4x);
   font: var(--body-medium);
   border-radius: 10px;
 }
@@ -172,7 +172,7 @@
 
 /* 覆盖不同尺寸下的宽度，使其成为正方形 */
 .lds-btn--large.lds-btn--icon {
-  width: var(--spacing-12x, 48px);
+  width: var(--spacing-12x);
 }
 .lds-btn--large.lds-btn--icon .icon {
   width: 28px;
@@ -180,7 +180,7 @@
 }
 
 .lds-btn--default-size.lds-btn--icon {
-  width: var(--spacing-10x, 40px);
+  width: var(--spacing-10x);
 }
 .lds-btn--default-size.lds-btn--icon .icon {
   width: 24px;
@@ -188,7 +188,7 @@
 }
 
 .lds-btn--small.lds-btn--icon {
-  width: var(--spacing-9x, 36px);
+  width: var(--spacing-9x);
 }
 .lds-btn--small.lds-btn--icon .icon {
   width: 20px;
@@ -218,7 +218,7 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   font-weight: 400;
   text-align: center;
   white-space: nowrap;
@@ -232,26 +232,26 @@
 
 /* Capsule Sizes */
 .lds-capsule--large {
-  height: var(--spacing-12x, 48px);
-  padding: 0 var(--spacing-5x, 20px);
+  height: var(--spacing-12x);
+  padding: 0 var(--spacing-5x);
   font: var(--subtitle-regular);
 }
 
 .lds-capsule--default-size {
-  height: var(--spacing-10x, 40px);
-  padding: 0 var(--spacing-5x, 20px);
+  height: var(--spacing-10x);
+  padding: 0 var(--spacing-5x);
   font: var(--body-regular);
 }
 
 .lds-capsule--small {
-  height: var(--spacing-9x, 36px);
-  padding: 0 var(--spacing-4x, 16px);
+  height: var(--spacing-9x);
+  padding: 0 var(--spacing-4x);
   font: var(--body-regular);
 }
 
 .lds-capsule--mini {
-  height: var(--spacing-7x, 28px);
-  padding: 0 var(--spacing-3x, 12px);
+  height: var(--spacing-7x);
+  padding: 0 var(--spacing-3x);
   font: var(--caption-regular);
 }
 
@@ -293,10 +293,10 @@
 }
 
 /* Apply padding offset for checked disabled state */
-.lds-capsule-wrapper input[type="radio"]:checked:disabled + .lds-capsule--large { padding: 0 calc(var(--spacing-5x, 20px) - 0.5px); }
-.lds-capsule-wrapper input[type="radio"]:checked:disabled + .lds-capsule--default-size { padding: 0 calc(var(--spacing-5x, 20px) - 0.5px); }
-.lds-capsule-wrapper input[type="radio"]:checked:disabled + .lds-capsule--small { padding: 0 calc(var(--spacing-4x, 16px) - 0.5px); }
-.lds-capsule-wrapper input[type="radio"]:checked:disabled + .lds-capsule--mini { padding: 0 calc(var(--spacing-3x, 12px) - 0.5px); }
+.lds-capsule-wrapper input[type="radio"]:checked:disabled + .lds-capsule--large { padding: 0 calc(var(--spacing-5x) - 0.5px); }
+.lds-capsule-wrapper input[type="radio"]:checked:disabled + .lds-capsule--default-size { padding: 0 calc(var(--spacing-5x) - 0.5px); }
+.lds-capsule-wrapper input[type="radio"]:checked:disabled + .lds-capsule--small { padding: 0 calc(var(--spacing-4x) - 0.5px); }
+.lds-capsule-wrapper input[type="radio"]:checked:disabled + .lds-capsule--mini { padding: 0 calc(var(--spacing-3x) - 0.5px); }
 
 /* 7. 输入框 (Input) */
 .lds-input-wrapper {
@@ -318,7 +318,7 @@
   outline: none;
   background: transparent;
   color: var(--color-text-primary);
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   padding: 0;
   margin: 0;
   box-shadow: none;
@@ -331,8 +331,8 @@
 
 /* Input Sizes */
 .lds-input-wrapper--large {
-  height: var(--spacing-12x, 48px);
-  padding: 0 var(--spacing-4x, 16px);
+  height: var(--spacing-12x);
+  padding: 0 var(--spacing-4x);
   border-radius: 16px;
 }
 .lds-input-wrapper--large .lds-input {
@@ -340,8 +340,8 @@
 }
 
 .lds-input-wrapper--default-size {
-  height: var(--spacing-10x, 40px);
-  padding: 0 var(--spacing-4x, 16px);
+  height: var(--spacing-10x);
+  padding: 0 var(--spacing-4x);
   border-radius: 12px;
 }
 .lds-input-wrapper--default-size .lds-input {
@@ -349,8 +349,8 @@
 }
 
 .lds-input-wrapper--small {
-  height: var(--spacing-9x, 36px);
-  padding: 0 var(--spacing-3x, 12px);
+  height: var(--spacing-9x);
+  padding: 0 var(--spacing-3x);
   border-radius: 10px;
 }
 .lds-input-wrapper--small .lds-input {
@@ -358,8 +358,8 @@
 }
 
 .lds-input-wrapper--mini {
-  height: var(--spacing-7x, 28px);
-  padding: 0 var(--spacing-3x, 12px);
+  height: var(--spacing-7x);
+  padding: 0 var(--spacing-3x);
   border-radius: 8px;
 }
 .lds-input-wrapper--mini .lds-input {
@@ -430,7 +430,7 @@
   gap: 12px; /* Figma */
   box-sizing: border-box;
   width: 294px; /* Figma default */
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   font: var(--body-regular);
   color: var(--color-text-primary);
   background-color: var(--color-bg-normal);
@@ -503,7 +503,7 @@ button.lds-filter {
   margin: 0;
   color: var(--color-text-primary);
   font: inherit;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   min-width: 0;
 }
 
@@ -585,11 +585,11 @@ button.lds-filter {
 .lds-filter-group__grid {
   display: grid;
   align-items: start;
-  gap: var(--lds-filter-group-gap, var(--spacing-3x, 12px));
+  gap: var(--lds-filter-group-gap, var(--spacing-3x));
   /* Responsive: 3 columns on narrower widths, 4+ on wider widths (min item width = 294px by Figma) */
   grid-template-columns: repeat(
     auto-fit,
-    minmax(var(--lds-filter-group-min-item-width, 294px), 1fr)
+    minmax(var(--lds-filter-group-min-item-width), 1fr)
   );
 }
 
@@ -601,8 +601,8 @@ button.lds-filter {
   display: flex;
   align-items: center;
   justify-content: flex-start; /* Always left aligned */
-  gap: var(--lds-filter-group-gap, var(--spacing-3x, 12px));
-  margin-top: var(--lds-filter-group-gap, var(--spacing-3x, 12px));
+  gap: var(--lds-filter-group-gap, var(--spacing-3x));
+  margin-top: var(--lds-filter-group-gap, var(--spacing-3x));
 }
 
 /* 8. 标签页 (Tabs) */
@@ -610,7 +610,7 @@ button.lds-filter {
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
 }
 
 .lds-tab {
@@ -629,7 +629,7 @@ button.lds-filter {
 
 /* ================== Primary Tabs (一级) ================== */
 .lds-tabs--primary {
-  gap: var(--spacing-10x, 40px);
+  gap: var(--spacing-10x);
 }
 
 .lds-tabs--primary .lds-tab {
@@ -752,7 +752,7 @@ button.lds-filter {
 
 /* ================== Filter Tabs (快筛) ================== */
 .lds-tabs--filter {
-  gap: var(--spacing-4x, 16px);
+  gap: var(--spacing-4x);
 }
 
 .lds-tabs--filter .lds-tab {
@@ -791,11 +791,11 @@ button.lds-filter {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--spacing-8x, 32px) 0 0;
+  padding: 0 var(--spacing-8x) 0 0;
   box-sizing: border-box;
   position: relative;
   z-index: 1000;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
 }
 
 .lds-navbar__left {
@@ -809,7 +809,7 @@ button.lds-filter {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-left: var(--spacing-6x, 24px);
+  padding-left: var(--spacing-6x);
   cursor: pointer;
   box-sizing: border-box;
 }
@@ -836,7 +836,7 @@ button.lds-filter {
   flex: 1;
   display: flex;
   align-items: center;
-  gap: var(--spacing-6x, 24px); /* 减小间距以适应内容 */
+  gap: var(--spacing-6x); /* 减小间距以适应内容 */
   overflow: hidden; /* 防止溢出 */
 }
 
@@ -848,12 +848,12 @@ button.lds-filter {
 .lds-navbar__nav {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-navbar__nav-item {
   padding: 8px 16px;
-  border-radius: var(--radius-m, 12px);
+  border-radius: var(--radius-m);
   color: var(--color-text-primary);
   font: var(--body-regular);
   cursor: pointer;
@@ -874,7 +874,7 @@ button.lds-filter {
 .lds-navbar__right {
   display: flex;
   align-items: center;
-  gap: var(--spacing-4x, 16px);
+  gap: var(--spacing-4x);
   flex-shrink: 0; /* 确保右侧内容不收缩以保证可读性 */
 }
 
@@ -886,7 +886,7 @@ button.lds-filter {
   font: var(--caption-regular);
   cursor: pointer;
   padding: 4px 8px;
-  border-radius: var(--radius-s, 6px);
+  border-radius: var(--radius-s);
   transition: all 0.2s;
 }
 
@@ -911,7 +911,7 @@ button.lds-filter {
   align-items: center;
   gap: 8px;
   padding: 4px 8px;
-  border-radius: var(--radius-m, 12px);
+  border-radius: var(--radius-m);
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -966,11 +966,11 @@ button.lds-filter {
 /* 10. 菜单组件 (Menu) */
 .lds-menu {
   width: 200px;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-2x, 8px) 0;
-  gap: var(--spacing-2x, 8px);
+  padding: var(--spacing-2x) 0;
+  gap: var(--spacing-2x);
 }
 
 .lds-menu-group {
@@ -982,7 +982,7 @@ button.lds-filter {
   height: 40px;
   display: flex;
   align-items: center;
-  padding: 0 var(--spacing-4x, 16px);
+  padding: 0 var(--spacing-4x);
   cursor: pointer;
   gap: 8px;
   color: var(--color-text-primary);
@@ -1019,7 +1019,7 @@ button.lds-filter {
 .lds-menu-group__content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 4px var(--spacing-2x, 8px) var(--spacing-2x, 8px);
+  padding: 4px var(--spacing-2x) var(--spacing-2x);
   gap: 4px;
   overflow: hidden;
   max-height: 500px; /* 足够容纳内容的高度 */
@@ -1066,8 +1066,8 @@ button.lds-filter {
 .lds-page-header {
   display: flex;
   flex-direction: column;
-  padding: var(--spacing-8x, 32px) var(--spacing-8x, 32px) var(--spacing-6x, 24px) 0;
-  gap: var(--spacing-4x, 16px);
+  padding: var(--spacing-8x) var(--spacing-8x) var(--spacing-6x) 0;
+  gap: var(--spacing-4x);
   box-sizing: border-box;
   width: 100%;
 }
@@ -1092,7 +1092,7 @@ button.lds-filter {
   overflow: hidden;
   box-sizing: border-box;
   background-color: var(--color-bg-normal);
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
 }
 
 .lds-table {
@@ -1107,7 +1107,7 @@ button.lds-filter {
 }
 
 .lds-table__th {
-  padding: var(--spacing-3x, 12px) var(--spacing-4x, 16px);
+  padding: var(--spacing-3x) var(--spacing-4x);
   font: var(--body-medium);
   color: var(--color-text-secondary);
   border-bottom: 1px solid var(--color-divider-normal);
@@ -1129,7 +1129,7 @@ button.lds-filter {
 }
 
 .lds-table__td {
-  padding: var(--spacing-4x, 16px);
+  padding: var(--spacing-4x);
   font: var(--body-regular);
   color: var(--color-text-primary);
   border-bottom: 1px solid var(--color-divider-normal);
@@ -1140,7 +1140,7 @@ button.lds-filter {
 .lds-table-cell--product {
   display: flex;
   align-items: center;
-  gap: var(--spacing-3x, 12px);
+  gap: var(--spacing-3x);
 }
 
 .lds-table-cell__product-img {
@@ -1156,13 +1156,13 @@ button.lds-filter {
 .lds-table-cell__product-info {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
 }
 
 .lds-table-cell__product-title-wrap {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-table-cell__product-title {
@@ -1179,7 +1179,7 @@ button.lds-filter {
 .lds-table-cell__product-meta {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-table-cell__product-id {
@@ -1197,7 +1197,7 @@ button.lds-filter {
   justify-content: center;
   box-sizing: border-box;
   max-width: 100%;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   font-weight: 400;
   color: var(--lds-tag-fg);
   background-color: var(--lds-tag-bg);
@@ -1233,9 +1233,9 @@ button.lds-filter {
 }
 
 .lds-tag--large {
-  height: var(--spacing-9x, 36px);
-  padding: 0 var(--spacing-3x, 12px);
-  gap: var(--spacing-base, 4px);
+  height: var(--spacing-9x);
+  padding: 0 var(--spacing-3x);
+  gap: var(--spacing-base);
   border-radius: 10px;
   font: var(--subtitle-regular);
 }
@@ -1251,8 +1251,8 @@ button.lds-filter {
 }
 
 .lds-tag--default-size {
-  height: var(--spacing-7x, 28px);
-  padding: 0 var(--spacing-2x, 8px);
+  height: var(--spacing-7x);
+  padding: 0 var(--spacing-2x);
   gap: 2px;
   border-radius: 8px;
   font: var(--body-regular);
@@ -1272,7 +1272,7 @@ button.lds-filter {
   height: 20px;
   padding: 0 6px;
   gap: 2px;
-  border-radius: var(--radius-s, 6px);
+  border-radius: var(--radius-s);
   font: var(--caption-regular);
 }
 
@@ -1387,7 +1387,7 @@ button.lds-filter {
 /* 金额列样式 */
 .lds-table-cell--amount {
   font: var(--body-regular);
-  font-family: var(--font-number, var(--font-normal, "PingFang SC", sans-serif));
+  font-family: var(--font-number, var(--font-normal));
   color: var(--color-text-primary);
 }
 
@@ -1395,7 +1395,7 @@ button.lds-filter {
 .lds-table-cell--operation {
   display: flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-table-cell__action {
@@ -1420,18 +1420,18 @@ button.lds-filter {
 
 /* 14. 页面内容布局组件 (Page Layout Wrappers) */
 .lds-filter-card {
-  margin-bottom: var(--spacing-5x, 20px);
+  margin-bottom: var(--spacing-5x);
 }
 
 .lds-action-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--spacing-4x, 16px);
+  margin-bottom: var(--spacing-4x);
 }
 
 .lds-pagination-wrapper {
-  margin-top: var(--spacing-5x, 20px);
+  margin-top: var(--spacing-5x);
   display: flex;
   justify-content: flex-end;
 }
@@ -1441,22 +1441,22 @@ button.lds-filter {
   display: inline-flex;
   align-items: center;
   justify-content: flex-end;
-  gap: var(--spacing-3x, 12px);
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  gap: var(--spacing-3x);
+  font-family: var(--font-normal);
   color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .lds-pagination--default-size {
-  --lds-pagination-item-size: var(--spacing-9x, 36px);
-  --lds-pagination-item-radius: var(--radius-m, 12px);
+  --lds-pagination-item-size: var(--spacing-9x);
+  --lds-pagination-item-radius: var(--radius-m);
   --lds-pagination-arrow-radius: 10px; /* Figma */
   font: var(--body-regular);
 }
 
 .lds-pagination--small {
-  --lds-pagination-item-size: var(--spacing-7x, 28px);
+  --lds-pagination-item-size: var(--spacing-7x);
   --lds-pagination-item-radius: 10px; /* Figma */
   --lds-pagination-arrow-radius: 8px; /* Figma */
   font: var(--caption-regular);
@@ -1470,7 +1470,7 @@ button.lds-filter {
 .lds-pagination__pages {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2x, 8px);
+  gap: var(--spacing-2x);
 }
 
 .lds-pagination__arrow,
@@ -1532,13 +1532,13 @@ button.lds-filter {
 }
 
 .lds-pagination--default-size .lds-pagination__icon {
-  width: var(--spacing-5x, 20px);
-  height: var(--spacing-5x, 20px);
+  width: var(--spacing-5x);
+  height: var(--spacing-5x);
 }
 
 .lds-pagination--small .lds-pagination__icon {
-  width: var(--spacing-4x, 16px);
-  height: var(--spacing-4x, 16px);
+  width: var(--spacing-4x);
+  height: var(--spacing-4x);
 }
 
 /* Page size changer (visual wrapper + native select overlay) */
@@ -1546,9 +1546,9 @@ button.lds-filter {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-3x, 12px);
+  gap: var(--spacing-3x);
   height: var(--lds-pagination-item-size);
-  padding: 0 var(--spacing-3x, 12px);
+  padding: 0 var(--spacing-3x);
   box-sizing: border-box;
   border: 1px solid var(--color-border-normal);
   border-radius: 10px; /* Figma: 10px */
@@ -1573,8 +1573,8 @@ button.lds-filter {
 }
 
 .lds-pagination__size-icon {
-  width: var(--spacing-4x, 16px);
-  height: var(--spacing-4x, 16px);
+  width: var(--spacing-4x);
+  height: var(--spacing-4x);
   color: var(--color-text-caption);
 }
 
@@ -1582,7 +1582,7 @@ button.lds-filter {
 .lds-pagination__quick-jumper {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
   color: var(--color-text-primary);
 }
 
@@ -1593,8 +1593,8 @@ button.lds-filter {
 
 .lds-pagination__quick-input .lds-input-wrapper {
   width: 40px; /* Figma */
-  padding-left: var(--spacing-3x, 12px);
-  padding-right: var(--spacing-3x, 12px);
+  padding-left: var(--spacing-3x);
+  padding-right: var(--spacing-3x);
 }
 
 .lds-pagination__quick-input .lds-input {
@@ -1605,10 +1605,10 @@ button.lds-filter {
 .lds-checkbox {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-base, 4px);
+  gap: var(--spacing-base);
   cursor: pointer;
   user-select: none;
-  font-family: var(--font-normal, "PingFang SC", sans-serif);
+  font-family: var(--font-normal);
   color: var(--color-text-primary);
   vertical-align: middle;
 }
