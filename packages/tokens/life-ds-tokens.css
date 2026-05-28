@@ -337,7 +337,7 @@
   --color-blue-opacity-1: rgba(74, 158, 247, 0.3);
   --color-blue-opacity-2: rgba(59, 156, 252, 0.46);
   --color-blue-opacity-3: rgba(34, 146, 252, 0.7);
-  --layer-bg-normal: var(--color-gray-0); /* 一般用于底色 */
+  --layer-bg-normal: var(--color-gray-1); /* 一般用于底色 */
   --layer-bg-popup: var(--color-gray-3); /* 一般用于底色 */
   --layer-fill-normal: var(--color-opacity-0); /* 一般用于各种组件的背景 */
   --layer-mask: var(--black-9);

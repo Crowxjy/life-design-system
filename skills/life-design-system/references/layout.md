@@ -66,8 +66,9 @@ export function AppLayoutDemo() {
 1. **初始化结构**：始终从 `.app-container` 开始构建页面。
 2. **内容填充**：将具体业务逻辑放入 `.app-content` 中，并根据 [布局模式](#布局模式) 选择合适的布局。
 3. **PageHeader 位置**：`<PageHeader />` 必须放在 `.app-content` 内部，不能放在 `.app-body` 直属层级；因为 `.app-content` 同时承担页面滚动和左右内边距，放到外面会看起来像固定头部，并与内容区左右边距错位。
-4. **样式覆盖**：除非用户明确要求，否则不要修改 `base.css` 中核心框架的 `width`、`z-index` 和 `flex` 属性。
-5. **阴影处理**：严格遵循base.css与基础框架示例代码，`.app-body` 的 `z-index` 高于侧边栏和导航栏，以保证 `shadow-large` 投影效果正常显示。
+4. **页面背景**：典型后台页面的最底层背景默认使用 `var(--color-bg-gray)`，用于承载顶部导航和左侧菜单区域；实现上优先由 `body` / `.app-container` 提供这层灰底。右侧内容主画布 `.app-body` 继续使用 `var(--color-bg-normal)`，以保持白色内容面板语义。吸底操作区、弹层或卡片也仍然按照各自语义继续使用 `bg-normal`、`bg-popup`、`fill-*` 等 token，不要因为页面底层是灰色就统一改灰。
+5. **样式覆盖**：除非用户明确要求，否则不要修改 `base.css` 中核心框架的 `width`、`z-index` 和 `flex` 属性。
+6. **阴影处理**：严格遵循base.css与基础框架示例代码，`.app-body` 的 `z-index` 高于侧边栏和导航栏，以保证 `shadow-large` 投影效果正常显示。
 
 ### PageHeader 变体
 
@@ -97,6 +98,7 @@ export function AppLayoutDemo() {
 适用场景：列表页是后台管理系统中最为常见的页面类型，主要用于展示、搜索和操作大批量数据。
 
 - 当用户明确提出是列表页时使用此类型；
+- 列表页所在的典型页面底层背景默认沿用 [页面基础框架](#页面基础框架) 中的 `var(--color-bg-gray)`，右侧内容主画布 `.app-body` 继续使用 `var(--color-bg-normal)`；表格、筛选区、分页器等组件自身再使用各自语义 token。
 
 #### 页面结构层级 (Tree Structure)
 
@@ -243,6 +245,7 @@ export function ListPageLayoutDemo() {
 
 - 当用户明确提出是新建页、编辑页、配置页、开通流程页、资料提交页或需要大段字段录入时使用此类型；
 - 表单页由“页面基础框架 + 表单页内容”组成，除非是弹框、抽屉或全屏流程，否则仍然必须使用 [页面基础框架](#页面基础框架)；
+- 表单页所在的典型页面底层背景默认沿用 [页面基础框架](#页面基础框架) 中的 `var(--color-bg-gray)`，右侧内容主画布 `.app-body` 继续使用 `var(--color-bg-normal)`；吸底操作区继续使用 `var(--color-bg-normal)`，不要跟随页面底层背景一起变灰；
 - 表单页顶部导航区必须存在，并且必须使用 `PageHeader` 的二级页形式：`variant="secondary"`；
 - 表单页内容区按顺序组织为：导航区、统领信息区、步骤条（可选）、表单区、全局操作区。
 
@@ -482,6 +485,7 @@ export function FormPageLayoutDemo() {
 
 - 适用于“左侧填写配置，右侧实时预览”的场景，例如商品装修、投放素材配置、卡片样式配置、详情头图配置；
 - 页面基础框架、导航区、统领信息区、步骤条、表单区、全局操作区仍然遵循 [表单页 (Form Page)](#表单页-form-page) 的基础规则；
+- 这类页面的底层页面背景同样默认使用 `var(--color-bg-gray)`，右侧内容主画布 `.app-body` 继续使用 `var(--color-bg-normal)`；仅底部吸底操作区继续使用 `var(--color-bg-normal)`；
 - 与普通表单页不同的是，表单正文阶段需要额外引入预览区：左侧为窄表单内容区，右侧为预览图区域，两者放在同一个父容器中两端对齐。
 
 #### 页面结构层级 (Tree Structure)
