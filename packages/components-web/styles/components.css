@@ -112,7 +112,7 @@
 /* 3. 次级按钮 Secondary */
 .lds-btn--secondary {
   color: var(--color-primary-normal);
-  background-color: var(--color-bg-normal);
+  background-color: var(--color-fill-normal);
   border-color: var(--color-primary-normal);
 }
 .lds-btn--secondary:hover {
@@ -1788,7 +1788,7 @@ button.lds-filter {
 
 .lds-tabs--capsule .lds-tab.is-active {
   color: var(--color-text-primary);
-  background-color: var(--color-bg-normal);
+  background-color: var(--color-fill-normal);
   box-shadow: var(--shadow-small);
 }
 
