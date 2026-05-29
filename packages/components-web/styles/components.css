@@ -168,6 +168,8 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  color: var(--color-text-primary);
+  background-color: var(--color-fill-normal);
 }
 
 /* 覆盖不同尺寸下的宽度，使其成为正方形 */
