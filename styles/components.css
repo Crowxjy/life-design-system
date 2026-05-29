@@ -170,6 +170,24 @@
   align-items: center;
   color: var(--color-text-primary);
   background-color: var(--color-fill-normal);
+  border-color: var(--color-border-normal);
+}
+.lds-btn--icon:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-fill-hover);
+  border-color: var(--color-border-normal);
+}
+.lds-btn--icon:active {
+  color: var(--color-primary-normal);
+  background-color: var(--color-fill-primary);
+  border-color: var(--color-primary-normal);
+}
+.lds-btn--icon:disabled,
+.lds-btn--icon.is-disabled {
+  color: var(--color-text-disable);
+  background-color: var(--color-fill-disable);
+  border-color: var(--color-border-disable);
+  cursor: not-allowed;
 }
 
 /* 覆盖不同尺寸下的宽度，使其成为正方形 */
